@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <title>Доктора</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+<h1>Список докторов</h1>
+
+<table border="1">
+
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Отчество</th>
+        <th>Телефон</th>
+        <th>Специализация</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    <tr th:each="doctor : ${doctors}">
+        <td th:text="${doctor.id}"></td>
+        <td th:text="${doctor.surname}"></td>
+        <td th:text="${doctor.name}"></td>
+        <td th:text="${doctor.patronymic}"></td>
+        <td th:text="${doctor.phone}"></td>
+        <td th:text="${doctor.specialization.name}"></td>
+    </tr>
+
+    </tbody>
+
+</table>
+
+</body>
+</html>
