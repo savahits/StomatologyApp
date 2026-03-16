@@ -1,0 +1,150 @@
+body{
+    margin:0;
+    font-family: "Century Gothic", Arial, sans-serif;
+    background:#e3e3e3;
+    color:#303030;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+.page{
+    width:100%;
+}
+
+.container{
+    width:1200px;
+    margin:0 auto;
+}
+
+/* HEADER */
+
+.header{
+    background:#303030;
+    color:white;
+    padding:20px 0;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    float:left;
+}
+
+.menu{
+    float:right;
+}
+
+.menu a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
+
+.clear{
+    clear:both;
+}
+
+/* HERO */
+
+.hero{
+    background:white;
+    padding:60px 0;
+}
+
+.heroText{
+    width:60%;
+    float:left;
+}
+
+.heroText h1{
+    font-size:48px;
+    margin-top:0;
+}
+
+.heroImage{
+    width:40%;
+    float:right;
+}
+
+.heroImage img{
+    width:100%;
+    border-radius:10px;
+}
+
+/* INFO BLOCKS */
+
+.info{
+    background:whitesmoke;
+    padding:40px 0;
+}
+
+.infoBlock{
+    width:33.33%;
+    float:left;
+    padding:20px;
+}
+
+.infoBlock h3{
+    margin-top:0;
+}
+
+/* DOCTORS */
+
+.doctors{
+    background:white;
+    padding:50px 0;
+}
+
+.sectionTitle{
+    font-size:36px;
+    margin-bottom:30px;
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table th{
+    text-align:left;
+    padding:12px;
+    border-bottom:2px solid #303030;
+}
+
+.table td{
+    padding:12px;
+    border-bottom:1px solid #ccc;
+}
+
+.table tr:hover{
+    background:#f0f0f0;
+}
+
+/* BUTTON */
+
+.button{
+    background:#303030;
+    color:white;
+    padding:6px 12px;
+    border-radius:6px;
+    text-decoration:none;
+}
+
+.button:hover{
+    background:black;
+}
+
+/* FOOTER */
+
+.footer{
+    background:#303030;
+    color:white;
+    padding:30px 0;
+    margin-top:40px;
+}
+
+.footer p{
+    margin:0;
+}

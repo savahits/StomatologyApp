@@ -3,39 +3,138 @@
 <head>
     <title>Доктора</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 
 <body>
 
-<h1>Список докторов</h1>
+<div class="page">
 
-<table border="1">
+    <div class="header">
+        <div class="container">
 
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Фамилия</th>
-        <th>Имя</th>
-        <th>Отчество</th>
-        <th>Телефон</th>
-        <th>Специализация</th>
-    </tr>
-    </thead>
+            <div class="logo">
+                Savva Clinic
+            </div>
 
-    <tbody>
+            <div class="menu">
+                <a href="#">Главная</a>
+                <a href="#">Доктора</a>
+                <a href="#">Услуги</a>
+                <a href="#">Контакты</a>
+            </div>
 
-    <tr th:each="doctor : ${doctors}">
-        <td th:text="${doctor.id}"></td>
-        <td th:text="${doctor.surname}"></td>
-        <td th:text="${doctor.name}"></td>
-        <td th:text="${doctor.patronymic}"></td>
-        <td th:text="${doctor.phone}"></td>
-        <td th:text="${doctor.specialization.name}"></td>
-    </tr>
+            <div class="clear"></div>
 
-    </tbody>
+        </div>
+    </div>
 
-</table>
+
+    <div class="hero">
+        <div class="container">
+
+            <div class="heroText">
+
+                <h1>Современная стоматология</h1>
+
+            </div>
+
+
+
+            <div class="clear"></div>
+
+        </div>
+    </div>
+
+
+    <div class="info">
+        <div class="container">
+
+            <div class="infoBlock">
+                <h3>Современное оборудование</h3>
+                <p>
+                    Используем новейшие технологии диагностики
+                    и лечения зубов.
+                </p>
+            </div>
+
+            <div class="infoBlock">
+                <h3>Опытные специалисты</h3>
+                <p>
+                    Наши врачи имеют большой опыт работы
+                    и регулярно повышают квалификацию.
+                </p>
+            </div>
+
+            <div class="infoBlock">
+                <h3>Комфорт пациентов</h3>
+                <p>
+                    Мы создаем максимально комфортные условия
+                    для каждого пациента.
+                </p>
+            </div>
+
+            <div class="clear"></div>
+
+        </div>
+    </div>
+
+
+    <div class="doctors">
+        <div class="container">
+
+            <div class="sectionTitle">
+                Наши доктора
+            </div>
+
+            <table class="table">
+
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
+                    <th>Телефон</th>
+                    <th>Специализация</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="doctor : ${doctors}">
+
+                    <td th:text="${doctor.id}"></td>
+                    <td th:text="${doctor.surname}"></td>
+                    <td th:text="${doctor.name}"></td>
+                    <td th:text="${doctor.patronymic}"></td>
+                    <td th:text="${doctor.phone}"></td>
+                    <td th:text="${doctor.specialization.name}"></td>
+
+                    <td>
+                        <a class="button"
+                           th:href="@{/doctors/{id}(id=${doctor.id})}">
+                            Подробнее
+                        </a>
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <p>© 2026 Savva Clinic</p>
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>
