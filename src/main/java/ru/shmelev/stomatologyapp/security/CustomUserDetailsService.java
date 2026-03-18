@@ -9,7 +9,6 @@ import ru.shmelev.stomatologyapp.repository.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-
     private final UserRepository userRepository;
 
     public CustomUserDetailsService(UserRepository userRepository) {
@@ -23,10 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())
-                .password(user.getPassword())
-                .roles(user.getRole().getName().replace("ROLE_", ""))
-                .build();
+        return new CustomUserDetails(user);
     }
 }
