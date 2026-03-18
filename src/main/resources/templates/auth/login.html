@@ -1,25 +1,64 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+
 <head>
     <title>Вход</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
+
 <body>
 
-<h2>Вход в систему</h2>
+<div class="page">
 
-<form th:action="@{/login}" method="post">
-    <div>
-        <label>Логин:</label>
-        <input type="text" name="username"/>
+    <div class="header">
+        <div class="container">
+
+            <div class="logo">
+                Savva Clinic
+            </div>
+
+            <div class="clear"></div>
+
+        </div>
     </div>
 
-    <div>
-        <label>Пароль:</label>
-        <input type="password" name="password"/>
+
+    <div class="hero">
+        <div class="container">
+
+            <div class="loginForm">
+
+                <h2>Вход в систему</h2>
+
+                <form th:action="@{/login}" method="post">
+
+                    <div class="formRow">
+                        <label>Логин</label>
+                        <label>
+                            <input type="text" name="username"/>
+                        </label>
+                    </div>
+
+                    <div class="formRow">
+                        <label>Пароль</label>
+                        <label>
+                            <input type="password" name="password"/>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="button">
+                        Войти
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
     </div>
 
-    <button type="submit">Войти</button>
-</form>
+</div>
 
 </body>
 </html>
