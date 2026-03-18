@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="">
 <head>
     <title>Доктора</title>
     <meta charset="UTF-8">
@@ -17,11 +17,9 @@
                 Savva Clinic
             </div>
 
-            <div class="menu">
-                <a href="#">Главная</a>
-                <a href="#">Доктора</a>
-                <a href="#">Услуги</a>
-                <a href="#">Контакты</a>
+            <div class="userBlock">
+                Здравствуйте,
+                <span sec:authentication="principal.fullName"></span>
             </div>
 
             <div class="clear"></div>
@@ -50,29 +48,7 @@
     <div class="info">
         <div class="container">
 
-            <div class="infoBlock">
-                <h3>Современное оборудование</h3>
-                <p>
-                    Используем новейшие технологии диагностики
-                    и лечения зубов.
-                </p>
-            </div>
 
-            <div class="infoBlock">
-                <h3>Опытные специалисты</h3>
-                <p>
-                    Наши врачи имеют большой опыт работы
-                    и регулярно повышают квалификацию.
-                </p>
-            </div>
-
-            <div class="infoBlock">
-                <h3>Комфорт пациентов</h3>
-                <p>
-                    Мы создаем максимально комфортные условия
-                    для каждого пациента.
-                </p>
-            </div>
 
             <div class="clear"></div>
 
