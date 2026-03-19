@@ -47,6 +47,10 @@
                         </label>
                     </div>
 
+                    <div th:if="${param.error}" class="error">
+                        Неверный логин или пароль
+                    </div>
+
                     <button type="submit" class="button">
                         Войти
                     </button>
