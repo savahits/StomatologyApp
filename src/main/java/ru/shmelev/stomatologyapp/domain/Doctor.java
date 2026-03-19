@@ -38,4 +38,8 @@ public class Doctor {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "specialization_id", nullable = false)
     private Specialization specialization;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private User user;
 }

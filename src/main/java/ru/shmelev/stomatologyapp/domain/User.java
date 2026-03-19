@@ -18,10 +18,6 @@ public class User {
     private Long id;
 
     @NotBlank
-    @Column(name = "full_name", nullable = false)
-    private String fullName;
-
-    @NotBlank
     @Column(nullable = false, unique = true)
     private String username;
 
@@ -32,4 +28,7 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private Doctor doctor;
 }
