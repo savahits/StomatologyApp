@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавление доктора</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="header">
+        <div class="container">
+            <div class="logo">StomatologyApp</div>
+
+            <div class="menu">
+                <a th:href="@{/}">Главная</a>
+                <a th:href="@{/doctors}">Доктора</a>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="container">
+
+            <div class="loginForm">
+                <h2>Добавить доктора</h2>
+
+                <form th:action="@{/doctors}" method="post" th:object="${doctor}">
+
+                    <div class="formRow">
+                        <label>Username</label>
+                        <input type="text" th:field="*{username}">
+                    </div>
+
+                    <div class="formRow">
+                        <label>Пароль</label>
+                        <input type="password" th:field="*{password}">
+                    </div>
+
+                    <div class="formRow">
+                        <label>Фамилия</label>
+                        <input type="text" th:field="*{surname}">
+                    </div>
+
+                    <div class="formRow">
+                        <label>Имя</label>
+                        <input type="text" th:field="*{name}">
+                    </div>
+
+                    <div class="formRow">
+                        <label>Отчество</label>
+                        <input type="text" th:field="*{patronymic}">
+                    </div>
+
+                    <div class="formRow">
+                        <label>Телефон</label>
+                        <input type="text" th:field="*{phone}">
+                    </div>
+
+                    <div class="formRow">
+                        <label>Специализация</label>
+                        <select th:field="*{specializationId}">
+                            <option value="">-- Выберите --</option>
+                            <option th:each="spec : ${specializations}"
+                                    th:value="${spec.id}"
+                                    th:text="${spec.name}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="button">Создать</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="container">
+            <p>© 2026 StomatologyApp</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
