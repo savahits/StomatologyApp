@@ -8,6 +8,7 @@ import ru.shmelev.stomatologyapp.domain.Role;
 import ru.shmelev.stomatologyapp.domain.Specialization;
 import ru.shmelev.stomatologyapp.domain.User;
 import ru.shmelev.stomatologyapp.dto.RequestDoctorSave;
+import ru.shmelev.stomatologyapp.exception.UsernameAlreadyExistsException;
 import ru.shmelev.stomatologyapp.repository.DoctorRepository;
 import ru.shmelev.stomatologyapp.repository.RoleRepository;
 import ru.shmelev.stomatologyapp.repository.SpecializationRepository;
@@ -44,7 +45,7 @@ public class DoctorServiceImpl implements DoctorService {
     public void create(RequestDoctorSave dto) {
 
         if (userRepository.existsByUsername(dto.getUsername())) {
-            throw new RuntimeException("Username already exists");
+            throw new UsernameAlreadyExistsException(dto.getUsername());
         }
 
         Specialization specialization = specializationRepository.findById(dto.getSpecializationId())
