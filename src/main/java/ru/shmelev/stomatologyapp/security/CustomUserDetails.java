@@ -32,8 +32,8 @@ public class CustomUserDetails implements UserDetails {
         return user.getUsername();
     }
 
-    public String getFullName() {
-        return user.getFullName();
+    public String getHelloName() {
+        return user.getDoctor().getName() + " " + user.getDoctor().getPatronymic();
     }
 
 }
