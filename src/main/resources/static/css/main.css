@@ -178,6 +178,44 @@ body{
     border-radius:5px;
 }
 
+.formRow select{
+    width:100%;
+    padding:9px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    background:white;
+}
+
+.input-error {
+    border-color: #e74c3c;
+}
+
+.field-error {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.formErrors {
+    background: #fdecea;
+    border: 1px solid #f5c6cb;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    color: #721c24;
+}
+
+@media (max-width: 640px) {
+    .container {
+        width: auto;
+        padding: 0 16px;
+    }
+
+    .loginForm {
+        width: 100%;
+        padding: 24px;
+    }
+}
 
 .logoutBtn{
     margin-left:15px;
