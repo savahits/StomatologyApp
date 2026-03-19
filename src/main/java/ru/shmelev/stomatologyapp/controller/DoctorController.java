@@ -1,12 +1,15 @@
 package ru.shmelev.stomatologyapp.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.shmelev.stomatologyapp.dto.RequestDoctorSave;
+import ru.shmelev.stomatologyapp.exception.UsernameAlreadyExistsException;
 import ru.shmelev.stomatologyapp.repository.SpecializationRepository;
 import ru.shmelev.stomatologyapp.service.DoctorService;
 
@@ -37,9 +40,31 @@ public class DoctorController {
         return "doctors/new";
     }
 
+
     @PostMapping
-    public String createDoctor(@ModelAttribute RequestDoctorSave dto) {
-        doctorService.create(dto);
+    public String createDoctor(
+            @Valid @ModelAttribute("doctor") RequestDoctorSave dto,
+            BindingResult bindingResult,
+            Model model
+    ) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("specializations", specializationRepository.findAll());
+            return "doctors/new";
+        }
+
+        try {
+            doctorService.create(dto);
+        } catch (UsernameAlreadyExistsException ex) {
+            bindingResult.rejectValue("username", "", "Логин уже занят");
+            model.addAttribute("specializations", specializationRepository.findAll());
+            return "doctors/new";
+        } catch (RuntimeException ex) {
+            bindingResult.reject("error", "Что-то пошло не так");
+            model.addAttribute("specializations", specializationRepository.findAll());
+            return "doctors/new";
+        }
+
         return "redirect:/doctors";
     }
 
