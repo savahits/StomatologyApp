@@ -2,11 +2,11 @@ package ru.shmelev.stomatologyapp.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ru.shmelev.stomatologyapp.validator.ValidPhone;
 
 @NoArgsConstructor
 @Getter
@@ -24,7 +24,7 @@ public class RequestDoctorCreate {
 
     private String patronymic;
 
-    @Pattern(regexp = "^$|^\\+?\\d{7,15}$", message = "Введите корректный телефон")
+    @ValidPhone
     private String phone;
 
     @NotNull(message = "Выберите специализацию")
