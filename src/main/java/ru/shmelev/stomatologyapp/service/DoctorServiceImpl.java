@@ -13,6 +13,7 @@ import ru.shmelev.stomatologyapp.repository.DoctorRepository;
 import ru.shmelev.stomatologyapp.repository.RoleRepository;
 import ru.shmelev.stomatologyapp.repository.SpecializationRepository;
 import ru.shmelev.stomatologyapp.repository.UserRepository;
+import ru.shmelev.stomatologyapp.utils.PhoneUtils;
 
 import java.util.List;
 
@@ -43,7 +44,6 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Transactional
     public void create(RequestDoctorCreate dto) {
-
         if (userRepository.existsByUsername(dto.getUsername())) {
             throw new UsernameAlreadyExistsException(dto.getUsername());
         }
@@ -51,26 +51,26 @@ public class DoctorServiceImpl implements DoctorService {
         Specialization specialization = specializationRepository.findById(dto.getSpecializationId())
                 .orElseThrow(() -> new RuntimeException("Specialization not found"));
 
-
         Role role = roleRepository.findByName("ROLE_DOCTOR")
                 .orElseThrow(() -> new RuntimeException("Role not found"));
 
-
+        String normalizedPhone = null;
+        if (dto.getPhone() != null && !dto.getPhone().isBlank()) {
+            normalizedPhone = PhoneUtils.normalize(dto.getPhone());
+        }
 
         User user = new User();
         user.setUsername(dto.getUsername());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRole(role);
-
         userRepository.save(user);
-
 
         Doctor doctor = new Doctor();
         doctor.setUser(user);
         doctor.setSurname(dto.getSurname());
         doctor.setName(dto.getName());
         doctor.setPatronymic(dto.getPatronymic());
-        doctor.setPhone(dto.getPhone());
+        doctor.setPhone(normalizedPhone);
         doctor.setSpecialization(specialization);
 
         doctorRepository.save(doctor);
