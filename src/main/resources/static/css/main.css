@@ -97,6 +97,16 @@ body{
     margin-bottom:30px;
 }
 
+.buttonAdd{
+    background:#303030;
+    color:white;
+    padding:6px 12px;
+    border-radius:6px;
+    text-decoration:none;
+    margin-left: 35px;
+    font-size: 25px;
+}
+
 .table{
     width:100%;
     border-collapse:collapse;
