@@ -45,7 +45,7 @@
                            th:value="${_csrf.token}"/>
 
                     <div class="formRow">
-                        <label>Username</label>
+                        <label>Логин</label>
                         <input type="text" th:field="*{username}" th:classappend="${#fields.hasErrors('username')} ? 'input-error'">
                         <div th:if="${#fields.hasErrors('username')}"
                              th:errors="*{username}"
