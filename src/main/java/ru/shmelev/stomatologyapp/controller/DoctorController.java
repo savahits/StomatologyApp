@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.shmelev.stomatologyapp.dto.RequestDoctorSave;
+import ru.shmelev.stomatologyapp.dto.RequestDoctorCreate;
 import ru.shmelev.stomatologyapp.exception.UsernameAlreadyExistsException;
 import ru.shmelev.stomatologyapp.repository.SpecializationRepository;
 import ru.shmelev.stomatologyapp.service.DoctorService;
@@ -35,7 +35,7 @@ public class DoctorController {
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("doctor", new RequestDoctorSave());
+        model.addAttribute("doctor", new RequestDoctorCreate());
         model.addAttribute("specializations", specializationRepository.findAll());
         return "doctors/new";
     }
@@ -43,7 +43,7 @@ public class DoctorController {
 
     @PostMapping
     public String createDoctor(
-            @Valid @ModelAttribute("doctor") RequestDoctorSave dto,
+            @Valid @ModelAttribute("doctor") RequestDoctorCreate dto,
             BindingResult bindingResult,
             Model model
     ) {

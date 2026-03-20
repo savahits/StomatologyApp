@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RequestDoctorSave {
+public class RequestDoctorCreate {
 
     @NotBlank(message = "Логин обязателен")
     private String username;
