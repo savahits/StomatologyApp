@@ -1,6 +1,8 @@
 package ru.shmelev.stomatologyapp.controller;
 
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import ru.shmelev.stomatologyapp.repository.SpecializationRepository;
 import ru.shmelev.stomatologyapp.service.DoctorService;
 
 @Controller
+@EnableMethodSecurity
 @RequestMapping("/doctors")
 public class DoctorController {
 
@@ -40,7 +43,7 @@ public class DoctorController {
         return "doctors/new";
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public String createDoctor(
             @Valid @ModelAttribute("doctor") RequestDoctorCreate dto,
