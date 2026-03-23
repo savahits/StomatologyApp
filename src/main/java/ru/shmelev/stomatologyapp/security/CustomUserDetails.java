@@ -36,4 +36,8 @@ public class CustomUserDetails implements UserDetails {
         return user.getDoctor().getName() + " " + user.getDoctor().getPatronymic();
     }
 
+    public User getUser() {
+        return user;
+    }
+
 }
