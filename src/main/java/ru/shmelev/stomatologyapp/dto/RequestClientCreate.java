@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import ru.shmelev.stomatologyapp.validator.ValidPhone;
 
 @Getter
 @Setter
@@ -21,6 +22,7 @@ public class RequestClientCreate {
     private String patronymic;
 
     @NotBlank
+    @ValidPhone
     private String phone;
 
 }
