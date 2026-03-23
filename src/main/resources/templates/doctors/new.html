@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Добавление доктора</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 </head>
 
 <body>
@@ -14,9 +16,13 @@
         <div class="container">
             <div class="logo">StomatologyApp</div>
 
-            <div class="menu">
-                <a th:href="@{/}">Главная</a>
-                <a th:href="@{/doctors}">Доктора</a>
+            <div class="userBlock">
+                Здравствуйте,
+                <span sec:authentication="principal.helloName"></span>
+
+                <form th:action="@{/logout}" method="post" style="display:inline;">
+                    <button type="submit" class="logoutBtn">Выйти</button>
+                </form>
             </div>
 
             <div class="clear"></div>
@@ -94,13 +100,16 @@
 
                     <div class="formRow">
                         <label>Специализация</label>
-                        <select th:field="*{specializationId}" th:classappend="${#fields.hasErrors('specializationId')} ? 'input-error'">
-                            <option th:value="${null}">-- Выберите --</option>
+                        <select id="specializationSelect"
+                                th:field="*{specializationId}"
+                                th:classappend="${#fields.hasErrors('specializationId')} ? 'input-error'">
+                            <option value=""></option>
                             <option th:each="spec : ${specializations}"
                                     th:value="${spec.id}"
                                     th:text="${spec.name}">
                             </option>
                         </select>
+
                         <div th:if="${#fields.hasErrors('specializationId')}"
                              th:errors="*{specializationId}"
                              class="field-error"></div>
@@ -120,6 +129,24 @@
     </div>
 
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const settings = {
+            create: false,
+            sortField: { field: "text", direction: "asc" },
+            placeholder: "Введите специализацию",
+            allowEmptyOption: true,
+            maxOptions: 100,
+        };
+
+        const ts = new TomSelect("#specializationSelect", settings);
+
+        if (!document.querySelector("#specializationSelect").value) {
+            ts.clear();
+        }
+    });
+
+</script>
 
 </body>
 </html>
