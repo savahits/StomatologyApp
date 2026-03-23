@@ -67,7 +67,8 @@
                 Наши доктора
 
                 <a class="buttonAdd"
-                   th:href="@{/doctors/new}">
+                   th:href="@{/doctors/new}"
+                   sec:authorize="hasRole('ADMIN')">
                     Добавить доктора
                 </a>
             </div>
