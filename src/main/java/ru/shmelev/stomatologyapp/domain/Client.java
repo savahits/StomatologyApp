@@ -36,7 +36,6 @@ public class Client {
     private String patronymic;
 
     @NotBlank
-    @Pattern(regexp = "^\\+[1-9][0-9]{7,14}$")
     @Column(name = "phone", nullable = false, length = 20, unique = true)
     private String phone;
 
