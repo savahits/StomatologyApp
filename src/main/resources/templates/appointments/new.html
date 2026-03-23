@@ -1,33 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Создание записи</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <title th:fragment="title">Создание записи</title>
 </head>
 
 <body>
 
-<div class="page">
+<th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
 
-    <div class="header">
-        <div class="container">
-            <div class="logo">StomatologyApp</div>
+    <th:block th:fragment="header">Создать запись</th:block>
 
-            <div class="userBlock">
-                Здравствуйте,
-                <span sec:authentication="principal.helloName"></span>
-
-                <form th:action="@{/logout}" method="post" style="display:inline;">
-                    <button type="submit" class="logoutBtn">Выйти</button>
-                </form>
-            </div>
-
-            <div class="clear"></div>
-        </div>
-    </div>
-
-    <div class="hero">
+    <th:block th:fragment="content">
         <div class="container">
 
             <div class="loginForm">
@@ -46,13 +29,10 @@
                            th:name="${_csrf.parameterName}"
                            th:value="${_csrf.token}"/>
 
-
                     <div class="formRow">
                         <label>Телефон</label>
                         <input type="text" th:field="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? 'input-error'">
-                        <div th:if="${#fields.hasErrors('phone')}"
-                             th:errors="*{phone}"
-                             class="field-error"></div>
+                        <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="field-error"></div>
                     </div>
 
                     <div class="formRow">
@@ -73,19 +53,14 @@
                         <div th:errors="*{patronymic}" class="field-error"></div>
                     </div>
 
-
                     <div class="formRow">
                         <label>Врач</label>
                         <select th:field="*{doctorId}">
                             <option value="">Выберите врача</option>
-                            <option th:each="doc : ${doctors}"
-                                    th:value="${doc.id}"
-                                    th:text="${doc.surname + ' ' + doc.name}">
-                            </option>
+                            <option th:each="doc : ${doctors}" th:value="${doc.id}" th:text="${doc.surname + ' ' + doc.name}"></option>
                         </select>
                         <div th:errors="*{doctorId}" class="field-error"></div>
                     </div>
-
 
                     <div class="formRow">
                         <label>Дата и время</label>
@@ -96,17 +71,10 @@
                     <button type="submit" class="button">Создать</button>
                 </form>
             </div>
-
         </div>
-    </div>
+    </th:block>
 
-    <div class="footer">
-        <div class="container">
-            <p>© 2026 StomatologyApp</p>
-        </div>
-    </div>
-
-</div>
+</th:block>
 
 </body>
 </html>

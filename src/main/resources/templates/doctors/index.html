@@ -1,81 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="">
 <head>
-    <title>Доктора</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <title th:fragment="title">Доктора</title>
 </head>
 
 <body>
 
-<div class="page">
+<th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
 
-    <div class="header">
+    <th:block th:fragment="header">Наши доктора</th:block>
+
+    <th:block th:fragment="content">
         <div class="container">
-
-            <div class="logo">
-                Savva Clinic
-            </div>
-
-            <div class="userBlock">
-                Здравствуйте,
-                <span sec:authentication="principal.helloName"></span>
-
-                <form th:action="@{/logout}" method="post" style="display:inline;">
-                    <button type="submit" class="logoutBtn">Выйти</button>
-                </form>
-            </div>
-
-            <div class="clear"></div>
-
-        </div>
-    </div>
-
-
-    <div class="hero">
-        <div class="container">
-
-            <div class="heroText">
-
-                <h1>Современная стоматология</h1>
-
-            </div>
-
-
-
-            <div class="clear"></div>
-
-        </div>
-    </div>
-
-
-    <div class="info">
-        <div class="container">
-
-
-
-            <div class="clear"></div>
-
-        </div>
-    </div>
-
-
-    <div class="doctors">
-        <div class="container">
-
             <div class="sectionTitle">
                 Наши доктора
 
-                <a class="buttonAdd"
-                   th:href="@{/doctors/new}"
-                   sec:authorize="hasRole('ADMIN')">
-                    Добавить доктора
-                </a>
+                <a class="buttonAdd" th:href="@{/doctors/new}" sec:authorize="hasRole('ADMIN')">Добавить доктора</a>
             </div>
 
-
             <table class="table">
-
                 <thead>
                 <tr>
                     <th>Фамилия</th>
@@ -86,39 +29,23 @@
                     <th></th>
                 </tr>
                 </thead>
-
                 <tbody>
-
                 <tr th:each="doctor : ${doctors}">
                     <td th:text="${doctor.surname}"></td>
                     <td th:text="${doctor.name}"></td>
                     <td th:text="${doctor.patronymic}"></td>
                     <td th:text="${doctor.phone}"></td>
                     <td th:text="${doctor.specialization.name}"></td>
-
                     <td>
-                        <a class="button"
-                           th:href="@{/doctors/{id}(id=${doctor.id})}">
-                            Подробнее
-                        </a>
+                        <a class="button" th:href="@{/doctors/{id}(id=${doctor.id})}">Подробнее</a>
                     </td>
-
                 </tr>
-
                 </tbody>
-
             </table>
-
         </div>
-    </div>
+    </th:block>
 
-    <div class="footer">
-        <div class="container">
-            <p>© 2026 Savva Clinic</p>
-        </div>
-    </div>
-
-</div>
+</th:block>
 
 </body>
 </html>

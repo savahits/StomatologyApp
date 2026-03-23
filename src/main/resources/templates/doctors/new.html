@@ -1,152 +1,83 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Добавление доктора</title>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/main.css}">
-    <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+    <title th:fragment="title">Добавление доктора</title>
 </head>
-
 <body>
-
-<div class="page">
-
-    <div class="header">
+<th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
+    <th:block th:fragment="header">Добавить доктора</th:block>
+    <th:block th:fragment="content">
         <div class="container">
-            <div class="logo">StomatologyApp</div>
-
-            <div class="userBlock">
-                Здравствуйте,
-                <span sec:authentication="principal.helloName"></span>
-
-                <form th:action="@{/logout}" method="post" style="display:inline;">
-                    <button type="submit" class="logoutBtn">Выйти</button>
-                </form>
-            </div>
-
-            <div class="clear"></div>
-        </div>
-    </div>
-
-    <div class="hero">
-        <div class="container">
-
             <div class="loginForm">
                 <h2>Добавить доктора</h2>
-
-
-
                 <form th:action="@{/doctors}" method="post" th:object="${doctor}">
-
                     <div th:if="${#fields.hasGlobalErrors()}" class="formErrors">
                         <strong>Пожалуйста, исправьте ошибки:</strong>
                         <ul>
                             <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
                         </ul>
                     </div>
-
-                    <input type="hidden"
-                           th:name="${_csrf.parameterName}"
-                           th:value="${_csrf.token}"/>
-
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <div class="formRow">
                         <label>Логин</label>
-                        <input type="text" th:field="*{username}" th:classappend="${#fields.hasErrors('username')} ? 'input-error'">
-                        <div th:if="${#fields.hasErrors('username')}"
-                             th:errors="*{username}"
-                             class="field-error"></div>
+                        <input type="text" th:field="*{username}" th:classappend="${#fields.hasErrors('username')} ? 'input-error'"/>
+                        <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="field-error"></div>
                     </div>
-
                     <div class="formRow">
                         <label>Пароль</label>
-                        <input type="password" th:field="*{password}" th:classappend="${#fields.hasErrors('password')} ? 'input-error'">
-                        <div th:if="${#fields.hasErrors('password')}"
-                             th:errors="*{password}"
-                             class="field-error"></div>
+                        <input type="password" th:field="*{password}" th:classappend="${#fields.hasErrors('password')} ? 'input-error'"/>
+                        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="field-error"></div>
                     </div>
-
                     <div class="formRow">
                         <label>Фамилия</label>
-                        <input type="text" th:field="*{surname}" th:classappend="${#fields.hasErrors('surname')} ? 'input-error'">
-                        <div th:if="${#fields.hasErrors('surname')}"
-                             th:errors="*{surname}"
-                             class="field-error"></div>
+                        <input type="text" th:field="*{surname}" th:classappend="${#fields.hasErrors('surname')} ? 'input-error'"/>
+                        <div th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="field-error"></div>
                     </div>
-
                     <div class="formRow">
                         <label>Имя</label>
-                        <input type="text" th:field="*{name}" th:classappend="${#fields.hasErrors('name')} ? 'input-error'">
-                        <div th:if="${#fields.hasErrors('name')}"
-                             th:errors="*{name}"
-                             class="field-error"></div>
+                        <input type="text" th:field="*{name}" th:classappend="${#fields.hasErrors('name')} ? 'input-error'"/>
+                        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="field-error"></div>
                     </div>
-
                     <div class="formRow">
                         <label>Отчество</label>
-                        <input type="text" th:field="*{patronymic}" th:classappend="${#fields.hasErrors('patronymic')} ? 'input-error'">
-                        <div th:if="${#fields.hasErrors('patronymic')}"
-                             th:errors="*{patronymic}"
-                             class="field-error"></div>
+                        <input type="text" th:field="*{patronymic}" th:classappend="${#fields.hasErrors('patronymic')} ? 'input-error'"/>
+                        <div th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}" class="field-error"></div>
                     </div>
-
                     <div class="formRow">
                         <label>Телефон</label>
-                        <input type="text" th:field="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? 'input-error'">
-                        <div th:if="${#fields.hasErrors('phone')}"
-                             th:errors="*{phone}"
-                             class="field-error"></div>
+                        <input type="text" th:field="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? 'input-error'"/>
+                        <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="field-error"></div>
                     </div>
-
                     <div class="formRow">
                         <label>Специализация</label>
-                        <select id="specializationSelect"
-                                th:field="*{specializationId}"
-                                th:classappend="${#fields.hasErrors('specializationId')} ? 'input-error'">
+                        <select id="specializationSelect" th:field="*{specializationId}" th:classappend="${#fields.hasErrors('specializationId')} ? 'input-error'">
                             <option value=""></option>
-                            <option th:each="spec : ${specializations}"
-                                    th:value="${spec.id}"
-                                    th:text="${spec.name}">
-                            </option>
+                            <option th:each="spec : ${specializations}" th:value="${spec.id}" th:text="${spec.name}"></option>
                         </select>
-
-                        <div th:if="${#fields.hasErrors('specializationId')}"
-                             th:errors="*{specializationId}"
-                             class="field-error"></div>
+                        <div th:if="${#fields.hasErrors('specializationId')}" th:errors="*{specializationId}" class="field-error"></div>
                     </div>
-
                     <button type="submit" class="button">Создать</button>
                 </form>
             </div>
-
         </div>
-    </div>
-
-    <div class="footer">
-        <div class="container">
-            <p>© 2026 StomatologyApp</p>
-        </div>
-    </div>
-
-</div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const settings = {
-            create: false,
-            sortField: { field: "text", direction: "asc" },
-            placeholder: "Введите специализацию",
-            allowEmptyOption: true,
-            maxOptions: 100,
-        };
-
-        const ts = new TomSelect("#specializationSelect", settings);
-
-        if (!document.querySelector("#specializationSelect").value) {
-            ts.clear();
-        }
-    });
-
-</script>
-
+        <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const settings = {
+                    create: false,
+                    sortField: { field: "text", direction: "asc" },
+                    placeholder: "Введите специализацию",
+                    allowEmptyOption: true,
+                    maxOptions: 100,
+                };
+                const ts = new TomSelect("#specializationSelect", settings);
+                if (!document.querySelector("#specializationSelect").value) {
+                    ts.clear();
+                }
+            });
+        </script>
+    </th:block>
+</th:block>
 </body>
 </html>
