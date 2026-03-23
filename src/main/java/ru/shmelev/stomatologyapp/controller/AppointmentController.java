@@ -24,6 +24,12 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
     private final DoctorService doctorService;
 
+    @GetMapping
+    public String list(Model model) {
+        model.addAttribute("appointments", appointmentService.findAll());
+        return "appointments/index";
+    }
+
     @GetMapping("/new")
     public String createPage(Model model) {
         model.addAttribute("appointment", new RequestAppointmentCreate());
