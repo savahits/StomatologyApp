@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
+      th:fragment="layout(title, header, content)">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="${title}">StomatologyApp</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="container">
+
+            <div class="logo">Savva Clinic</div>
+
+            <div class="userBlock">
+                Здравствуйте,
+                <span sec:authentication="principal.helloName"></span>
+
+                <form th:action="@{/logout}" method="post" style="display:inline;">
+                    <button type="submit" class="logoutBtn">Выйти</button>
+                </form>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="container">
+            <h1 th:replace="${header}">Заголовок</h1>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="doctors" th:replace="${content}">
+        <!-- сюда вставляется контент -->
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="container">
+            <p>© 2026 Savva Clinic</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
