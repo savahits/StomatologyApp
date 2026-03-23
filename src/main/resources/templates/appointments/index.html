@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:fragment="title">Записи</title>
+</head>
+
+<body>
+
+<th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
+
+    <th:block th:fragment="header">
+        Список записей
+    </th:block>
+
+    <th:block th:fragment="content">
+
+        <div class="container">
+
+            <div class="sectionTitle">
+                Список записей
+
+                <a class="buttonAdd" href="/appointments/new">
+                    Новая запись
+                </a>
+            </div>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Клиент</th>
+                    <th>Телефон</th>
+                    <th>Врач</th>
+                    <th>Дата</th>
+                    <th>Статус</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="a : ${appointments}">
+                    <td th:text="${a.id}"></td>
+                    <td th:text="${a.clientFullName}"></td>
+                    <td th:text="${a.clientPhone}"></td>
+                    <td th:text="${a.doctorFullName}"></td>
+                    <td th:text="${#temporals.format(a.time, 'dd.MM.yyyy HH:mm')}"></td>
+                    <td th:text="${a.status}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </th:block>
+
+</th:block>
+
+</body>
+</html>
