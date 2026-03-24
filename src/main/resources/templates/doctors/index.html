@@ -8,13 +8,11 @@
 
 <th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
 
-    <th:block th:fragment="header">Наши доктора</th:block>
+    <th:block th:fragment="header"><h1>Наши доктора</h1></th:block>
 
     <th:block th:fragment="content">
         <div class="container">
             <div class="sectionTitle">
-                Наши доктора
-
                 <a class="buttonAdd" th:href="@{/doctors/new}" sec:authorize="hasRole('ADMIN')">Добавить доктора</a>
             </div>
 

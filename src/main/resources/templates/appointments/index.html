@@ -9,7 +9,7 @@
 <th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
 
     <th:block th:fragment="header">
-        Список записей
+        <h1>Список записей</h1>
     </th:block>
 
     <th:block th:fragment="content">
@@ -17,8 +17,6 @@
         <div class="container">
 
             <div class="sectionTitle">
-                Список записей
-
                 <a class="buttonAdd" href="/appointments/new">
                     Новая запись
                 </a>
@@ -27,7 +25,6 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Клиент</th>
                     <th>Телефон</th>
                     <th>Врач</th>
@@ -38,7 +35,6 @@
 
                 <tbody>
                 <tr th:each="a : ${appointments}">
-                    <td th:text="${a.id}"></td>
                     <td th:text="${a.clientFullName}"></td>
                     <td th:text="${a.clientPhone}"></td>
                     <td th:text="${a.doctorFullName}"></td>
