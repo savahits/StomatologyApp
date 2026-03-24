@@ -27,37 +27,34 @@
     <div class="hero">
         <div class="container">
 
-            <div class="loginForm">
+            <form class="form" th:action="@{/login}" method="post">
 
                 <h2>Вход в систему</h2>
 
-                <form th:action="@{/login}" method="post">
+                <div class="formRow">
+                    <label>Логин</label>
+                    <label>
+                        <input type="text" name="username"/>
+                    </label>
+                </div>
 
-                    <div class="formRow">
-                        <label>Логин</label>
-                        <label>
-                            <input type="text" name="username"/>
-                        </label>
-                    </div>
+                <div class="formRow">
+                    <label>Пароль</label>
+                    <label>
+                        <input type="password" name="password"/>
+                    </label>
+                </div>
 
-                    <div class="formRow">
-                        <label>Пароль</label>
-                        <label>
-                            <input type="password" name="password"/>
-                        </label>
-                    </div>
+                <div th:if="${param.error}" class="error">
+                    Неверный логин или пароль
+                </div>
 
-                    <div th:if="${param.error}" class="error">
-                        Неверный логин или пароль
-                    </div>
+                <button type="submit" class="button">
+                    Войти
+                </button>
 
-                    <button type="submit" class="button">
-                        Войти
-                    </button>
+            </form>
 
-                </form>
-
-            </div>
 
         </div>
     </div>

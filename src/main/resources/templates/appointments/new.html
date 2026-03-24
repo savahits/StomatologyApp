@@ -8,69 +8,66 @@
 
 <th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
 
-    <th:block th:fragment="header">Создать запись</th:block>
+    <th:block th:fragment="header"><h1>Создать запись</h1></th:block>
 
     <th:block th:fragment="content">
         <div class="container">
 
-            <div class="loginForm">
-                <h2>Создать запись</h2>
+            <form class="form" th:action="@{/appointments}" method="post" th:object="${appointment}">
+                <h2>Введите данные</h2>
 
-                <form th:action="@{/appointments}" method="post" th:object="${appointment}">
+                <div th:if="${#fields.hasGlobalErrors()}" class="formErrors">
+                    <strong>Ошибки:</strong>
+                    <ul>
+                        <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
+                    </ul>
+                </div>
 
-                    <div th:if="${#fields.hasGlobalErrors()}" class="formErrors">
-                        <strong>Ошибки:</strong>
-                        <ul>
-                            <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
-                        </ul>
-                    </div>
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}"/>
 
-                    <input type="hidden"
-                           th:name="${_csrf.parameterName}"
-                           th:value="${_csrf.token}"/>
+                <div class="formRow">
+                    <label>Телефон</label>
+                    <input type="text" th:field="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? 'input-error'">
+                    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="field-error"></div>
+                </div>
 
-                    <div class="formRow">
-                        <label>Телефон</label>
-                        <input type="text" th:field="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? 'input-error'">
-                        <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="field-error"></div>
-                    </div>
+                <div class="formRow">
+                    <label>Фамилия</label>
+                    <input type="text" th:field="*{surname}">
+                    <div th:errors="*{surname}" class="field-error"></div>
+                </div>
 
-                    <div class="formRow">
-                        <label>Фамилия</label>
-                        <input type="text" th:field="*{surname}">
-                        <div th:errors="*{surname}" class="field-error"></div>
-                    </div>
+                <div class="formRow">
+                    <label>Имя</label>
+                    <input type="text" th:field="*{name}">
+                    <div th:errors="*{name}" class="field-error"></div>
+                </div>
 
-                    <div class="formRow">
-                        <label>Имя</label>
-                        <input type="text" th:field="*{name}">
-                        <div th:errors="*{name}" class="field-error"></div>
-                    </div>
+                <div class="formRow">
+                    <label>Отчество</label>
+                    <input type="text" th:field="*{patronymic}">
+                    <div th:errors="*{patronymic}" class="field-error"></div>
+                </div>
 
-                    <div class="formRow">
-                        <label>Отчество</label>
-                        <input type="text" th:field="*{patronymic}">
-                        <div th:errors="*{patronymic}" class="field-error"></div>
-                    </div>
+                <div class="formRow">
+                    <label>Врач</label>
+                    <select th:field="*{doctorId}">
+                        <option value="">Выберите врача</option>
+                        <option th:each="doc : ${doctors}" th:value="${doc.id}" th:text="${doc.surname + ' ' + doc.name}"></option>
+                    </select>
+                    <div th:errors="*{doctorId}" class="field-error"></div>
+                </div>
 
-                    <div class="formRow">
-                        <label>Врач</label>
-                        <select th:field="*{doctorId}">
-                            <option value="">Выберите врача</option>
-                            <option th:each="doc : ${doctors}" th:value="${doc.id}" th:text="${doc.surname + ' ' + doc.name}"></option>
-                        </select>
-                        <div th:errors="*{doctorId}" class="field-error"></div>
-                    </div>
+                <div class="formRow">
+                    <label>Дата и время</label>
+                    <input type="datetime-local" th:field="*{time}">
+                    <div th:errors="*{time}" class="field-error"></div>
+                </div>
 
-                    <div class="formRow">
-                        <label>Дата и время</label>
-                        <input type="datetime-local" th:field="*{time}">
-                        <div th:errors="*{time}" class="field-error"></div>
-                    </div>
-
-                    <button type="submit" class="button">Создать</button>
-                </form>
-            </div>
+                <button type="submit" class="button">Создать</button>
+            </form>
         </div>
     </th:block>
 
