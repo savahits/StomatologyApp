@@ -43,7 +43,7 @@
                     <td th:text="${a.clientPhone}"></td>
                     <td th:text="${a.doctorFullName}"></td>
                     <td th:text="${#temporals.format(a.time, 'dd.MM.yyyy HH:mm')}"></td>
-                    <td th:text="${a.status}"></td>
+                    <td th:text="#{${'appointments.status.' + a.status}}"></td>
                 </tr>
                 </tbody>
             </table>
