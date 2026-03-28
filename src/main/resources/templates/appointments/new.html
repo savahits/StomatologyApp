@@ -8,13 +8,13 @@
 
 <th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
 
-    <th:block th:fragment="header"><h1>Создать запись</h1></th:block>
+    <th:block th:fragment="header"><h1></h1></th:block>
 
     <th:block th:fragment="content">
         <div class="container">
 
             <form class="form" th:action="@{/appointments}" method="post" th:object="${appointment}">
-                <h2>Введите данные</h2>
+                <h2>Создать запись</h2>
 
                 <div th:if="${#fields.hasGlobalErrors()}" class="formErrors">
                     <strong>Ошибки:</strong>

@@ -5,11 +5,11 @@
 </head>
 <body>
 <th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
-    <th:block th:fragment="header"><h1>Добавить доктора</h1></th:block>
+    <th:block th:fragment="header"><h1></h1></th:block>
     <th:block th:fragment="content">
         <div class="container">
             <form class="form" th:action="@{/doctors}" method="post" th:object="${doctor}">
-                <h2>Введите данные</h2>
+                <h2>Добавить доктора</h2>
                 <div th:if="${#fields.hasGlobalErrors()}" class="formErrors">
                     <strong>Пожалуйста, исправьте ошибки:</strong>
                     <ul>
