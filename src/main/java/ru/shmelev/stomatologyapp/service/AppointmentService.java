@@ -56,6 +56,7 @@ public class AppointmentService {
         appointment.setAppointmentTime(request.getTime());
         appointment.setCreatedBy(currentUser);
         appointment.setStatus(AppointmentStatus.SCHEDULED);
+        appointment.setDescription(request.getDescription());
 
         appointmentRepository.save(appointment);
     }
