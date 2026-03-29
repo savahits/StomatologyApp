@@ -18,10 +18,13 @@ public class SecurityConfig {
 
                         // read
                         .requestMatchers("/doctors").hasAnyRole("ADMIN", "DOCTOR")
+                        .requestMatchers("/appointments").hasAnyRole("ADMIN", "DOCTOR")
                         .requestMatchers("/doctors/{id}").hasAnyRole("ADMIN", "DOCTOR")
+
 
                         // write
                         .requestMatchers("/doctors/new", "/doctors/create").hasRole("ADMIN")
+                        .requestMatchers("/appointments/new", "/doctors/create").hasRole("ADMIN")
                         .requestMatchers("/doctors/edit/**", "/doctors/delete/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated()
