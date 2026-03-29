@@ -61,6 +61,12 @@
                 </div>
 
                 <div class="formRow">
+                    <label>Описание</label>
+                    <input type="text" th:field="*{description}">
+                    <div th:errors="*{description}" class="field-error"></div>
+                </div>
+
+                <div class="formRow">
                     <label>Дата и время</label>
                     <input type="datetime-local" th:field="*{time}">
                     <div th:errors="*{time}" class="field-error"></div>
