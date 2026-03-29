@@ -28,10 +28,10 @@ public class RequestAppointmentCreate {
     @ValidPhone
     private String phone;
 
-    @NotNull
+    @NotNull(message = "Выберете специалиста для приема")
     private Long doctorId;
 
-    @NotNull
+    @NotNull(message = "Введите дату приема")
     private LocalDateTime time;
 
     @NotBlank(message = "Опишите прием пациента")
