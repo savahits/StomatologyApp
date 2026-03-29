@@ -38,4 +38,7 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private AppointmentStatus status;
+
+    @Column(name = "description", nullable = false)
+    private String description;
 }
