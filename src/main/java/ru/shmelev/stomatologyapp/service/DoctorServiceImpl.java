@@ -7,6 +7,7 @@ import ru.shmelev.stomatologyapp.domain.Doctor;
 import ru.shmelev.stomatologyapp.domain.Role;
 import ru.shmelev.stomatologyapp.domain.Specialization;
 import ru.shmelev.stomatologyapp.domain.User;
+import ru.shmelev.stomatologyapp.dto.DoctorShowDTO;
 import ru.shmelev.stomatologyapp.dto.RequestDoctorCreate;
 import ru.shmelev.stomatologyapp.exception.UsernameAlreadyExistsException;
 import ru.shmelev.stomatologyapp.repository.DoctorRepository;
@@ -16,6 +17,7 @@ import ru.shmelev.stomatologyapp.repository.UserRepository;
 import ru.shmelev.stomatologyapp.utils.PhoneUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
@@ -39,6 +41,26 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public List<Doctor> findAllDoctors() {
         return doctorRepository.findAll();
+    }
+
+    @Override
+    public DoctorShowDTO findById(Long id) {
+        Optional<Doctor> doctor = doctorRepository.findById(id);
+
+        if (doctor.isEmpty()) {
+            throw new RuntimeException("Doctor not found");
+        }
+
+        String specializationName = doctor.get().getSpecialization().getName();
+        String phone = doctor.get().getPhone();
+        String fullName = doctor.get().getName() + " " + doctor.get().getSurname() + " " + doctor.get().getPatronymic();
+
+        return new DoctorShowDTO(
+                doctor.get().getId(),
+                fullName,
+                phone,
+                specializationName
+        );
     }
 
     @Override
