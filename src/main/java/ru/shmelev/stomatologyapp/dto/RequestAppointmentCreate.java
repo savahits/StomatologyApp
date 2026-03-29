@@ -33,4 +33,7 @@ public class RequestAppointmentCreate {
 
     @NotNull
     private LocalDateTime time;
+
+    @NotBlank(message = "Опишите прием пациента")
+    private String description;
 }
