@@ -25,6 +25,7 @@ public class RequestDoctorCreate {
     private String patronymic;
 
     @ValidPhone
+    @NotBlank(message = "Номер телефона обязателен")
     private String phone;
 
     @NotNull(message = "Выберите специализацию")
