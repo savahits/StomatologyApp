@@ -2,6 +2,8 @@ package ru.shmelev.stomatologyapp.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import ru.shmelev.stomatologyapp.service.DoctorService;
 
 @Controller
 @RequestMapping("/appointments")
+@EnableMethodSecurity
 @RequiredArgsConstructor
 public class AppointmentController {
 
@@ -38,6 +41,7 @@ public class AppointmentController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public String create(
             @ModelAttribute("appointment") @Valid RequestAppointmentCreate request,
             BindingResult bindingResult,
