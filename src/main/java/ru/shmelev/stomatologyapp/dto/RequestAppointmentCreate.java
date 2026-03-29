@@ -13,18 +13,18 @@ import java.time.LocalDateTime;
 @Setter
 public class RequestAppointmentCreate {
 
-    @NotBlank
-    @Size(max = 100)
+    @NotBlank(message = "Фамилия обязательна")
+    @Size(max = 100, message = "Фамилия слишком длинная")
     private String surname;
 
-    @NotBlank
-    @Size(max = 100)
+    @NotBlank(message = "Имя обязательно")
+    @Size(max = 100, message = "Имя слишком длинное")
     private String name;
 
-    @Size(max = 100)
+    @Size(max = 100, message = "Отчество слишком длинная")
     private String patronymic;
 
-    @NotBlank
+    @NotBlank(message = "Номер телефона обязателен")
     @ValidPhone
     private String phone;
 
