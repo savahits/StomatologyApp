@@ -28,25 +28,25 @@
                        th:value="${_csrf.token}"/>
 
                 <div class="formRow">
-                    <label>Телефон</label>
+                    <label>Номер телефона пациента</label>
                     <input type="text" th:field="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? 'input-error'">
                     <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="field-error"></div>
                 </div>
 
                 <div class="formRow">
-                    <label>Фамилия</label>
+                    <label>Фамилия пациента</label>
                     <input type="text" th:field="*{surname}">
                     <div th:errors="*{surname}" class="field-error"></div>
                 </div>
 
                 <div class="formRow">
-                    <label>Имя</label>
+                    <label>Имя пациента</label>
                     <input type="text" th:field="*{name}">
                     <div th:errors="*{name}" class="field-error"></div>
                 </div>
 
                 <div class="formRow">
-                    <label>Отчество</label>
+                    <label>Отчество пациента</label>
                     <input type="text" th:field="*{patronymic}">
                     <div th:errors="*{patronymic}" class="field-error"></div>
                 </div>
@@ -61,13 +61,13 @@
                 </div>
 
                 <div class="formRow">
-                    <label>Описание</label>
+                    <label>Описание приема</label>
                     <input type="text" th:field="*{description}">
                     <div th:errors="*{description}" class="field-error"></div>
                 </div>
 
                 <div class="formRow">
-                    <label>Дата и время</label>
+                    <label>Дата и время приема</label>
                     <input type="datetime-local" th:field="*{time}">
                     <div th:errors="*{time}" class="field-error"></div>
                 </div>
