@@ -13,6 +13,7 @@ import ru.shmelev.stomatologyapp.dto.RequestClientCreate;
 import ru.shmelev.stomatologyapp.enums.AppointmentStatus;
 import ru.shmelev.stomatologyapp.repository.AppointmentRepository;
 import ru.shmelev.stomatologyapp.repository.DoctorRepository;
+import ru.shmelev.stomatologyapp.utils.PhoneUtils;
 
 import java.util.List;
 
@@ -37,7 +38,12 @@ public class AppointmentService {
         clientDto.setName(request.getName());
         clientDto.setSurname(request.getSurname());
         clientDto.setPatronymic(request.getPatronymic());
-        clientDto.setPhone(request.getPhone());
+
+        String normalizedPhone = null;
+        if (request.getPhone() != null && !request.getPhone().isBlank()) {
+            normalizedPhone = PhoneUtils.normalize(request.getPhone());
+        }
+        clientDto.setPhone(normalizedPhone);
 
         Client client = clientService.getOrCreate(clientDto);
 
