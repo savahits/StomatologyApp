@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title th:fragment="title">Записи</title>
 </head>
@@ -17,7 +17,7 @@
         <div class="container">
 
             <div class="sectionTitle">
-                <a class="buttonAdd" href="/appointments/new">
+                <a class="buttonAdd" href="/appointments/new" sec:authorize="hasRole('ADMIN')">
                     Новая запись
                 </a>
             </div>
