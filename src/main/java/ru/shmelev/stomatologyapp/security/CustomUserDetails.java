@@ -40,4 +40,11 @@ public class CustomUserDetails implements UserDetails {
         return user;
     }
 
+    public boolean hasRole(String role) {
+        return getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals(role));
+    }
+
+
+
 }
