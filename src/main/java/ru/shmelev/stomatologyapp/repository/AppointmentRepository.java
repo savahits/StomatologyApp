@@ -14,4 +14,12 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
         join fetch a.doctor d
     """)
     List<Appointment> findAllWithClientAndDoctor();
+
+    @Query("""
+    select a from Appointment a
+    join fetch a.client
+    join fetch a.doctor
+    where a.doctor.id = :doctorId
+""")
+    List<Appointment> findAllByDoctorId(Long doctorId);
 }
