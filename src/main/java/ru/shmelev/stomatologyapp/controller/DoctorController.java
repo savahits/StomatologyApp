@@ -40,6 +40,12 @@ public class DoctorController {
         return "doctors/show";
     }
 
+    @PostMapping("/{id}")
+    public String deleteDoctorById(@PathVariable Long id) {
+        doctorService.delete(id);
+        return "redirect:/doctors";
+    }
+
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("doctor", new RequestDoctorCreate());
