@@ -13,4 +13,6 @@ public interface DoctorService {
     void create(RequestDoctorCreate dto);
 
     DoctorShowDTO findById(Long id);
+
+    void delete(Long id);
 }
