@@ -9,7 +9,13 @@
 <th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
 
     <th:block th:fragment="header">
-        <h1>Список записей</h1>
+        <h1 sec:authorize="hasRole('ADMIN')">
+            Список всех записей
+        </h1>
+
+        <h1 sec:authorize="hasRole('DOCTOR')">
+            Ваши записи
+        </h1>
     </th:block>
 
     <th:block th:fragment="content">
