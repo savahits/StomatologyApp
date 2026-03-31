@@ -28,8 +28,10 @@ public class AppointmentController {
     private final DoctorService doctorService;
 
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("appointments", appointmentService.findAll());
+    public String list(Model model,
+                       @AuthenticationPrincipal CustomUserDetails user) {
+
+        model.addAttribute("appointments", appointmentService.findAll(user));
         return "appointments/index";
     }
 
