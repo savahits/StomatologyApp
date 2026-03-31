@@ -13,6 +13,7 @@ import ru.shmelev.stomatologyapp.dto.RequestClientCreate;
 import ru.shmelev.stomatologyapp.enums.AppointmentStatus;
 import ru.shmelev.stomatologyapp.repository.AppointmentRepository;
 import ru.shmelev.stomatologyapp.repository.DoctorRepository;
+import ru.shmelev.stomatologyapp.security.CustomUserDetails;
 import ru.shmelev.stomatologyapp.utils.PhoneUtils;
 
 import java.util.List;
@@ -61,13 +62,33 @@ public class AppointmentService {
         appointmentRepository.save(appointment);
     }
 
-    public List<AppointmentListItem> findAll() {
-        return appointmentRepository.findAllWithClientAndDoctor()
-                .stream()
+    public List<AppointmentListItem> findAll(CustomUserDetails currentUser) {
+
+        if (currentUser.hasRole("ROLE_ADMIN")) {
+            return map(appointmentRepository.findAllWithClientAndDoctor());
+        }
+
+        if (currentUser.hasRole("ROLE_DOCTOR")) {
+
+            Long doctorId = currentUser.getDoctorId();
+            if (doctorId == null) {
+                throw new IllegalStateException("User has ROLE_DOCTOR but no doctor linked");
+            }
+
+            return map(appointmentRepository.findAllByDoctorId(doctorId));
+        }
+
+        throw new org.springframework.security.access.AccessDeniedException("Access denied");
+    }
+
+
+    private List<AppointmentListItem> map(List<Appointment> appointments) {
+        return appointments.stream()
                 .map(a -> new AppointmentListItem(
                         a.getId(),
                         a.getClient().getSurname() + " " + a.getClient().getName(),
                         a.getClient().getPhone(),
+                        a.getDoctor().getId(),
                         a.getDoctor().getSurname() + " " + a.getDoctor().getName(),
                         a.getAppointmentTime(),
                         a.getStatus().name()
