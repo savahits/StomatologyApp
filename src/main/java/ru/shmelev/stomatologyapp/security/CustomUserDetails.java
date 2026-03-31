@@ -45,6 +45,8 @@ public class CustomUserDetails implements UserDetails {
                 .anyMatch(a -> a.getAuthority().equals(role));
     }
 
-
+    public Long getDoctorId() {
+        return user.getDoctor() != null ? user.getDoctor().getId() : null;
+    }
 
 }
