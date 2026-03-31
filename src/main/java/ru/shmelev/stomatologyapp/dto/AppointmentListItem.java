@@ -14,6 +14,7 @@ public class AppointmentListItem {
     private String clientFullName;
     private String clientPhone;
 
+    private Long doctorId;
     private String doctorFullName;
 
     private LocalDateTime time;
