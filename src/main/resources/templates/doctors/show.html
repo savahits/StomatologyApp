@@ -3,51 +3,170 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title th:fragment="title">Доктор</title>
+
+    <style>
+        .danger-btn {
+            background:#e53935;
+            color:white;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            padding:8px 16px;
+            font-size:16px;
+            transition:0.2s;
+        }
+        .danger-btn:hover {
+            background:#c62828;
+        }
+
+        /* Модалка */
+        .modal {
+            position: fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgba(0,0,0,0.5);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            opacity:0;
+            pointer-events:none;
+            transition:0.2s;
+        }
+
+        .modal.active {
+            opacity:1;
+            pointer-events:auto;
+        }
+
+        .modal-content {
+            background:white;
+            padding:30px;
+            border-radius:12px;
+            width:400px;
+            max-width:90%;
+            text-align:center;
+            box-shadow:0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .modal-actions {
+            margin-top:20px;
+            display:flex;
+            justify-content:center;
+            gap:10px;
+        }
+
+        .btn {
+            padding:8px 16px;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+        }
+
+        .btn-cancel {
+            background:#ccc;
+        }
+
+        .btn-confirm {
+            background:#e53935;
+            color:white;
+        }
+    </style>
 </head>
 
 <body>
 
 <th:block th:replace="~{layout :: layout (~{::title}, ~{::header}, ~{::content})}">
 
-    <!-- Заголовок -->
+    <!-- HEADER -->
     <th:block th:fragment="header">
         <h1 th:text="${doctor.fullName}">ФИО Доктора</h1>
     </th:block>
 
-    <!-- Контент -->
+    <!-- CONTENT -->
     <th:block th:fragment="content">
 
         <div class="container">
 
-            <div class="doctor-card" style="max-width: 800px; margin: 40px auto; background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); padding:30px; display:flex; flex-direction:column; gap:20px;">
+            <div class="doctor-card"
+                 style="max-width:800px; margin:40px auto; background:white; border-radius:12px;
+                        box-shadow:0 4px 12px rgba(0,0,0,0.1); padding:30px;
+                        display:flex; flex-direction:column; gap:20px;">
 
-                <!-- Основная информация -->
-                <div style="display:flex; align-items:center; gap:20px;">
-                    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:5px;">
+                <!-- Инфа -->
+                <div style="display:flex; gap:20px;">
+                    <div style="flex:1; display:flex; flex-direction:column; gap:5px;">
                         <h2 th:text="${doctor.fullName}" style="margin:0; font-size:28px;"></h2>
-                        <p th:text="${doctor.specialization}" style="color:#555;margin-top: 10px; font-weight:500;"></p>
-                        <p th:text="${doctor.phone}" style="margin-top: 10px; color:#777;"></p>
+                        <p th:text="${doctor.specialization}" style="color:#555; margin-top:10px;"></p>
+                        <p th:text="${doctor.phone}" style="margin-top:10px; color:#777;"></p>
                     </div>
                 </div>
 
-                <!-- Описание / заметки (если нужно) -->
-                <div class="doctor-description" style="border-top:1px solid #eee; padding-top:20px; color:#444;">
-                    <h3>О докторе</h3>
-                    <p>Здесь можно добавить краткое описание, опыт работы, достижения и дополнительные заметки о докторе.</p>
-                </div>
+                <!-- КНОПКИ -->
+                <div style="display:flex; justify-content:space-between; align-items:center;">
 
-                <!-- Кнопки -->
-                <div style="text-align:right;">
-                    <a th:href="@{/doctors}" class="button" style="padding:8px 16px; font-size:16px;">Назад к списку</a>
+                    <a th:href="@{/doctors}" class="button" style="padding:8px 16px;">
+                        Назад
+                    </a>
+
+                    <button class="danger-btn" onclick="openModal()">
+                        Удалить
+                    </button>
+
                 </div>
 
             </div>
 
         </div>
 
+        <!-- МОДАЛКА -->
+        <div id="deleteModal" class="modal">
+            <div class="modal-content">
+                <h3>Удалить доктора?</h3>
+                <p>Это действие нельзя отменить</p>
+
+                <div class="modal-actions">
+                    <button class="btn btn-cancel" onclick="closeModal()">
+                        Отмена
+                    </button>
+
+                    <form th:action="@{/doctors/{id}(id=${doctor.id})}" method="post">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <input type="hidden"
+                               th:name="${_csrf.parameterName}"
+                               th:value="${_csrf.token}"/>
+
+                        <button type="submit" class="btn btn-confirm">
+                            Удалить
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
     </th:block>
 
 </th:block>
+
+<script>
+    const modal = document.getElementById("deleteModal");
+
+    function openModal() {
+        modal.classList.add("active");
+    }
+
+    function closeModal() {
+        modal.classList.remove("active");
+    }
+
+    // закрытие по клику вне окна
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+</script>
 
 </body>
 </html>
