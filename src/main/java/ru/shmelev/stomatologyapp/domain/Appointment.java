@@ -41,4 +41,7 @@ public class Appointment {
 
     @Column(name = "description", nullable = false)
     private String description;
+
+    @Column(name = "been_before", nullable = false)
+    private boolean beenBefore;
 }
