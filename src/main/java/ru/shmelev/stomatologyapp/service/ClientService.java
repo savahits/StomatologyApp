@@ -1,11 +1,13 @@
 package ru.shmelev.stomatologyapp.service;
 
 import jakarta.transaction.Transactional;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.shmelev.stomatologyapp.domain.Client;
 import ru.shmelev.stomatologyapp.dto.RequestClientCreate;
 import ru.shmelev.stomatologyapp.repository.ClientRepository;
+import ru.shmelev.stomatologyapp.utils.PhoneUtils;
 
 @Service
 public class ClientService {
@@ -28,5 +30,9 @@ public class ClientService {
                     client.setPhone(dto.getPhone());
                     return clientRepository.save(client);
                 });
+    }
+
+    public boolean existsByPhone(String phone) {
+        return clientRepository.existsByPhone(phone);
     }
 }
