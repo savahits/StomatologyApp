@@ -19,5 +19,7 @@ public class AppointmentListItem {
 
     private LocalDateTime time;
 
+    private boolean beenBefore;
+
     private String status;
 }
