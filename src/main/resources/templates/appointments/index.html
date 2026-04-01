@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:fragment="title">Записи</title>
 </head>
@@ -35,6 +35,7 @@
                     <th>Телефон</th>
                     <th>Врач</th>
                     <th>Дата</th>
+                    <th>Был ранее</th>
                     <th>Статус</th>
                 </tr>
                 </thead>
@@ -45,6 +46,11 @@
                     <td th:text="${a.clientPhone}"></td>
                     <td th:text="${a.doctorFullName}"></td>
                     <td th:text="${#temporals.format(a.time, 'dd.MM.yyyy HH:mm')}"></td>
+                    <td>
+                    <span th:class="${a.beenBefore} ? 'badge old' : 'badge new'"
+                          th:text="${a.beenBefore} ? 'Да' : 'Нет'">
+                    </span>
+                    </td>
                     <td th:text="#{${'appointments.status.' + a.status}}"></td>
                     <td>
                         <a class="button" th:href="@{/a/{id}(id=${a.id})}">Подробнее</a>
