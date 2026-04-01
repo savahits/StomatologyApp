@@ -46,6 +46,8 @@ public class AppointmentService {
         }
         clientDto.setPhone(normalizedPhone);
 
+        boolean beenBefore = clientService.existsByPhone(normalizedPhone);
+
         Client client = clientService.getOrCreate(clientDto);
 
         Doctor doctor = doctorRepository.findById(request.getDoctorId())
@@ -58,6 +60,7 @@ public class AppointmentService {
         appointment.setCreatedBy(currentUser);
         appointment.setStatus(AppointmentStatus.SCHEDULED);
         appointment.setDescription(request.getDescription());
+        appointment.setBeenBefore(beenBefore);
 
         appointmentRepository.save(appointment);
     }
