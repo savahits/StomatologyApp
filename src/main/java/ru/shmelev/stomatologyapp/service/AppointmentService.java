@@ -94,6 +94,7 @@ public class AppointmentService {
                         a.getDoctor().getId(),
                         a.getDoctor().getSurname() + " " + a.getDoctor().getName(),
                         a.getAppointmentTime(),
+                        a.getBeenBefore(),
                         a.getStatus().name()
                 ))
                 .toList();
