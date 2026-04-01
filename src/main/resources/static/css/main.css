@@ -261,3 +261,35 @@ body {
 .content > * {
     flex: 1;
 }
+
+.headerInner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav {
+    display: flex;
+    gap: 20px;
+    margin-left: 40px;
+}
+
+.navItem {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.navItem:hover {
+    background: #505050;
+}
+
+.navItem.active {
+    background: white;
+    color: #303030;
+    pointer-events: none;
+    cursor: default;
+}

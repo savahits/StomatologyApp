@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.w3.org/1999/xhtml"
       th:fragment="layout(title, header, content)">
+
 <head>
     <meta charset="UTF-8">
     <title th:replace="${title}">StomatologyApp</title>
@@ -13,44 +14,57 @@
 <div class="page">
 
     <!-- HEADER -->
-    <div class="header">
-        <div class="container">
+    <header class="header">
+        <div class="container headerInner">
 
             <div class="logo">Savva Clinic</div>
 
-            <div class="userBlock">
-                Здравствуйте,
-                <span sec:authentication="principal.helloName"></span>
+            <!-- NAVIGATION -->
+            <nav class="nav">
+                <a class="navItem" th:href="@{/doctors}">
+                    Врачи
+                </a>
 
-                <form th:action="@{/logout}" method="post" style="display:inline;">
+                <a class="navItem" th:href="@{/appointments}">
+                    Записи
+                </a>
+            </nav>
+
+            <!-- USER -->
+            <div class="userBlock">
+                <span>
+                    Здравствуйте,
+                    <span sec:authentication="principal.helloName"></span>
+                </span>
+
+                <form th:action="@{/logout}" method="post">
                     <button type="submit" class="logoutBtn">Выйти</button>
                 </form>
             </div>
 
-            <div class="clear"></div>
         </div>
-    </div>
+    </header>
 
     <!-- HERO -->
-    <div class="hero">
+    <section class="hero">
         <div class="container">
             <h1 th:replace="${header}">Заголовок</h1>
         </div>
-    </div>
+    </section>
 
     <!-- CONTENT -->
-    <div class="content">
-        <div th:replace="${content}"></div>
-    </div>
-        <!-- сюда вставляется контент -->
-    </div>
+    <main class="content">
+        <div class="container">
+            <div th:replace="${content}"></div>
+        </div>
+    </main>
 
     <!-- FOOTER -->
-    <div class="footer">
+    <footer class="footer">
         <div class="container">
             <p>© 2026 Savva Clinic</p>
         </div>
-    </div>
+    </footer>
 
 </div>
 
