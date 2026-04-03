@@ -92,7 +92,7 @@ public class AppointmentService {
                 throw new IllegalStateException("User has ROLE_DOCTOR but no doctor linked");
             }
 
-            return map(appointmentRepository.findAllByDoctorId(doctorId));
+            return map(appointmentRepository.findAllByDoctorId(doctorId,  AppointmentStatus.SCHEDULED));
         }
 
         throw new org.springframework.security.access.AccessDeniedException("Access denied");
