@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: StomatologyApp
+
+logging:
+  level:
+    org.hibernate.engine.jdbc.spi.SqlExceptionHelper: error
