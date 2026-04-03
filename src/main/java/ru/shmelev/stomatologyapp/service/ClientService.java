@@ -19,13 +19,13 @@ public class ClientService {
 
     @Transactional
     public Client getOrCreate(RequestClientCreate dto) {
-        return clientRepository.findByPhone(dto.getPhone())
+        return clientRepository.findByPhone(dto.phone())
                 .orElseGet(() -> {
                     Client client = new Client();
-                    client.setName(dto.getName());
-                    client.setSurname(dto.getSurname());
-                    client.setPatronymic(dto.getPatronymic());
-                    client.setPhone(dto.getPhone());
+                    client.setName(dto.name());
+                    client.setSurname(dto.surname());
+                    client.setPatronymic(dto.patronymic());
+                    client.setPhone(dto.phone());
                     return clientRepository.save(client);
                 });
     }
