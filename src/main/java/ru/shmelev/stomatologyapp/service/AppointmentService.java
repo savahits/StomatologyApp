@@ -82,7 +82,7 @@ public class AppointmentService {
     public List<AppointmentListItem> findAll(CustomUserDetails currentUser) {
 
         if (currentUser.hasRole("ROLE_ADMIN")) {
-            return map(appointmentRepository.findAllWithClientAndDoctor());
+            return map(appointmentRepository.findAllWithClientAndDoctor(AppointmentStatus.SCHEDULED));
         }
 
         if (currentUser.hasRole("ROLE_DOCTOR")) {
