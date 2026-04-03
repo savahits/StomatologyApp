@@ -3,35 +3,32 @@ package ru.shmelev.stomatologyapp.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import ru.shmelev.stomatologyapp.validator.ValidPhone;
 
-@NoArgsConstructor
-@Getter
-@Setter
-public class RequestDoctorCreate {
+public record RequestDoctorCreate(
+        @NotBlank(message = "Логин обязателен")
+        String username,
 
-    @NotBlank(message = "Логин обязателен")
-    private String username;
+        @NotBlank(message = "Фамилия обязательна")
+        String surname,
 
-    @NotBlank(message = "Фамилия обязательна")
-    private String surname;
+        @NotBlank(message = "Имя обязательно")
+        String name,
 
-    @NotBlank(message = "Имя обязательно")
-    private String name;
+        String patronymic,
 
-    private String patronymic;
+        @ValidPhone
+        @NotBlank(message = "Номер телефона обязателен")
+        String phone,
 
-    @ValidPhone
-    @NotBlank(message = "Номер телефона обязателен")
-    private String phone;
+        @NotNull(message = "Выберите специализацию")
+        Long specializationId,
 
-    @NotNull(message = "Выберите специализацию")
-    private Long specializationId;
-
-    @NotBlank(message = "Пароль обязателен")
-    @Size(min = 6, message = "Пароль должен содержать минимум 6 символов")
-    private String password;
+        @NotBlank(message = "Пароль обязателен")
+        @Size(min = 6, message = "Пароль должен содержать минимум 6 символов")
+        String password
+) {
+    public RequestDoctorCreate() {
+        this(null, null, null, null, null, null, null);
+    }
 }
