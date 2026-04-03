@@ -18,7 +18,6 @@ import ru.shmelev.stomatologyapp.repository.DoctorRepository;
 import ru.shmelev.stomatologyapp.security.CustomUserDetails;
 import ru.shmelev.stomatologyapp.utils.PhoneUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -38,43 +37,44 @@ public class AppointmentService {
     @Transactional
     public void create(RequestAppointmentCreate request, User currentUser) {
 
-        if (appointmentRepository.existsByAppointmentTimeAndDoctorId(LocalDateTime.now(), request.getDoctorId())) {
-            throw new AppointmentAlreadyExistsException(request.getTime(),  request.getDoctorId());
+        if (appointmentRepository.existsByAppointmentTimeAndDoctorId(request.time(), request.doctorId())) {
+            throw new AppointmentAlreadyExistsException(request.time(),  request.doctorId());
         }
-
-        RequestClientCreate clientDto = new RequestClientCreate();
-        clientDto.setName(request.getName());
-        clientDto.setSurname(request.getSurname());
-        clientDto.setPatronymic(request.getPatronymic());
 
         String normalizedPhone = null;
-        if (request.getPhone() != null && !request.getPhone().isBlank()) {
-            normalizedPhone = PhoneUtils.normalize(request.getPhone());
+        if (request.phone() != null && !request.phone().isBlank()) {
+            normalizedPhone = PhoneUtils.normalize(request.phone());
         }
-        clientDto.setPhone(normalizedPhone);
+
+        RequestClientCreate clientDto = new RequestClientCreate(
+                request.surname(),
+                request.name(),
+                request.patronymic(),
+                normalizedPhone
+        );
 
         boolean beenBefore = clientService.existsByPhone(normalizedPhone);
 
         Client client = clientService.getOrCreate(clientDto);
 
-        Doctor doctor = doctorRepository.findById(request.getDoctorId())
+        Doctor doctor = doctorRepository.findById(request.doctorId())
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));
 
         Appointment appointment = new Appointment();
         appointment.setClient(client);
         appointment.setDoctor(doctor);
-        appointment.setAppointmentTime(request.getTime());
+        appointment.setAppointmentTime(request.time());
         appointment.setCreatedBy(currentUser);
         appointment.setStatus(AppointmentStatus.SCHEDULED);
-        appointment.setDescription(request.getDescription());
+        appointment.setDescription(request.description());
         appointment.setBeenBefore(beenBefore);
 
         try {
             appointmentRepository.save(appointment);
         } catch (DataIntegrityViolationException e) {
             throw new AppointmentAlreadyExistsException(
-                    request.getTime(),
-                    request.getDoctorId()
+                    request.time(),
+                    request.doctorId()
             );
         }
     }
