@@ -1,5 +1,6 @@
 package ru.shmelev.stomatologyapp.dto;
 
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -32,6 +33,7 @@ public class RequestAppointmentCreate {
     private Long doctorId;
 
     @NotNull(message = "Введите дату приема")
+    @Future(message = "Некорректная дата приема")
     private LocalDateTime time;
 
     @NotBlank(message = "Опишите прием пациента")
