@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ru.shmelev.stomatologyapp.domain.Appointment;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
@@ -22,4 +23,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     where a.doctor.id = :doctorId
 """)
     List<Appointment> findAllByDoctorId(Long doctorId);
+
+    boolean existsByAppointmentTimeAndDoctorId(LocalDateTime appointmentTime, Long doctorId);
 }
