@@ -22,9 +22,9 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     select a from Appointment a
     join fetch a.client
     join fetch a.doctor
-    where a.doctor.id = :doctorId
+    where a.doctor.id = :doctorId and a.status = :status
 """)
-    List<Appointment> findAllByDoctorId(Long doctorId);
+    List<Appointment> findAllByDoctorId(Long doctorId,  @Param("status") AppointmentStatus status);
 
     boolean existsByAppointmentTimeAndDoctorId(LocalDateTime appointmentTime, Long doctorId);
 }
