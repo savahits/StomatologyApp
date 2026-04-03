@@ -71,32 +71,32 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     @Transactional
     public void create(RequestDoctorCreate dto) {
-        if (userRepository.existsByUsername(dto.getUsername())) {
-            throw new UsernameAlreadyExistsException(dto.getUsername());
+        if (userRepository.existsByUsername(dto.username())) {
+            throw new UsernameAlreadyExistsException(dto.username());
         }
 
-        Specialization specialization = specializationRepository.findById(dto.getSpecializationId())
+        Specialization specialization = specializationRepository.findById(dto.specializationId())
                 .orElseThrow(() -> new RuntimeException("Specialization not found"));
 
         Role role = roleRepository.findByName("ROLE_DOCTOR")
                 .orElseThrow(() -> new RuntimeException("Role not found"));
 
         String normalizedPhone = null;
-        if (dto.getPhone() != null && !dto.getPhone().isBlank()) {
-            normalizedPhone = PhoneUtils.normalize(dto.getPhone());
+        if (dto.phone() != null && !dto.phone().isBlank()) {
+            normalizedPhone = PhoneUtils.normalize(dto.phone());
         }
 
         User user = new User();
-        user.setUsername(dto.getUsername());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setUsername(dto.username());
+        user.setPassword(passwordEncoder.encode(dto.password()));
         user.setRole(role);
         userRepository.save(user);
 
         Doctor doctor = new Doctor();
         doctor.setUser(user);
-        doctor.setSurname(dto.getSurname());
-        doctor.setName(dto.getName());
-        doctor.setPatronymic(dto.getPatronymic());
+        doctor.setSurname(dto.surname());
+        doctor.setName(dto.name());
+        doctor.setPatronymic(dto.patronymic());
         doctor.setPhone(normalizedPhone);
         doctor.setSpecialization(specialization);
 
