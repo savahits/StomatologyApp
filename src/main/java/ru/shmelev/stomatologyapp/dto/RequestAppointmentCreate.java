@@ -4,38 +4,37 @@ import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 import ru.shmelev.stomatologyapp.validator.ValidPhone;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
-public class RequestAppointmentCreate {
+public record RequestAppointmentCreate(
+        @NotBlank(message = "Фамилия пациента обязательна")
+        @Size(max = 100, message = "Фамилия слишком длинная")
+        String surname,
 
-    @NotBlank(message = "Фамилия пациента обязательна")
-    @Size(max = 100, message = "Фамилия слишком длинная")
-    private String surname;
+        @NotBlank(message = "Имя пациента обязательно")
+        @Size(max = 100, message = "Имя слишком длинное")
+        String name,
 
-    @NotBlank(message = "Имя пациента обязательно")
-    @Size(max = 100, message = "Имя слишком длинное")
-    private String name;
+        @Size(max = 100, message = "Отчество слишком длинное")
+        String patronymic,
 
-    @Size(max = 100, message = "Отчество слишком длинное")
-    private String patronymic;
+        @NotBlank(message = "Номер телефона пациента обязателен")
+        @ValidPhone
+        String phone,
 
-    @NotBlank(message = "Номер телефона пациента обязателен")
-    @ValidPhone
-    private String phone;
+        @NotNull(message = "Выберете специалиста для приема")
+        Long doctorId,
 
-    @NotNull(message = "Выберете специалиста для приема")
-    private Long doctorId;
+        @NotNull(message = "Введите дату приема")
+        @Future(message = "Некорректная дата приема")
+        LocalDateTime time,
 
-    @NotNull(message = "Введите дату приема")
-    @Future(message = "Некорректная дата приема")
-    private LocalDateTime time;
-
-    @NotBlank(message = "Опишите прием пациента")
-    private String description;
+        @NotBlank(message = "Опишите прием пациента")
+        String description
+) {
+    public RequestAppointmentCreate() {
+        this(null, null, null, null, null, null, null);
+    }
 }
