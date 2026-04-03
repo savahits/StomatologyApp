@@ -1,6 +1,7 @@
 package ru.shmelev.stomatologyapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.shmelev.stomatologyapp.domain.Appointment;
@@ -11,11 +12,13 @@ import ru.shmelev.stomatologyapp.dto.AppointmentListItem;
 import ru.shmelev.stomatologyapp.dto.RequestAppointmentCreate;
 import ru.shmelev.stomatologyapp.dto.RequestClientCreate;
 import ru.shmelev.stomatologyapp.enums.AppointmentStatus;
+import ru.shmelev.stomatologyapp.exception.AppointmentAlreadyExistsException;
 import ru.shmelev.stomatologyapp.repository.AppointmentRepository;
 import ru.shmelev.stomatologyapp.repository.DoctorRepository;
 import ru.shmelev.stomatologyapp.security.CustomUserDetails;
 import ru.shmelev.stomatologyapp.utils.PhoneUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -34,6 +37,10 @@ public class AppointmentService {
 
     @Transactional
     public void create(RequestAppointmentCreate request, User currentUser) {
+
+        if (appointmentRepository.existsByAppointmentTimeAndDoctorId(LocalDateTime.now(), request.getDoctorId())) {
+            throw new AppointmentAlreadyExistsException(request.getTime(),  request.getDoctorId());
+        }
 
         RequestClientCreate clientDto = new RequestClientCreate();
         clientDto.setName(request.getName());
@@ -62,7 +69,14 @@ public class AppointmentService {
         appointment.setDescription(request.getDescription());
         appointment.setBeenBefore(beenBefore);
 
-        appointmentRepository.save(appointment);
+        try {
+            appointmentRepository.save(appointment);
+        } catch (DataIntegrityViolationException e) {
+            throw new AppointmentAlreadyExistsException(
+                    request.getTime(),
+                    request.getDoctorId()
+            );
+        }
     }
 
     public List<AppointmentListItem> findAll(CustomUserDetails currentUser) {
