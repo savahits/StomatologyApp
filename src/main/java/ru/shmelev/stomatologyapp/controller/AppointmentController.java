@@ -26,7 +26,7 @@ public class AppointmentController {
     private final DoctorService doctorService;
 
     @GetMapping
-    public String scheduledList(Model model,
+    public String listPage(Model model,
                        @AuthenticationPrincipal CustomUserDetails user) {
 
         model.addAttribute("scheduledAppointments", appointmentService.findAll(user, AppointmentStatus.SCHEDULED));
