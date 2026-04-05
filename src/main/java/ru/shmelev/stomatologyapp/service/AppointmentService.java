@@ -79,10 +79,10 @@ public class AppointmentService {
         }
     }
 
-    public List<AppointmentListItem> findAll(CustomUserDetails currentUser) {
+    public List<AppointmentListItem> findAll(CustomUserDetails currentUser, AppointmentStatus status) {
 
         if (currentUser.hasRole("ROLE_ADMIN")) {
-            return map(appointmentRepository.findAllWithClientAndDoctor(AppointmentStatus.SCHEDULED));
+            return map(appointmentRepository.findAllWithClientAndDoctor(status));
         }
 
         if (currentUser.hasRole("ROLE_DOCTOR")) {
@@ -92,7 +92,7 @@ public class AppointmentService {
                 throw new IllegalStateException("User has ROLE_DOCTOR but no doctor linked");
             }
 
-            return map(appointmentRepository.findAllByDoctorId(doctorId,  AppointmentStatus.SCHEDULED));
+            return map(appointmentRepository.findAllByDoctorId(doctorId,  status));
         }
 
         throw new org.springframework.security.access.AccessDeniedException("Access denied");

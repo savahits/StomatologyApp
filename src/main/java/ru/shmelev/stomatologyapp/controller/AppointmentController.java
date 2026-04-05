@@ -29,8 +29,8 @@ public class AppointmentController {
     public String scheduledList(Model model,
                        @AuthenticationPrincipal CustomUserDetails user) {
 
-        model.addAttribute("scheduledAppointments", appointmentService.findAll(user));
-        model.addAttribute("doneAppointments", appointmentService.findAll(user));
+        model.addAttribute("scheduledAppointments", appointmentService.findAll(user, AppointmentStatus.SCHEDULED));
+        model.addAttribute("doneAppointments", appointmentService.findAll(user,  AppointmentStatus.DONE));
         return "appointments/index";
     }
 
