@@ -45,7 +45,7 @@
                 </thead>
 
                 <tbody>
-                <tr th:each="a : ${appointments}">
+                <tr th:each="a : ${scheduledAppointments}">
                     <td th:text="${a.clientFullName}"></td>
                     <td th:text="${a.clientPhone}"></td>
                     <td th:text="${a.doctorFullName}"></td>

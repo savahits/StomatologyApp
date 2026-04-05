@@ -29,7 +29,7 @@ public class AppointmentController {
     public String scheduledList(Model model,
                        @AuthenticationPrincipal CustomUserDetails user) {
 
-        model.addAttribute("appointments", appointmentService.findAllScheduled(user));
+        model.addAttribute("scheduledAppointments", appointmentService.findAllScheduled(user));
         return "appointments/index";
     }
 
