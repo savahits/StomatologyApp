@@ -1,9 +1,6 @@
 package ru.shmelev.stomatologyapp.dto;
 
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import ru.shmelev.stomatologyapp.validator.ValidPhone;
 
 import java.math.BigDecimal;
@@ -35,7 +32,8 @@ public record RequestAppointmentCreate(
         @NotBlank(message = "Опишите прием пациента")
         String description,
 
-        @NotBlank(message = "Введите стоимость приема ")
+        @NotNull(message = "Введите стоимость приема")
+        @Min(value = 0, message = "Введите стоимость приема")
         Integer price
 ) {
     public RequestAppointmentCreate() {
