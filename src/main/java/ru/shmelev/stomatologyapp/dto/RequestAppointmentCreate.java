@@ -36,7 +36,7 @@ public record RequestAppointmentCreate(
         String description,
 
         @NotBlank(message = "Введите стоимость приема ")
-        BigDecimal price
+        Integer price
 ) {
     public RequestAppointmentCreate() {
         this(null, null, null, null, null, null, null, null);
