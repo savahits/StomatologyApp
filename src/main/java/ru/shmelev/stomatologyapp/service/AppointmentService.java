@@ -79,7 +79,7 @@ public class AppointmentService {
         }
     }
 
-    public List<AppointmentListItem> findAll(CustomUserDetails currentUser) {
+    public List<AppointmentListItem> findAllScheduled(CustomUserDetails currentUser) {
 
         if (currentUser.hasRole("ROLE_ADMIN")) {
             return map(appointmentRepository.findAllWithClientAndDoctor(AppointmentStatus.SCHEDULED));
@@ -98,6 +98,13 @@ public class AppointmentService {
         throw new org.springframework.security.access.AccessDeniedException("Access denied");
     }
 
+//    @Transactional
+//    public void setStatus(Long appointmentId, AppointmentStatus status) {
+//        Appointment appointment = appointmentRepository.findById(appointmentId)
+//                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+//        appointment.setStatus(status);
+//
+//    }
 
     private List<AppointmentListItem> map(List<Appointment> appointments) {
         return appointments.stream()

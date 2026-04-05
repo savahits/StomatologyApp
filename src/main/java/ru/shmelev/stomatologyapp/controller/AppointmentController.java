@@ -31,7 +31,7 @@ public class AppointmentController {
     public String list(Model model,
                        @AuthenticationPrincipal CustomUserDetails user) {
 
-        model.addAttribute("appointments", appointmentService.findAll(user));
+        model.addAttribute("appointments", appointmentService.findAllScheduled(user));
         return "appointments/index";
     }
 
@@ -71,4 +71,12 @@ public class AppointmentController {
 
         return "redirect:/appointments";
     }
+
+//    @PostMapping
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public String setDoneAppointment(Long appointmentId) {
+//        appointmentService.setStatus(appointmentId, "DONE");
+//        return "redirect:/appointments";
+//    }
+
 }
