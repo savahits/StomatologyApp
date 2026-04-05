@@ -29,7 +29,15 @@ public class AppointmentController {
     public String scheduledList(Model model,
                        @AuthenticationPrincipal CustomUserDetails user) {
 
-        model.addAttribute("scheduledAppointments", appointmentService.findAllScheduled(user));
+        model.addAttribute("scheduledAppointments", appointmentService.findAll(user));
+        return "appointments/index";
+    }
+
+    @GetMapping
+    public String DoneList(Model model,
+                                @AuthenticationPrincipal CustomUserDetails user) {
+
+        model.addAttribute("doneAppointments", appointmentService.findAll(user));
         return "appointments/index";
     }
 
