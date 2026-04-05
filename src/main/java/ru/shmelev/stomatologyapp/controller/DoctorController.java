@@ -40,6 +40,7 @@ public class DoctorController {
         return "doctors/show";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{id}")
     public String deleteDoctorById(@PathVariable Long id) {
         doctorService.delete(id);
