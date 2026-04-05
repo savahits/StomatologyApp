@@ -67,6 +67,12 @@
                 </div>
 
                 <div class="formRow">
+                    <label>Стоимость приема, р.</label>
+                    <input type="number" step="1" min="0" th:field="*{price}">
+                    <div th:errors="*{price}" class="field-error"></div>
+                </div>
+
+                <div class="formRow">
                     <label>Дата и время приема</label>
                     <input type="datetime-local" th:field="*{time}">
                     <div th:errors="*{time}" class="field-error"></div>
