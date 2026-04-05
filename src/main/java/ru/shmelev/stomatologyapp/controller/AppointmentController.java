@@ -30,6 +30,7 @@ public class AppointmentController {
                        @AuthenticationPrincipal CustomUserDetails user) {
 
         model.addAttribute("scheduledAppointments", appointmentService.findAll(user));
+        model.addAttribute("doneAppointments", appointmentService.findAll(user));
         return "appointments/index";
     }
 
