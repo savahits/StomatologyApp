@@ -37,6 +37,7 @@
                     <th>Дата</th>
                     <th>Был ранее</th>
                     <th>Статус</th>
+                    <th sec:authorize="hasRole('ADMIN')">Действия</th>
                 </tr>
                 </thead>
 
@@ -52,6 +53,18 @@
                     </span>
                     </td>
                     <td th:text="#{${'appointments.status.' + a.status}}"></td>
+                    <td sec:authorize="hasRole('ADMIN')">
+
+                        <form th:action="@{/appointments/done}" method="post" style="display:inline">
+                            <input type="hidden" name="appointmentId" th:value="${a.id}" />
+
+                            <button type="submit" class="buttonDone"
+                                    th:disabled="${a.status == 'DONE'}">
+                                ✓
+                            </button>
+                        </form>
+
+                    </td>
                     <td>
                         <a class="button" th:href="@{/a/{id}(id=${a.id})}">Подробнее</a>
                     </td>
