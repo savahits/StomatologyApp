@@ -2,6 +2,7 @@ package ru.shmelev.stomatologyapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.shmelev.stomatologyapp.domain.Appointment;
@@ -134,6 +135,13 @@ public class AppointmentService {
         }
         appointment.setStatus(status);
 
+    }
+
+    public void deleteById(Long appointmentId) {
+        if (!appointmentRepository.existsById(appointmentId)) {
+            throw new RuntimeException("Appointment not found");
+        }
+        appointmentRepository.deleteById(appointmentId);
     }
 
     private List<AppointmentListItem> map(List<Appointment> appointments) {
