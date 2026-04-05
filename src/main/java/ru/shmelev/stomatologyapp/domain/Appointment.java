@@ -48,5 +48,5 @@ public class Appointment {
     private Boolean beenBefore;
 
     @Column(name = "price", nullable = false)
-    private BigDecimal price;
+    private Integer price;
 }
