@@ -98,13 +98,17 @@ public class AppointmentService {
         throw new org.springframework.security.access.AccessDeniedException("Access denied");
     }
 
-//    @Transactional
-//    public void setStatus(Long appointmentId, AppointmentStatus status) {
-//        Appointment appointment = appointmentRepository.findById(appointmentId)
-//                .orElseThrow(() -> new RuntimeException("Appointment not found"));
-//        appointment.setStatus(status);
-//
-//    }
+    @Transactional
+    public void setStatus(Long appointmentId, AppointmentStatus status) {
+
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+        if (appointment.getStatus() == AppointmentStatus.DONE) {
+            return;
+        }
+        appointment.setStatus(status);
+
+    }
 
     private List<AppointmentListItem> map(List<Appointment> appointments) {
         return appointments.stream()
