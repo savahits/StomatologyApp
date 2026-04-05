@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.shmelev.stomatologyapp.enums.AppointmentStatus;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -44,4 +46,7 @@ public class Appointment {
 
     @Column(name = "been_before", nullable = false)
     private Boolean beenBefore;
+
+    @Column(name = "price", nullable = false)
+    private BigDecimal price;
 }
