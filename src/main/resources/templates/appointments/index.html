@@ -16,18 +16,21 @@
         <h1 sec:authorize="hasRole('DOCTOR')">
             Ваши записи
         </h1>
+
+        <a class="buttonAdd" href="/appointments/new" sec:authorize="hasRole('ADMIN')">
+            Новая запись
+        </a>
     </th:block>
 
     <th:block th:fragment="content">
 
         <div class="container">
 
-            <div class="sectionTitle">
-                <a class="buttonAdd" href="/appointments/new" sec:authorize="hasRole('ADMIN')">
-                    Новая запись
-                </a>
-            </div>
 
+
+            <div class="tableCaption">
+                <h2>Записи в работе</h2>
+            </div>
             <table class="table">
                 <thead>
                 <tr>
