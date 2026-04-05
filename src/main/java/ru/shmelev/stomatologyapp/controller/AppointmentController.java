@@ -49,6 +49,14 @@ public class AppointmentController {
         return "appointments/new";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/{id}")
+    public String deleteAppointmentById(@PathVariable Long id) {
+        appointmentService.deleteById(id);
+        return "redirect:/appointments";
+    }
+
+
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public String create(
