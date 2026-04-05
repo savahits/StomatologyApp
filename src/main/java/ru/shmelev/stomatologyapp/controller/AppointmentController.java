@@ -8,12 +8,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.shmelev.stomatologyapp.domain.User;
 import ru.shmelev.stomatologyapp.dto.RequestAppointmentCreate;
+import ru.shmelev.stomatologyapp.enums.AppointmentStatus;
 import ru.shmelev.stomatologyapp.security.CustomUserDetails;
 import ru.shmelev.stomatologyapp.service.AppointmentService;
 import ru.shmelev.stomatologyapp.service.DoctorService;
@@ -72,11 +70,11 @@ public class AppointmentController {
         return "redirect:/appointments";
     }
 
-//    @PostMapping
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public String setDoneAppointment(Long appointmentId) {
-//        appointmentService.setStatus(appointmentId, "DONE");
-//        return "redirect:/appointments";
-//    }
+    @PostMapping("/done")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String setDoneAppointment(@RequestParam Long appointmentId) {
+        appointmentService.setStatus(appointmentId, AppointmentStatus.DONE);
+        return "redirect:/appointments";
+    }
 
 }
