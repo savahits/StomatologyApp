@@ -24,10 +24,8 @@
 
     <th:block th:fragment="content">
 
+        <!--        table of scheduled appointments-->
         <div class="container">
-
-
-
             <div class="tableCaption">
                 <h2>Записи в работе</h2>
             </div>
@@ -58,11 +56,62 @@
                     <td th:text="#{${'appointments.status.' + a.status}}"></td>
                     <td sec:authorize="hasRole('ADMIN')">
 
-                        <form th:action="@{/appointments/done}" method="post" style="display:inline">
-                            <input type="hidden" name="appointmentId" th:value="${a.id}" />
+                        <form method="post" style="display:inline" th:action="@{/appointments/done}">
+                            <input name="appointmentId" th:value="${a.id}" type="hidden"/>
 
-                            <button type="submit" class="buttonDone"
-                                    th:disabled="${a.status == 'DONE'}">
+                            <button class="buttonDone" th:disabled="${a.status == 'DONE'}"
+                                    type="submit">
+                                ✓
+                            </button>
+                        </form>
+
+                    </td>
+                    <td>
+                        <a class="button" th:href="@{/a/{id}(id=${a.id})}">Подробнее</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <!--        table of done appointments-->
+        <div class="container">
+            <div class="tableCaption">
+                <h2>Проведенные записи в работе</h2>
+            </div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Клиент</th>
+                    <th>Телефон</th>
+                    <th>Врач</th>
+                    <th>Дата</th>
+                    <th>Был ранее</th>
+                    <th>Статус</th>
+                    <th sec:authorize="hasRole('ADMIN')">Действия</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="a : ${doneAppointments}">
+                    <td th:text="${a.clientFullName}"></td>
+                    <td th:text="${a.clientPhone}"></td>
+                    <td th:text="${a.doctorFullName}"></td>
+                    <td th:text="${#temporals.format(a.time, 'dd.MM.yyyy HH:mm')}"></td>
+                    <td>
+                    <span th:class="${a.beenBefore} ? 'badge old' : 'badge new'"
+                          th:text="${a.beenBefore} ? 'Да' : 'Нет'">
+                    </span>
+                    </td>
+                    <td th:text="#{${'appointments.status.' + a.status}}"></td>
+                    <td sec:authorize="hasRole('ADMIN')">
+
+                        <form method="post" style="display:inline" th:action="@{/appointments/done}">
+                            <input name="appointmentId" th:value="${a.id}" type="hidden"/>
+
+                            <button class="buttonDone" th:disabled="${a.status == 'DONE'}"
+                                    type="submit">
                                 ✓
                             </button>
                         </form>
