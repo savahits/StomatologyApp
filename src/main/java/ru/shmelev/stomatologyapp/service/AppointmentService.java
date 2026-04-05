@@ -9,6 +9,7 @@ import ru.shmelev.stomatologyapp.domain.Client;
 import ru.shmelev.stomatologyapp.domain.Doctor;
 import ru.shmelev.stomatologyapp.domain.User;
 import ru.shmelev.stomatologyapp.dto.AppointmentListItem;
+import ru.shmelev.stomatologyapp.dto.AppointmentShowDTO;
 import ru.shmelev.stomatologyapp.dto.RequestAppointmentCreate;
 import ru.shmelev.stomatologyapp.dto.RequestClientCreate;
 import ru.shmelev.stomatologyapp.enums.AppointmentStatus;
@@ -19,6 +20,7 @@ import ru.shmelev.stomatologyapp.security.CustomUserDetails;
 import ru.shmelev.stomatologyapp.utils.PhoneUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AppointmentService {
@@ -32,6 +34,29 @@ public class AppointmentService {
         this.appointmentRepository = appointmentRepository;
         this.doctorRepository = doctorRepository;
         this.clientService = clientService;
+    }
+
+    public AppointmentShowDTO showAppointment(Long appointmentId) {
+
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+
+        if (appointment.isEmpty()) {
+            throw new RuntimeException("Appointment not found");
+        }
+
+        return new AppointmentShowDTO(
+                appointment.get().getId(),
+                appointment.get().getClient().getSurname() + " " + appointment.get().getClient().getName(),
+                appointment.get().getClient().getPhone(),
+                appointment.get().getDoctor().getId(),
+                appointment.get().getDoctor().getSurname() + " " + appointment.get().getDoctor().getName(),
+                appointment.get().getAppointmentTime(),
+                appointment.get().getBeenBefore(),
+                appointment.get().getStatus().name(),
+                appointment.get().getPrice(),
+                appointment.get().getDescription()
+        );
+
     }
 
     @Transactional
