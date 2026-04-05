@@ -110,7 +110,7 @@
                         Назад
                     </a>
 
-                    <button class="danger-btn" onclick="openModal()">
+                    <button class="danger-btn" onclick="openModal()" sec:authorize="hasRole('ADMIN')">
                         Удалить
                     </button>
 
