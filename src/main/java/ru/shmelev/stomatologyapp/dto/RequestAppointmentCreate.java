@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import ru.shmelev.stomatologyapp.validator.ValidPhone;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record RequestAppointmentCreate(
@@ -32,9 +33,12 @@ public record RequestAppointmentCreate(
         LocalDateTime time,
 
         @NotBlank(message = "Опишите прием пациента")
-        String description
+        String description,
+
+        @NotBlank(message = "Введите стоимость приема ")
+        BigDecimal price
 ) {
     public RequestAppointmentCreate() {
-        this(null, null, null, null, null, null, null);
+        this(null, null, null, null, null, null, null, null);
     }
 }
