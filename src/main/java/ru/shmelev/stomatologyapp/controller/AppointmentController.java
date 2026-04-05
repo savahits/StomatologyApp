@@ -33,14 +33,6 @@ public class AppointmentController {
         return "appointments/index";
     }
 
-    @GetMapping
-    public String DoneList(Model model,
-                                @AuthenticationPrincipal CustomUserDetails user) {
-
-        model.addAttribute("doneAppointments", appointmentService.findAll(user));
-        return "appointments/index";
-    }
-
     @GetMapping("/new")
     public String createPage(Model model) {
         model.addAttribute("appointment", new RequestAppointmentCreate());
