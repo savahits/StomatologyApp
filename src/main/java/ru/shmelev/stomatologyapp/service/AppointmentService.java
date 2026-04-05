@@ -68,6 +68,7 @@ public class AppointmentService {
         appointment.setStatus(AppointmentStatus.SCHEDULED);
         appointment.setDescription(request.description());
         appointment.setBeenBefore(beenBefore);
+        appointment.setPrice(request.price());
 
         try {
             appointmentRepository.save(appointment);
