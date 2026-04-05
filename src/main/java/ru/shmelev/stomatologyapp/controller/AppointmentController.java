@@ -34,6 +34,14 @@ public class AppointmentController {
         return "appointments/index";
     }
 
+    @GetMapping("/{id}")
+    public String appointmentPage(Model model, @PathVariable Long id) {
+
+        model.addAttribute("appointment", appointmentService.showAppointment(id));
+
+        return "appointments/show";
+    }
+
     @GetMapping("/new")
     public String createPage(Model model) {
         model.addAttribute("appointment", new RequestAppointmentCreate());
