@@ -2,7 +2,8 @@ package ru.shmelev.stomatologyapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.shmelev.stomatologyapp.domain.Appointment;
@@ -20,7 +21,6 @@ import ru.shmelev.stomatologyapp.repository.DoctorRepository;
 import ru.shmelev.stomatologyapp.security.CustomUserDetails;
 import ru.shmelev.stomatologyapp.utils.PhoneUtils;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -106,10 +106,10 @@ public class AppointmentService {
         }
     }
 
-    public List<AppointmentListItem> findAll(CustomUserDetails currentUser, AppointmentStatus status) {
+    public Page<AppointmentListItem> findAll(CustomUserDetails currentUser, AppointmentStatus status, Pageable pageable) {
 
         if (currentUser.hasRole("ROLE_ADMIN")) {
-            return map(appointmentRepository.findAllWithClientAndDoctor(status));
+            return map(appointmentRepository.findAllWithClientAndDoctor(status, pageable));
         }
 
         if (currentUser.hasRole("ROLE_DOCTOR")) {
@@ -119,7 +119,7 @@ public class AppointmentService {
                 throw new IllegalStateException("User has ROLE_DOCTOR but no doctor linked");
             }
 
-            return map(appointmentRepository.findAllByDoctorId(doctorId,  status));
+            return map(appointmentRepository.findAllByDoctorId(doctorId, status, pageable));
         }
 
         throw new org.springframework.security.access.AccessDeniedException("Access denied");
@@ -144,19 +144,17 @@ public class AppointmentService {
         appointmentRepository.deleteById(appointmentId);
     }
 
-    private List<AppointmentListItem> map(List<Appointment> appointments) {
-        return appointments.stream()
-                .map(a -> new AppointmentListItem(
-                        a.getId(),
-                        a.getClient().getSurname() + " " + a.getClient().getName(),
-                        a.getClient().getPhone(),
-                        a.getDoctor().getId(),
-                        a.getDoctor().getSurname() + " " + a.getDoctor().getName(),
-                        a.getAppointmentTime(),
-                        a.getBeenBefore(),
-                        a.getStatus().name()
-                ))
-                .toList();
+    private Page<AppointmentListItem> map(Page<Appointment> appointments) {
+        return appointments.map(a -> new AppointmentListItem(
+                a.getId(),
+                a.getClient().getSurname() + " " + a.getClient().getName(),
+                a.getClient().getPhone(),
+                a.getDoctor().getId(),
+                a.getDoctor().getSurname() + " " + a.getDoctor().getName(),
+                a.getAppointmentTime(),
+                a.getBeenBefore(),
+                a.getStatus().name()
+        ));
     }
 
 }
