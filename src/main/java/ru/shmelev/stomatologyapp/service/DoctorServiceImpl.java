@@ -1,6 +1,8 @@
 package ru.shmelev.stomatologyapp.service;
 
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.shmelev.stomatologyapp.domain.Doctor;
@@ -40,7 +42,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void delete(Long id) {
-        if (doctorRepository.existsById(id)==false) {
+        if (!doctorRepository.existsById(id)) {
             throw new RuntimeException("Doctor not found");
         }
         doctorRepository.deleteById(id);
@@ -49,6 +51,11 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public List<Doctor> findAllDoctors() {
         return doctorRepository.findAll();
+    }
+
+    @Override
+    public Page<Doctor> findAllDoctors(Pageable pageable) {
+        return doctorRepository.findAll(pageable);
     }
 
     @Override
