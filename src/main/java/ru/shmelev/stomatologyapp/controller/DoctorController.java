@@ -1,6 +1,8 @@
 package ru.shmelev.stomatologyapp.controller;
 
 import jakarta.validation.Valid;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
@@ -26,9 +28,12 @@ public class DoctorController {
     }
 
     @GetMapping
-    public String getDoctorsPage(Model model) {
+    public String getDoctorsPage(Model model,
+                                 @RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "4") int size) {
 
-        model.addAttribute("doctors", doctorService.findAllDoctors());
+        Pageable pageable = PageRequest.of(page, size);
+        model.addAttribute("doctors", doctorService.findAllDoctors(pageable));
 
         return "doctors/index";
     }
