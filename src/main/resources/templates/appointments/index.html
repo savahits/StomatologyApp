@@ -43,7 +43,7 @@
                 </thead>
 
                 <tbody>
-                <tr th:each="a : ${scheduledAppointments}">
+                <tr th:each="a : ${scheduledAppointments.content}">
                     <td th:text="${a.clientFullName}"></td>
                     <td th:text="${a.clientPhone}"></td>
                     <td th:text="${a.doctorFullName}"></td>
@@ -72,6 +72,22 @@
                 </tr>
                 </tbody>
             </table>
+
+            <!-- Pagination for scheduled appointments -->
+            <div class="pagination" th:if="${scheduledAppointments.totalPages > 1}">
+                <a th:if="${scheduledAppointments.hasPrevious()}"
+                   th:href="@{/appointments(scheduledPage=${scheduledAppointments.number - 1}, scheduledSize=${scheduledAppointments.size}, donePage=${doneAppointments.number}, doneSize=${doneAppointments.size})}"
+                   class="page-link">Предыдущая</a>
+                <span th:each="i : ${#numbers.sequence(0, scheduledAppointments.totalPages - 1)}">
+                    <a th:if="${i != scheduledAppointments.number}"
+                       th:href="@{/appointments(scheduledPage=${i}, scheduledSize=${scheduledAppointments.size}, donePage=${doneAppointments.number}, doneSize=${doneAppointments.size})}"
+                       th:text="${i + 1}" class="page-link"></a>
+                    <span th:if="${i == scheduledAppointments.number}" th:text="${i + 1}" class="page-link current"></span>
+                </span>
+                <a th:if="${scheduledAppointments.hasNext()}"
+                   th:href="@{/appointments(scheduledPage=${scheduledAppointments.number + 1}, scheduledSize=${scheduledAppointments.size}, donePage=${doneAppointments.number}, doneSize=${doneAppointments.size})}"
+                   class="page-link">Следующая</a>
+            </div>
 
         </div>
 
@@ -94,7 +110,7 @@
                 </thead>
 
                 <tbody>
-                <tr th:each="a : ${doneAppointments}">
+                <tr th:each="a : ${doneAppointments.content}">
                     <td th:text="${a.clientFullName}"></td>
                     <td th:text="${a.clientPhone}"></td>
                     <td th:text="${a.doctorFullName}"></td>
@@ -123,6 +139,22 @@
                 </tr>
                 </tbody>
             </table>
+
+            <!-- Pagination for done appointments -->
+            <div class="pagination" th:if="${doneAppointments.totalPages > 1}">
+                <a th:if="${doneAppointments.hasPrevious()}"
+                   th:href="@{/appointments(scheduledPage=${scheduledAppointments.number}, scheduledSize=${scheduledAppointments.size}, donePage=${doneAppointments.number - 1}, doneSize=${doneAppointments.size})}"
+                   class="page-link">Предыдущая</a>
+                <span th:each="i : ${#numbers.sequence(0, doneAppointments.totalPages - 1)}">
+                    <a th:if="${i != doneAppointments.number}"
+                       th:href="@{/appointments(scheduledPage=${scheduledAppointments.number}, scheduledSize=${scheduledAppointments.size}, donePage=${i}, doneSize=${doneAppointments.size})}"
+                       th:text="${i + 1}" class="page-link"></a>
+                    <span th:if="${i == doneAppointments.number}" th:text="${i + 1}" class="page-link current"></span>
+                </span>
+                <a th:if="${doneAppointments.hasNext()}"
+                   th:href="@{/appointments(scheduledPage=${scheduledAppointments.number}, scheduledSize=${scheduledAppointments.size}, donePage=${doneAppointments.number + 1}, doneSize=${doneAppointments.size})}"
+                   class="page-link">Следующая</a>
+            </div>
 
         </div>
 
