@@ -35,7 +35,12 @@ public class DoctorController {
 
     @GetMapping("/{id}")
     public String getDoctorById(@PathVariable Long id, Model model) {
-        model.addAttribute("doctor", doctorService.findById(id));
+        try{
+            model.addAttribute("doctor", doctorService.findById(id));
+        }
+        catch (RuntimeException e){
+            return "doctors/notFound";
+        }
 
         return "doctors/show";
     }
