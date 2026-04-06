@@ -315,3 +315,30 @@ body {
     margin: 20px 0 10px;
     color: #444;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 10px;
+}
+
+.page-link {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #303030;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+    transition: background 0.2s;
+}
+
+.page-link:hover {
+    background: #f0f0f0;
+}
+
+.page-link.current {
+    background: #303030;
+    color: white;
+    pointer-events: none;
+}
