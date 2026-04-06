@@ -28,7 +28,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="doctor : ${doctors}">
+                <tr th:each="doctor : ${doctors.content}">
                     <td th:text="${doctor.surname}"></td>
                     <td th:text="${doctor.name}"></td>
                     <td th:text="${doctor.patronymic}"></td>
@@ -40,6 +40,22 @@
                 </tr>
                 </tbody>
             </table>
+
+            <!-- Pagination for doctors -->
+            <div class="pagination" th:if="${doctors.totalPages > 1}">
+                <a th:if="${doctors.hasPrevious()}"
+                   th:href="@{/doctors(page=${doctors.number - 1}, size=${doctors.size})}"
+                   class="page-link">Предыдущая</a>
+                <span th:each="i : ${#numbers.sequence(0, doctors.totalPages - 1)}">
+                    <a th:if="${i != doctors.number}"
+                       th:href="@{/doctors(page=${i}, size=${doctors.size})}"
+                       th:text="${i + 1}" class="page-link"></a>
+                    <span th:if="${i == doctors.number}" th:text="${i + 1}" class="page-link current"></span>
+                </span>
+                <a th:if="${doctors.hasNext()}"
+                   th:href="@{/doctors(page=${doctors.number + 1}, size=${doctors.size})}"
+                   class="page-link">Следующая</a>
+            </div>
         </div>
     </th:block>
 
