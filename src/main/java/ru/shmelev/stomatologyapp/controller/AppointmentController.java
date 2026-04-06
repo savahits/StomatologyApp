@@ -50,7 +50,7 @@ public class AppointmentController {
             model.addAttribute("appointment", appointmentService.showAppointment(id));
         }
         catch (RuntimeException e){
-            return "notFoundAppointment";
+            return "appointments/notFound";
         }
 
 
