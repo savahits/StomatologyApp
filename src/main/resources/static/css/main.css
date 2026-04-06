@@ -319,19 +319,26 @@ body {
 .pagination {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin: 20px 0;
     gap: 10px;
 }
 
 .page-link {
-    padding: 8px 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 12px;
     text-decoration: none;
     color: #303030;
     border: 1px solid #ccc;
     border-radius: 4px;
     background: white;
     transition: background 0.2s;
+    box-sizing: border-box;
 }
+
 
 .page-link:hover {
     background: #f0f0f0;
