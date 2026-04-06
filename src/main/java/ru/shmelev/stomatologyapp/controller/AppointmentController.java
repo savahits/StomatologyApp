@@ -2,6 +2,8 @@ package ru.shmelev.stomatologyapp.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,10 +29,17 @@ public class AppointmentController {
 
     @GetMapping
     public String listPage(Model model,
-                       @AuthenticationPrincipal CustomUserDetails user) {
+                        @RequestParam(defaultValue = "0") int scheduledPage,
+                        @RequestParam(defaultValue = "4") int scheduledSize,
+                        @RequestParam(defaultValue = "0") int donePage,
+                        @RequestParam(defaultValue = "4") int doneSize,
+                        @AuthenticationPrincipal CustomUserDetails user) {
 
-        model.addAttribute("scheduledAppointments", appointmentService.findAll(user, AppointmentStatus.SCHEDULED));
-        model.addAttribute("doneAppointments", appointmentService.findAll(user,  AppointmentStatus.DONE));
+        Pageable scheduledPageable = PageRequest.of(scheduledPage, scheduledSize);
+        Pageable donePageable = PageRequest.of(donePage, doneSize);
+
+        model.addAttribute("scheduledAppointments", appointmentService.findAll(user, AppointmentStatus.SCHEDULED, scheduledPageable));
+        model.addAttribute("doneAppointments", appointmentService.findAll(user, AppointmentStatus.DONE, donePageable));
         return "appointments/index";
     }
 
