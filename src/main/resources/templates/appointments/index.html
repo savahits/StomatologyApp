@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
     <title th:fragment="title">Записи</title>
+    <script src="/js/script.js"></script>
 </head>
 
 <body>
@@ -56,14 +57,16 @@
                     <td th:text="#{${'appointments.status.' + a.status}}"></td>
                     <td sec:authorize="hasRole('ADMIN')">
 
-                        <form method="post" style="display:inline" th:action="@{/appointments/done}">
-                            <input name="appointmentId" th:value="${a.id}" type="hidden"/>
-
-                            <button class="buttonDone" th:disabled="${a.status == 'DONE'}"
-                                    type="submit">
-                                ✓
-                            </button>
-                        </form>
+                        <button class="buttonDone"
+                                th:disabled="${a.status == 'DONE'}"
+                                type="button"
+                                th:data-appointment-id="${a.id}"
+                                th:data-client-name="${a.clientFullName}"
+                                th:data-doctor-name="${a.doctorFullName}"
+                                th:data-appointment-time="${#temporals.format(a.time, 'dd.MM.yyyy HH:mm')}"
+                                onclick="openDoneModal(this)">
+                            ✓
+                        </button>
 
                     </td>
                     <td>
@@ -73,7 +76,6 @@
                 </tbody>
             </table>
 
-            <!-- Pagination for scheduled appointments -->
             <div class="pagination" th:if="${scheduledAppointments.totalPages > 1}">
                 <a th:if="${scheduledAppointments.hasPrevious()}"
                    th:href="@{/appointments(scheduledPage=${scheduledAppointments.number - 1}, scheduledSize=${scheduledAppointments.size}, donePage=${doneAppointments.number}, doneSize=${doneAppointments.size})}"
@@ -127,7 +129,6 @@
                 </tbody>
             </table>
 
-            <!-- Pagination for done appointments -->
             <div class="pagination" th:if="${doneAppointments.totalPages > 1}">
                 <a th:if="${doneAppointments.hasPrevious()}"
                    th:href="@{/appointments(scheduledPage=${scheduledAppointments.number}, scheduledSize=${scheduledAppointments.size}, donePage=${doneAppointments.number - 1}, doneSize=${doneAppointments.size})}"
@@ -143,6 +144,36 @@
                    class="page-link">Следующая</a>
             </div>
 
+        </div>
+
+        <div id="doneModal" class="modal">
+            <div class="modal-content">
+                <h3>Подтверждение выполнения</h3>
+                <p>Отметить запись как выполненную?</p>
+                <p style="font-size: 12px; color: #999;">Действие необратимо</p>
+
+                <div id="appointmentInfo" class="appointment-info">
+
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-cancel" type="button" onclick="closeDoneModal()">
+                        Отмена
+                    </button>
+
+                    <form id="doneForm" method="post" th:action="@{/appointments/done}">
+                        <input type="hidden" name="appointmentId" id="modalAppointmentId"/>
+
+                        <input type="hidden"
+                               th:name="${_csrf.parameterName}"
+                               th:value="${_csrf.token}"/>
+
+                        <button type="submit" class="btn btn-confirm">
+                            Подтвердить
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
 
     </th:block>
