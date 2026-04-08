@@ -57,25 +57,11 @@
                 </div>
                 <button type="submit" class="button">Создать</button>
             </form>
-        </div>
-        <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const settings = {
-                    create: false,
-                    sortField: { field: "text", direction: "asc" },
-                    placeholder: "Введите специализацию",
-                    allowEmptyOption: true,
-                    maxOptions: 100,
-                };
-                const ts = new TomSelect("#specializationSelect", settings);
-                if (!document.querySelector("#specializationSelect").value) {
-                    ts.clear();
-                }
-            });
-        </script>
-    </th:block>
-</th:block>
+         </div>
+     </th:block>
+ </th:block>
+
+<script src="/js/doctors-new.js"></script>
+
 </body>
 </html>
