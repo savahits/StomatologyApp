@@ -1,5 +1,6 @@
 package ru.shmelev.stomatologyapp.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -42,7 +43,7 @@ public class AppointmentService {
         Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
 
         if (appointment.isEmpty()) {
-            throw new RuntimeException("Appointment not found");
+            throw new EntityNotFoundException("Appointment not found");
         }
 
         return new AppointmentShowDTO(
@@ -129,7 +130,7 @@ public class AppointmentService {
     public void setStatus(Long appointmentId, AppointmentStatus status) {
 
         Appointment appointment = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
         if (appointment.getStatus() == AppointmentStatus.DONE) {
             return;
         }
@@ -139,7 +140,7 @@ public class AppointmentService {
 
     public void deleteById(Long appointmentId) {
         if (!appointmentRepository.existsById(appointmentId)) {
-            throw new RuntimeException("Appointment not found");
+            throw new EntityNotFoundException("Appointment not found");
         }
         appointmentRepository.deleteById(appointmentId);
     }
