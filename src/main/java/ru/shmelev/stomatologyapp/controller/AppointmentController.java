@@ -44,9 +44,9 @@ public class AppointmentController {
     }
 
     @GetMapping("/{id}")
-    public String appointmentPage(Model model, @PathVariable Long id) {
+    public String appointmentPage(Model model, @PathVariable Long id, @AuthenticationPrincipal CustomUserDetails user) {
 
-        model.addAttribute("appointment", appointmentService.showAppointment(id));
+        model.addAttribute("appointment", appointmentService.showAppointment(id, user));
 
         return "appointments/show";
     }
