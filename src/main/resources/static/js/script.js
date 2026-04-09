@@ -30,20 +30,18 @@ function openDoneModal(button) {
     `;
 
     // Show modal
-    modal.style.display = 'block';
+    modal.classList.add('active');
 }
 
 function closeDoneModal() {
     const modal = document.getElementById('doneModal');
-    modal.style.display = 'none';
+    modal.classList.remove('active');
 }
 
 // Close modal when clicking outside of it
 window.onclick = function(event) {
     const modal = document.getElementById('doneModal');
     if (event.target === modal) {
-        modal.style.display = 'none';
+        modal.classList.remove('active');
     }
 }
-
-
