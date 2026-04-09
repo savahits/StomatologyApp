@@ -1,5 +1,6 @@
 package ru.shmelev.stomatologyapp.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -66,7 +67,7 @@ public class DoctorServiceImpl implements DoctorService {
         Optional<Doctor> doctor = doctorRepository.findById(id);
 
         if (doctor.isEmpty()) {
-            throw new RuntimeException("Doctor not found");
+            throw new EntityNotFoundException("Doctor not found");
         }
 
         String specializationName = doctor.get().getSpecialization().getName();
