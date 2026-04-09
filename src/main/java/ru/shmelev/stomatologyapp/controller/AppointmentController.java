@@ -46,13 +46,7 @@ public class AppointmentController {
     @GetMapping("/{id}")
     public String appointmentPage(Model model, @PathVariable Long id) {
 
-        try{
-            model.addAttribute("appointment", appointmentService.showAppointment(id));
-        }
-        catch (RuntimeException e){
-            return "appointments/notFound";
-        }
-
+        model.addAttribute("appointment", appointmentService.showAppointment(id));
 
         return "appointments/show";
     }
