@@ -17,6 +17,9 @@ public class SpecializationService {
     }
 
     public Specialization create(RequestSpecializationCreate request) {
+        if (specializationRepository.findByName(request.name()).isPresent()) {
+            throw new IllegalArgumentException("Специализация с таким названием уже существует");
+        }
         Specialization specialization = new Specialization();
         specialization.setName(request.name());
         return specializationRepository.save(specialization);
