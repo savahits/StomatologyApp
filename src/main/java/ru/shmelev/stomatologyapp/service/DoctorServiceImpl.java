@@ -1,6 +1,7 @@
 package ru.shmelev.stomatologyapp.service;
 
 import jakarta.transaction.Transactional;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +12,7 @@ import ru.shmelev.stomatologyapp.domain.Specialization;
 import ru.shmelev.stomatologyapp.domain.User;
 import ru.shmelev.stomatologyapp.dto.DoctorShowDTO;
 import ru.shmelev.stomatologyapp.dto.RequestDoctorCreate;
+import ru.shmelev.stomatologyapp.exception.DoctorHasAppointmentsException;
 import ru.shmelev.stomatologyapp.exception.UsernameAlreadyExistsException;
 import ru.shmelev.stomatologyapp.repository.DoctorRepository;
 import ru.shmelev.stomatologyapp.repository.RoleRepository;
@@ -42,10 +44,11 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void delete(Long id) {
-        if (!doctorRepository.existsById(id)) {
-            throw new RuntimeException("Doctor not found");
+        try {
+            doctorRepository.deleteById(id);
+        } catch (DataIntegrityViolationException ex) {
+            throw new DoctorHasAppointmentsException(id);
         }
-        doctorRepository.deleteById(id);
     }
 
     @Override
