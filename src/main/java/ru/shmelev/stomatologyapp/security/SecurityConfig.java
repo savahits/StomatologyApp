@@ -14,18 +14,19 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/login").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/login").permitAll()
 
                         // read
                         .requestMatchers("/doctors").hasAnyRole("ADMIN", "DOCTOR")
                         .requestMatchers("/appointments").hasAnyRole("ADMIN", "DOCTOR")
                         .requestMatchers("/doctors/{id}").hasAnyRole("ADMIN", "DOCTOR")
-
+                        .requestMatchers("/appointments/{id}").hasAnyRole("ADMIN", "DOCTOR")
 
                         // write
-                        .requestMatchers("/doctors/new", "/doctors/create").hasRole("ADMIN")
-                        .requestMatchers("/appointments/new", "/doctors/create").hasRole("ADMIN")
-                        .requestMatchers("/doctors/edit/**", "/doctors/delete/**").hasRole("ADMIN")
+                        .requestMatchers("/doctors/new").hasRole("ADMIN")
+                        .requestMatchers("/appointments/new").hasRole("ADMIN")
+                        .requestMatchers("/specializations/new").hasRole("ADMIN")
+                        .requestMatchers("/doctors", "/doctors/{id}", "/appointments", "/appointments/done", "/specializations").hasRole("ADMIN")
 
                         .anyRequest().authenticated()
                 )
