@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:fragment="title">Создание специализации</title>
+</head>
+
+<body>
+
+<th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
+
+    <th:block th:fragment="header"><h1>Создать специализацию</h1></th:block>
+
+    <th:block th:fragment="content">
+        <div class="container">
+
+            <form class="form" th:action="@{/specializations}" method="post" th:object="${specialization}">
+                <h2>Создать специализацию</h2>
+
+                <div th:if="${#fields.hasGlobalErrors()}" class="formErrors">
+                    <strong>Ошибки:</strong>
+                    <ul>
+                        <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
+                    </ul>
+                </div>
+
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}"/>
+
+                <div class="formRow">
+                    <label>Название специализации</label>
+                    <input type="text" th:field="*{name}" th:classappend="${#fields.hasErrors('name')} ? 'input-error'">
+                    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="field-error"></div>
+                </div>
+
+                <button type="submit" class="button">Создать</button>
+            </form>
+        </div>
+    </th:block>
+
+</th:block>
+
+</body>
+</html>
