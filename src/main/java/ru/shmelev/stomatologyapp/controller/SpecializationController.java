@@ -32,11 +32,13 @@ public class SpecializationController {
     public String createSpecialization(@Valid @ModelAttribute("specialization") RequestSpecializationCreate dto,
                                      BindingResult bindingResult,
                                      Model model) {
-            if (bindingResult.hasErrors()) {
-                model.addAttribute("specialization", dto);
-                model.addAttribute("errors", bindingResult.getAllErrors());
-            }
+        try {
             specializationService.create(dto);
-        return "redirect:/doctors";
+            return "redirect:/doctors";
+        } catch (IllegalArgumentException e) {
+            bindingResult.rejectValue("name", "duplicate", e.getMessage());
+            model.addAttribute("specialization", dto);
+            return "specializations/new";
+        }
     }
 }
