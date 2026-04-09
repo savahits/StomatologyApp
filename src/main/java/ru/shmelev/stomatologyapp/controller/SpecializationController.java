@@ -1,0 +1,42 @@
+package ru.shmelev.stomatologyapp.controller;
+
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import ru.shmelev.stomatologyapp.dto.RequestSpecializationCreate;
+import ru.shmelev.stomatologyapp.service.SpecializationService;
+
+@Controller
+@RequestMapping("/specializations")
+public class SpecializationController {
+
+    SpecializationService specializationService;
+
+    @Autowired
+    public SpecializationController(SpecializationService specializationService) {
+        this.specializationService = specializationService;
+    }
+
+    @GetMapping("/new")
+    public String createPage(Model model) {
+        model.addAttribute("specialization", new RequestSpecializationCreate());
+        return "specializations/new";
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping
+    public String createSpecialization(@Valid @ModelAttribute("specialization") RequestSpecializationCreate dto,
+                                     BindingResult bindingResult,
+                                     Model model) {
+            if (bindingResult.hasErrors()) {
+                model.addAttribute("specialization", dto);
+                model.addAttribute("errors", bindingResult.getAllErrors());
+            }
+            specializationService.create(dto);
+        return "redirect:/doctors";
+    }
+}
