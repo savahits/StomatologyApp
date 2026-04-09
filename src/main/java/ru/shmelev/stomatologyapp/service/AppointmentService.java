@@ -38,25 +38,34 @@ public class AppointmentService {
         this.clientService = clientService;
     }
 
-    public AppointmentShowDTO showAppointment(Long appointmentId) {
+    public AppointmentShowDTO showAppointment(Long appointmentId, CustomUserDetails currentUser) {
 
-        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+        Optional<Appointment> appointmentOpt = appointmentRepository.findById(appointmentId);
 
-        if (appointment.isEmpty()) {
+        if (appointmentOpt.isEmpty()) {
             throw new EntityNotFoundException("Appointment not found");
         }
 
+        Appointment appointment = appointmentOpt.get();
+
+        if (currentUser.hasRole("ROLE_DOCTOR")) {
+            Long doctorId = currentUser.getDoctorId();
+            if (doctorId == null || !appointment.getDoctor().getId().equals(doctorId)) {
+                throw new org.springframework.security.access.AccessDeniedException("Access denied");
+            }
+        }
+
         return new AppointmentShowDTO(
-                appointment.get().getId(),
-                appointment.get().getClient().getSurname() + " " + appointment.get().getClient().getName(),
-                appointment.get().getClient().getPhone(),
-                appointment.get().getDoctor().getId(),
-                appointment.get().getDoctor().getSurname() + " " + appointment.get().getDoctor().getName(),
-                appointment.get().getAppointmentTime(),
-                appointment.get().getIsNotFirstVisit(),
-                appointment.get().getStatus().name(),
-                appointment.get().getPrice(),
-                appointment.get().getDescription()
+                appointment.getId(),
+                appointment.getClient().getSurname() + " " + appointment.getClient().getName(),
+                appointment.getClient().getPhone(),
+                appointment.getDoctor().getId(),
+                appointment.getDoctor().getSurname() + " " + appointment.getDoctor().getName(),
+                appointment.getAppointmentTime(),
+                appointment.getIsNotFirstVisit(),
+                appointment.getStatus().name(),
+                appointment.getPrice(),
+                appointment.getDescription()
         );
 
     }
