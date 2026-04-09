@@ -6,4 +6,7 @@ public record RequestSpecializationCreate(
         @NotBlank(message = "Введите название специализации")
         String name
 ) {
+    public RequestSpecializationCreate() {
+        this(null);
+    }
 }
