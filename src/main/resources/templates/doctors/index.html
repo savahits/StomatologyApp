@@ -27,6 +27,9 @@
         <div class="container">
             <div class="sectionTitle">
                 <a class="buttonAdd" th:href="@{/doctors/new}" sec:authorize="hasRole('ADMIN')">Добавить доктора</a>
+                <a class="buttonAdd" th:href="@{/specializations/new}" sec:authorize="hasRole('ADMIN')">
+                    Добавить специализацию
+                </a>
             </div>
 
             <table class="table">
