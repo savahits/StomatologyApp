@@ -11,6 +11,19 @@
     <th:block th:fragment="header"><h1>Наши доктора</h1></th:block>
 
     <th:block th:fragment="content">
+        <div id="errorModal" class="modal" th:classappend="${error} ? 'active'">
+            <div class="modal-content">
+                <h3>Ошибка</h3>
+                <p th:text="${error}"></p>
+
+                <div class="modal-actions">
+                    <button class="btn btn-cancel" onclick="function closeErrorModal() {
+                        document.getElementById('errorModal').classList.remove('active');
+                    }
+                    closeErrorModal()">Закрыть</button>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <div class="sectionTitle">
                 <a class="buttonAdd" th:href="@{/doctors/new}" sec:authorize="hasRole('ADMIN')">Добавить доктора</a>
