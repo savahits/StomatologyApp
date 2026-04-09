@@ -52,7 +52,7 @@ public class AppointmentService {
                 appointment.get().getDoctor().getId(),
                 appointment.get().getDoctor().getSurname() + " " + appointment.get().getDoctor().getName(),
                 appointment.get().getAppointmentTime(),
-                appointment.get().getBeenBefore(),
+                appointment.get().getIsNotFirstVisit(),
                 appointment.get().getStatus().name(),
                 appointment.get().getPrice(),
                 appointment.get().getDescription()
@@ -93,7 +93,7 @@ public class AppointmentService {
         appointment.setCreatedBy(currentUser);
         appointment.setStatus(AppointmentStatus.SCHEDULED);
         appointment.setDescription(request.description());
-        appointment.setBeenBefore(beenBefore);
+        appointment.setIsNotFirstVisit(beenBefore);
         appointment.setPrice(request.price());
 
         try {
@@ -152,7 +152,7 @@ public class AppointmentService {
                 a.getDoctor().getId(),
                 a.getDoctor().getSurname() + " " + a.getDoctor().getName(),
                 a.getAppointmentTime(),
-                a.getBeenBefore(),
+                a.getIsNotFirstVisit(),
                 a.getStatus().name()
         ));
     }
