@@ -40,7 +40,7 @@ public class AppointmentService {
 
     public AppointmentShowDTO showAppointment(Long appointmentId, CustomUserDetails currentUser) {
 
-        Optional<Appointment> appointmentOpt = appointmentRepository.findById(appointmentId);
+        Optional<Appointment> appointmentOpt = Optional.ofNullable(appointmentRepository.findAppointmentById(appointmentId));
 
         if (appointmentOpt.isEmpty()) {
             throw new EntityNotFoundException("Appointment not found");
@@ -138,8 +138,10 @@ public class AppointmentService {
     @Transactional
     public void setStatus(Long appointmentId, AppointmentStatus status) {
 
-        Appointment appointment = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
+        Appointment appointment = appointmentRepository.findAppointmentById(appointmentId);
+        if  (appointment == null) {
+            throw new EntityNotFoundException("Appointment not found");
+        }
         if (appointment.getStatus() == AppointmentStatus.DONE) {
             return;
         }
