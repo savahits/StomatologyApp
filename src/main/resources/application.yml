@@ -5,3 +5,8 @@ spring:
 logging:
   level:
     org.hibernate.engine.jdbc.spi.SqlExceptionHelper: error
+
+server:
+  servlet:
+    session:
+      timeout: 15m
