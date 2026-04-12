@@ -27,5 +27,16 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 """)
     Page<Appointment> findAllByDoctorId(Long doctorId, @Param("status") AppointmentStatus status, Pageable pageable);
 
+    @Query("""
+    SELECT a FROM Appointment a
+    JOIN FETCH a.client
+    JOIN FETCH a.doctor d
+    JOIN FETCH d.specialization
+    JOIN FETCH d.user
+    JOIN FETCH a.createdBy
+    WHERE a.id = :id
+""")
+    Appointment findAppointmentById(@Param("id") Long id);
+
     boolean existsByAppointmentTimeAndDoctorId(LocalDateTime appointmentTime, Long doctorId);
 }
