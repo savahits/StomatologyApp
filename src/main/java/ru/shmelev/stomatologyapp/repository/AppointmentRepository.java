@@ -16,7 +16,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
             "join fetch a.client " +
             "join fetch a.doctor d " +
             "where a.status = :status")
-    Page<Appointment> findAllWithClientAndDoctor(@Param("status") AppointmentStatus status, Pageable pageable);
+    Page<Appointment> findAll(@Param("status") AppointmentStatus status, Pageable pageable);
 
 
     @Query("""
