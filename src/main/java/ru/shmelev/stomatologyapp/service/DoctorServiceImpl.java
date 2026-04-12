@@ -54,17 +54,17 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public List<Doctor> findAllDoctors() {
-        return doctorRepository.findAll();
+        return doctorRepository.findAllDoctors();
     }
 
     @Override
     public Page<Doctor> findAllDoctors(Pageable pageable) {
-        return doctorRepository.findAll(pageable);
+        return doctorRepository.findAllDoctors(pageable);
     }
 
     @Override
     public DoctorShowDTO findById(Long id) {
-        Optional<Doctor> doctor = doctorRepository.findById(id);
+        Optional<Doctor> doctor = Optional.ofNullable(doctorRepository.findDoctorById(id));
 
         if (doctor.isEmpty()) {
             throw new EntityNotFoundException("Doctor not found");
