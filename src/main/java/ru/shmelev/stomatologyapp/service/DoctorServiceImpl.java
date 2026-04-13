@@ -92,8 +92,10 @@ public class DoctorServiceImpl implements DoctorService {
         Specialization specialization = specializationRepository.findById(dto.specializationId())
                 .orElseThrow(() -> new RuntimeException("Specialization not found"));
 
-        Role role = roleRepository.findByName("ROLE_DOCTOR")
-                .orElseThrow(() -> new RuntimeException("Role not found"));
+        Role role = roleRepository.findByName("ROLE_DOCTOR");
+        if (role == null) {
+            throw new RuntimeException("Role not found");
+        }
 
         String normalizedPhone = null;
         if (dto.phone() != null && !dto.phone().isBlank()) {
