@@ -1,33 +1,42 @@
 package ru.shmelev.stomatologyapp.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
+
+    private final SetupFilter setupFilter;
+
+    @Autowired
+    public SecurityConfig(SetupFilter setupFilter) {
+        this.setupFilter = setupFilter;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
+                .addFilterBefore(setupFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/login").permitAll()
+
+                        // public
+                        .requestMatchers("/setup/**", "/css/**", "/js/**", "/login").permitAll()
 
                         // read
-                        .requestMatchers("/doctors").hasAnyRole("ADMIN", "DOCTOR")
-                        .requestMatchers("/appointments").hasAnyRole("ADMIN", "DOCTOR")
-                        .requestMatchers("/doctors/{id}").hasAnyRole("ADMIN", "DOCTOR")
-                        .requestMatchers("/appointments/{id}").hasAnyRole("ADMIN", "DOCTOR")
+                        .requestMatchers("/doctors", "/appointments").hasAnyRole("ADMIN", "DOCTOR")
+                        .requestMatchers("/doctors/{id}", "/appointments/{id}").hasAnyRole("ADMIN", "DOCTOR")
 
                         // write
-                        .requestMatchers("/doctors/new").hasRole("ADMIN")
-                        .requestMatchers("/appointments/new").hasRole("ADMIN")
-                        .requestMatchers("/specializations/new").hasRole("ADMIN")
+                        .requestMatchers("/doctors/new", "/appointments/new", "/specializations/new").hasRole("ADMIN")
                         .requestMatchers("/doctors", "/doctors/{id}", "/appointments", "/appointments/done", "/specializations").hasRole("ADMIN")
 
+                        // fallback
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
