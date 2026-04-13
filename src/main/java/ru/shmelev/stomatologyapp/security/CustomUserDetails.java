@@ -33,7 +33,12 @@ public class CustomUserDetails implements UserDetails {
     }
 
     public String getHelloName() {
-        return user.getDoctor().getName() + " " + user.getDoctor().getPatronymic();
+        if (user.getDoctor() != null) {
+            String patronymic = user.getDoctor().getPatronymic() != null ? " " + user.getDoctor().getPatronymic() : "";
+            return user.getDoctor().getSurname() + " " + user.getDoctor().getName() + patronymic;
+        } else {
+            return user.getUsername();
+        }
     }
 
     public User getUser() {
