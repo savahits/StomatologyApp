@@ -11,10 +11,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final SetupFilter setupFilter;
+    private final RedirectAuthenticatedFilter redirectAuthenticatedFilter;
 
     @Autowired
-    public SecurityConfig(SetupFilter setupFilter) {
+    public SecurityConfig(SetupFilter setupFilter, RedirectAuthenticatedFilter redirectAuthenticatedFilter) {
         this.setupFilter = setupFilter;
+        this.redirectAuthenticatedFilter = redirectAuthenticatedFilter;
     }
 
     @Bean
@@ -22,6 +24,7 @@ public class SecurityConfig {
 
         http
                 .addFilterBefore(setupFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(redirectAuthenticatedFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
 
                         // public
@@ -40,7 +43,7 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/doctors", true)
+                        .defaultSuccessUrl("/appointments", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
