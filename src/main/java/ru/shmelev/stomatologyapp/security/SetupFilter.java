@@ -29,7 +29,7 @@ public class SetupFilter extends OncePerRequestFilter {
         String uri = request.getRequestURI();
 
         if (!adminExists) {
-            if (!uri.startsWith("/setup")) {
+            if (!uri.startsWith("/setup") && !uri.startsWith("/css") && !uri.startsWith("/js")) {
                 response.sendRedirect("/setup/admin");
                 return;
             }
