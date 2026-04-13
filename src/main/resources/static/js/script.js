@@ -38,10 +38,29 @@ function closeDoneModal() {
     modal.classList.remove('active');
 }
 
+// Modal functions for admin creation confirmation
+function openModal() {
+    const modal = document.getElementById('confirmModal');
+    modal.classList.add('active');
+}
+
+function closeModal() {
+    const modal = document.getElementById('confirmModal');
+    modal.classList.remove('active');
+}
+
+function submitForm() {
+    document.getElementById('adminForm').submit();
+}
+
 // Close modal when clicking outside of it
 window.onclick = function(event) {
-    const modal = document.getElementById('doneModal');
-    if (event.target === modal) {
-        modal.classList.remove('active');
+    const confirmModal = document.getElementById('confirmModal');
+    const doneModal = document.getElementById('doneModal');
+    if (event.target === confirmModal) {
+        confirmModal.classList.remove('active');
+    }
+    if (event.target === doneModal) {
+        doneModal.classList.remove('active');
     }
 }
