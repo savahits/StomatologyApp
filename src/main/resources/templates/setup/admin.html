@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+
+<head>
+    <title>Создание администратора</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                Savva Clinic
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="container">
+
+            <form id="adminForm" class="form" th:action="@{/setup/admin}" th:object="${form}" method="post">
+
+                <h2>Создание администратора</h2>
+
+                <div th:if="${error}" class="error">
+                    <span th:text="${error}"></span>
+                </div>
+
+                <div class="formRow">
+                    <label>Логин</label>
+                    <input type="text" th:field="*{username}" required/>
+                    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></span>
+                </div>
+
+                <div class="formRow">
+                    <label>Пароль</label>
+                    <input type="password" th:field="*{password}" required/>
+                    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
+                </div>
+
+                <button type="button" class="button" onclick="openModal()">
+                    Создать администратора
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- MODAL -->
+<div id="confirmModal" class="modal">
+    <div class="modalContent">
+
+        <h3>Подтверждение</h3>
+
+        <p>Вы уверены, что хотите создать администратора с этими данными?</p>
+
+        <div class="modalButtons">
+            <button class="button" onclick="submitForm()">Да</button>
+            <button class="button danger-btn" onclick="closeModal()">Отмена</button>
+        </div>
+
+    </div>
+</div>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
