@@ -12,10 +12,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByUsername(String username);
 
-    @Query("""
-    SELECT COUNT(u) > 0
-    FROM User u
-    WHERE u.role.name = :roleName
-""")
-    boolean existsAdmin(@Param("roleName") String roleName);
+    boolean existsByRole_Name(String roleName);
 }

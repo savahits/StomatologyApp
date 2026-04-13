@@ -15,7 +15,7 @@ public class AdminSetupService {
     }
 
     public boolean isAdminExists(){
-        return userRepository.existsAdmin("ROLE_ADMIN");
+        return userRepository.existsByRole_Name("ROLE_ADMIN");
     }
 
 }
