@@ -2,9 +2,7 @@ package ru.shmelev.stomatologyapp.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -21,4 +19,6 @@ public class Role {
     @Column(nullable = false, unique = true)
     private String name;
 
+    public Role(String roleName) {
+    }
 }
