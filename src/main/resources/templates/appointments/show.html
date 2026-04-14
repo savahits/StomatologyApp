@@ -76,7 +76,7 @@
                         Назад
                     </a>
 
-                    <button class="danger-btn" onclick="openModal()">
+                    <button class="danger-btn" onclick="openModal()" sec:authorize="hasRole('ADMIN')">
                         Удалить
                     </button>
 
@@ -103,7 +103,7 @@
                                th:name="${_csrf.parameterName}"
                                th:value="${_csrf.token}"/>
 
-                        <button type="submit" class="btn btn-confirm">
+                        <button type="submit" class="btn btn-confirm" sec:authorize="hasRole('ADMIN')">
                             Удалить
                         </button>
                     </form>
