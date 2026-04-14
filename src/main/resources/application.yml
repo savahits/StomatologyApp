@@ -1,6 +1,9 @@
 spring:
   application:
     name: StomatologyApp
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 logging:
   level:
@@ -10,3 +13,4 @@ server:
   servlet:
     session:
       timeout: 15m
+
