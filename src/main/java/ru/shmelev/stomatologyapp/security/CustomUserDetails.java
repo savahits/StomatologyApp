@@ -35,7 +35,7 @@ public class CustomUserDetails implements UserDetails {
     public String getHelloName() {
         if (user.getDoctor() != null) {
             String patronymic = user.getDoctor().getPatronymic() != null ? " " + user.getDoctor().getPatronymic() : "";
-            return user.getDoctor().getSurname() + " " + user.getDoctor().getName() + patronymic;
+            return user.getDoctor().getName() + patronymic;
         } else {
             return user.getUsername();
         }
