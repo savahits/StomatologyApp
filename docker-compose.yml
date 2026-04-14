@@ -1,29 +1,32 @@
-version: "3.9"
+version: '3.8'
 
 services:
-  db:
-    image: postgres:15
-    container_name: stomatology_db
-    restart: always
+  postgres:
+    image: postgres:15-alpine
+    container_name: stomatology-postgres
+    restart: unless-stopped
     environment:
       POSTGRES_DB: stomatologyapp
       POSTGRES_USER: savelii
       POSTGRES_PASSWORD: 12345
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   app:
     build: .
-    container_name: stomatology_app
-    depends_on:
-      - db
-    restart: always
+    container_name: stomatology-app
+    restart: unless-stopped
     ports:
-      - "80:8080"
+      - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/stomatologyapp
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/stomatologyapp
       SPRING_DATASOURCE_USERNAME: savelii
       SPRING_DATASOURCE_PASSWORD: 12345
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    depends_on:
+      - postgres
 
 volumes:
   postgres_data:
