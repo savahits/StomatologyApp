@@ -15,10 +15,10 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Column(nullable = false, unique = true)
     private String name;
 
     public Role(String roleName) {
+        this.name = roleName;
     }
 }
