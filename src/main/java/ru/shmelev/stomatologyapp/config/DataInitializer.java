@@ -1,5 +1,6 @@
 package ru.shmelev.stomatologyapp.config;
 
+import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import ru.shmelev.stomatologyapp.domain.Role;
@@ -15,17 +16,27 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) {
 
+        System.out.println("Initializing roles...");
         createRoleIfNotExists("ROLE_ADMIN");
         createRoleIfNotExists("ROLE_DOCTOR");
     }
 
     private void createRoleIfNotExists(String roleName) {
+        System.out.println(">>> INPUT ROLE: [" + roleName + "]");
+
+
+
         Role role = roleRepository.findByName(roleName);
 
-        if (role == null) {
-            roleRepository.save(new Role(roleName));
+        if (!roleRepository.existsByName(roleName)) {
+            try {
+                roleRepository.save(new Role(roleName));
+            } catch (Exception e) {
+                System.out.println("ROLE already exists: " + roleName);
+            }
         }
     }
 }
