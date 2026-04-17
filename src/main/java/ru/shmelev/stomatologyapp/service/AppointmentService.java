@@ -22,6 +22,7 @@ import ru.shmelev.stomatologyapp.repository.DoctorRepository;
 import ru.shmelev.stomatologyapp.security.CustomUserDetails;
 import ru.shmelev.stomatologyapp.utils.PhoneUtils;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -157,16 +158,34 @@ public class AppointmentService {
     }
 
     private Page<AppointmentListItem> map(Page<Appointment> appointments) {
-        return appointments.map(a -> new AppointmentListItem(
-                a.getId(),
-                a.getClient().getSurname() + " " + a.getClient().getName(),
-                a.getClient().getPhone(),
-                a.getDoctor().getId(),
-                a.getDoctor().getSurname() + " " + a.getDoctor().getName() + " " +  a.getDoctor().getPatronymic(),
-                a.getAppointmentTime(),
-                a.getIsNotFirstVisit(),
-                a.getStatus().name()
-        ));
+        return appointments.map(a -> {
+            boolean lateMark = isAppointmentLate(a);
+            return new AppointmentListItem(
+                    a.getId(),
+                    a.getClient().getSurname() + " " + a.getClient().getName(),
+                    a.getClient().getPhone(),
+                    a.getDoctor().getId(),
+                    a.getDoctor().getSurname() + " " + a.getDoctor().getName() + " " +  a.getDoctor().getPatronymic(),
+                    a.getAppointmentTime(),
+                    a.getIsNotFirstVisit(),
+                    a.getStatus().name(),
+                    lateMark
+            );
+        });
+    }
+
+    private boolean isAppointmentLate(Appointment appointment) {
+        // Только для статуса SCHEDULED
+        if (appointment.getStatus() != AppointmentStatus.SCHEDULED) {
+            return false;
+        }
+
+        // Текущее время должно быть больше чем время записи + 1 день (в 00:00)
+        LocalDateTime appointmentDateTime = appointment.getAppointmentTime();
+        LocalDateTime nextDayAtMidnight = appointmentDateTime.toLocalDate().plusDays(1).atStartOfDay();
+        LocalDateTime now = LocalDateTime.now();
+
+        return now.isAfter(nextDayAtMidnight);
     }
 
 }
