@@ -162,7 +162,7 @@ public class AppointmentService {
                 a.getClient().getSurname() + " " + a.getClient().getName(),
                 a.getClient().getPhone(),
                 a.getDoctor().getId(),
-                a.getDoctor().getSurname() + " " + a.getDoctor().getName(),
+                a.getDoctor().getSurname() + " " + a.getDoctor().getName() + " " +  a.getDoctor().getPatronymic(),
                 a.getAppointmentTime(),
                 a.getIsNotFirstVisit(),
                 a.getStatus().name()
