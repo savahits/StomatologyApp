@@ -43,7 +43,7 @@
                 </thead>
 
                 <tbody>
-                <tr th:each="a : ${scheduledAppointments.content}">
+                <tr th:each="a : ${scheduledAppointments.content}" th:classappend="${a.lateMark} ? 'late'">
                     <td th:text="${a.clientFullName}"></td>
                     <td th:text="${a.clientPhone}"></td>
                     <td th:text="${a.doctorFullName}"></td>
