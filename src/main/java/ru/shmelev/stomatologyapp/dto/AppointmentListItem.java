@@ -10,6 +10,7 @@ public record AppointmentListItem(
     String doctorFullName,
     LocalDateTime time,
     boolean beenBefore,
-    String status
+    String status,
+    boolean lateMark
 ) {
 }
