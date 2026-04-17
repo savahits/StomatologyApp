@@ -60,7 +60,7 @@ public class AppointmentService {
                 appointment.getClient().getSurname() + " " + appointment.getClient().getName(),
                 appointment.getClient().getPhone(),
                 appointment.getDoctor().getId(),
-                appointment.getDoctor().getSurname() + " " + appointment.getDoctor().getName(),
+                appointment.getDoctor().getSurname() + " " + appointment.getDoctor().getName() + " " +  appointment.getDoctor().getPatronymic(),
                 appointment.getAppointmentTime(),
                 appointment.getIsNotFirstVisit(),
                 appointment.getStatus().name(),
