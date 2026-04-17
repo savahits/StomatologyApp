@@ -476,18 +476,27 @@ body {
     background: #45a049;
 }
 
+/* Late appointments highlighting */
+.table tr.late {
+	background-color: #fff3cd;
+}
+
+.table tr.late:hover {
+	background-color: #ffe69c;
+}
+
 @media (max-width: 640px) {
-    .modal-content {
-        width: 95%;
-        margin: 20% auto;
-        padding: 20px;
-    }
+	.modal-content {
+		width: 95%;
+		margin: 20% auto;
+		padding: 20px;
+	}
 
-    .modal-actions {
-        flex-direction: column;
-    }
+	.modal-actions {
+		flex-direction: column;
+	}
 
-    .btn {
-        width: 100%;
-    }
+	.btn {
+		width: 100%;
+	}
 }
