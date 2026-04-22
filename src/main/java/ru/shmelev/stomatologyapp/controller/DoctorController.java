@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import ru.shmelev.stomatologyapp.dto.RequestDoctorCreate;
+import ru.shmelev.stomatologyapp.dto.doctor.RequestDoctorCreate;
 import ru.shmelev.stomatologyapp.exception.UsernameAlreadyExistsException;
 import ru.shmelev.stomatologyapp.repository.SpecializationRepository;
 import ru.shmelev.stomatologyapp.service.DoctorService;
@@ -22,7 +22,7 @@ public class DoctorController {
     private final DoctorService doctorService;
     private final SpecializationRepository specializationRepository;
 
-    public DoctorController(DoctorService doctorService,  SpecializationRepository specializationRepository) {
+    public DoctorController(DoctorService doctorService, SpecializationRepository specializationRepository) {
         this.doctorService = doctorService;
         this.specializationRepository = specializationRepository;
     }
