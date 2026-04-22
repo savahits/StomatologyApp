@@ -1,9 +1,8 @@
-package ru.shmelev.stomatologyapp.dto;
+package ru.shmelev.stomatologyapp.dto.appointment;
 
 import jakarta.validation.constraints.*;
 import ru.shmelev.stomatologyapp.validator.ValidPhone;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record RequestAppointmentCreate(

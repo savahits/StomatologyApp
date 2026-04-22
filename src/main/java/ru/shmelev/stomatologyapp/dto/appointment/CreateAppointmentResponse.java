@@ -1,4 +1,4 @@
-package ru.shmelev.stomatologyapp.dto;
+package ru.shmelev.stomatologyapp.dto.appointment;
 
 public record CreateAppointmentResponse(
         String description,

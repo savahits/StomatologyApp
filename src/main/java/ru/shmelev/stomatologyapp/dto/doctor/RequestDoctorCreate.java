@@ -1,4 +1,4 @@
-package ru.shmelev.stomatologyapp.dto;
+package ru.shmelev.stomatologyapp.dto.doctor;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

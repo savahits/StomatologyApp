@@ -1,4 +1,4 @@
-package ru.shmelev.stomatologyapp.dto;
+package ru.shmelev.stomatologyapp.dto.doctor;
 
 public record DoctorShowDTO(
         Long id,
