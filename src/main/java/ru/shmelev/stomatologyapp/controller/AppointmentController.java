@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -35,8 +36,9 @@ public class AppointmentController {
                         @RequestParam(defaultValue = "4") int doneSize,
                         @AuthenticationPrincipal CustomUserDetails user) {
 
-        Pageable scheduledPageable = PageRequest.of(scheduledPage, scheduledSize);
-        Pageable donePageable = PageRequest.of(donePage, doneSize);
+        Pageable scheduledPageable = PageRequest.of(scheduledPage, scheduledSize, Sort.by("id").descending());
+        Pageable donePageable = PageRequest.of(donePage, doneSize, Sort.by("id").descending());
+
 
         model.addAttribute("scheduledAppointments", appointmentService.findAll(user, AppointmentStatus.SCHEDULED, scheduledPageable));
         model.addAttribute("doneAppointments", appointmentService.findAll(user, AppointmentStatus.DONE, donePageable));
