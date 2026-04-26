@@ -6,6 +6,9 @@ import ru.shmelev.stomatologyapp.domain.Specialization;
 import ru.shmelev.stomatologyapp.dto.RequestSpecializationCreate;
 import ru.shmelev.stomatologyapp.repository.SpecializationRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class SpecializationService {
 
@@ -23,6 +26,16 @@ public class SpecializationService {
         Specialization specialization = new Specialization();
         specialization.setName(request.name());
         return specializationRepository.save(specialization);
+    }
+
+    public String getSpecializationsNames(){
+
+        List<String> specializationNames = specializationRepository.findAll().stream()
+                .map(Specialization::getName)
+                .collect(Collectors.toList());
+
+        return String.join(", ", specializationNames);
+
     }
 
 }
