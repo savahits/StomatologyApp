@@ -1,6 +1,7 @@
 package ru.shmelev.stomatologyapp.controller;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +18,7 @@ import ru.shmelev.stomatologyapp.service.DoctorService;
 @Controller
 @EnableMethodSecurity
 @RequestMapping("/doctors")
+@Slf4j
 public class DoctorController {
 
     private final DoctorService doctorService;
@@ -47,6 +49,7 @@ public class DoctorController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{id}")
     public String deleteDoctorById(@PathVariable Long id) {
+        log.info("Deleted doctor {}", doctorService.findById(id).fullName());
         doctorService.delete(id);
         return "redirect:/doctors";
     }
