@@ -1,6 +1,7 @@
 package ru.shmelev.stomatologyapp.controller;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import ru.shmelev.stomatologyapp.service.AdminSetupService;
 
 @Controller
 @RequestMapping("/setup")
+@Slf4j
 public class SetupController {
 
     private final AdminSetupService adminSetupService;
@@ -41,6 +43,7 @@ public class SetupController {
 
         try {
             adminSetupService.createAdmin(form);
+            log.info("Admin user created with username {}", form.username());
         } catch (RuntimeException e) {
             model.addAttribute("form", form);
             model.addAttribute("error", e.getMessage());
