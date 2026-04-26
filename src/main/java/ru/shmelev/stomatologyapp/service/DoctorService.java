@@ -2,6 +2,7 @@ package ru.shmelev.stomatologyapp.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class DoctorService {
 
     private final DoctorRepository doctorRepository;
@@ -43,13 +45,24 @@ public class DoctorService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional
     public void delete(Long id) {
-        try {
-            User deleteUser = userRepository.findByDoctorId(id);
-            Long userId = deleteUser.getId();
+        Doctor doctor = doctorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException());
 
-            doctorRepository.deleteById(id);
-            userRepository.deleteById(userId);
+        User user = userRepository.findByDoctorId(id);
+
+        try {
+            String fullName = doctor.getName() + " " + doctor.getSurname();
+
+            doctorRepository.delete(doctor);
+            if (user != null) {
+                userRepository.delete(user);
+            }
+
+            log.info("Deleted doctor: {}, username: {}", fullName,
+                    (user != null ? user.getUsername() : "N/A"));
+
         } catch (DataIntegrityViolationException ex) {
             throw new DoctorHasAppointmentsException(id);
         }
@@ -108,6 +121,8 @@ public class DoctorService {
         user.setRole(role);
         userRepository.save(user);
 
+        log.info("Created user with username {}", dto.username());
+
         Doctor doctor = new Doctor();
         doctor.setUser(user);
         doctor.setSurname(dto.surname());
@@ -117,5 +132,7 @@ public class DoctorService {
         doctor.setSpecialization(specialization);
 
         doctorRepository.save(doctor);
+
+        log.info("Created doctor {}", dto.username() + " " + dto.surname() + " " + dto.phone());
     }
 }

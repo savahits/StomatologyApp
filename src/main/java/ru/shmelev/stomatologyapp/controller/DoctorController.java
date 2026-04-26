@@ -18,7 +18,6 @@ import ru.shmelev.stomatologyapp.service.DoctorService;
 @Controller
 @EnableMethodSecurity
 @RequestMapping("/doctors")
-@Slf4j
 public class DoctorController {
 
     private final DoctorService doctorService;
@@ -49,7 +48,6 @@ public class DoctorController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{id}")
     public String deleteDoctorById(@PathVariable Long id) {
-        log.info("Deleted doctor {}", doctorService.findById(id).fullName());
         doctorService.delete(id);
         return "redirect:/doctors";
     }
@@ -76,7 +74,6 @@ public class DoctorController {
 
         try {
             doctorService.create(dto);
-            log.info("Created doctor name {}", dto.name() + dto.name());
         } catch (UsernameAlreadyExistsException ex) {
             bindingResult.rejectValue("username", "", "Логин уже занят");
             model.addAttribute("specializations", specializationRepository.findAll());
