@@ -12,6 +12,19 @@
 
     <th:block th:fragment="content">
         <div class="container">
+            <div class="specializations-list" style="margin-top: 30px; display: flex;
+  justify-content: center;
+  align-items: center;">
+                <h3>Актуальные специализации:</h3>
+                <div th:if="${specializations != null && !specializations.isEmpty()}">
+                    <ul>
+                        <li th:each="spec : ${specializations}" th:text="${spec}"></li>
+                    </ul>
+                </div>
+                <div th:if="${specializations == null || specializations.isEmpty()}">
+                    <p>Нет созданных специализаций</p>
+                </div>
+            </div>
 
             <form class="form" th:action="@{/specializations}" method="post" th:object="${specialization}">
                 <h2>Создать специализацию</h2>
