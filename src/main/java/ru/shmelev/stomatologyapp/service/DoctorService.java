@@ -45,7 +45,11 @@ public class DoctorService {
 
     public void delete(Long id) {
         try {
+            User deleteUser = userRepository.findByDoctorId(id);
+            Long userId = deleteUser.getId();
+
             doctorRepository.deleteById(id);
+            userRepository.deleteById(userId);
         } catch (DataIntegrityViolationException ex) {
             throw new DoctorHasAppointmentsException(id);
         }
