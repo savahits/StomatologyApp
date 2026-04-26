@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.shmelev.stomatologyapp.dto.RequestSpecializationCreate;
 import ru.shmelev.stomatologyapp.service.SpecializationService;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/specializations")
 public class SpecializationController {
@@ -24,6 +26,7 @@ public class SpecializationController {
     @GetMapping("/new")
     public String createPage(Model model) {
         model.addAttribute("specialization", new RequestSpecializationCreate());
+        model.addAttribute("specializations", specializationService.getSpecializationsNames());
         return "specializations/new";
     }
 
