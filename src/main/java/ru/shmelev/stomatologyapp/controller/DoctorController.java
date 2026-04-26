@@ -76,6 +76,7 @@ public class DoctorController {
 
         try {
             doctorService.create(dto);
+            log.info("Created doctor name {}", dto.name() + dto.name());
         } catch (UsernameAlreadyExistsException ex) {
             bindingResult.rejectValue("username", "", "Логин уже занят");
             model.addAttribute("specializations", specializationRepository.findAll());
