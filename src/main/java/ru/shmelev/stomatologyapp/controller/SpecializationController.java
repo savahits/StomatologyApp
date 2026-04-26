@@ -1,6 +1,7 @@
 package ru.shmelev.stomatologyapp.controller;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/specializations")
+@Slf4j
 public class SpecializationController {
 
     SpecializationService specializationService;
@@ -37,6 +39,7 @@ public class SpecializationController {
                                      Model model) {
         try {
             specializationService.create(dto);
+            log.info("Created specialization with name {}", dto.name());
             return "redirect:/doctors";
         } catch (IllegalArgumentException e) {
             bindingResult.rejectValue("name", "duplicate", e.getMessage());
