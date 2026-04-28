@@ -10,7 +10,7 @@ import ru.shmelev.stomatologyapp.enums.AppointmentStatus;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "appointment")
+@Table(name = "appointments")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

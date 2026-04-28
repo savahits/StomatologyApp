@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "specialization")
+@Table(name = "specializations")
 public class Specialization {
 
     @Id
