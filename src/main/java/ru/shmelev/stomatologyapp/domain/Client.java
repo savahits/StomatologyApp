@@ -39,4 +39,13 @@ public class Client {
     @Column(name = "phone", nullable = false, length = 20, unique = true)
     private String phone;
 
+    @Override
+    public String toString() {
+        return "Client{" +
+                "surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }
