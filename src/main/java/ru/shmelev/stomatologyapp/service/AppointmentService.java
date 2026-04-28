@@ -1,6 +1,7 @@
 package ru.shmelev.stomatologyapp.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
@@ -109,6 +111,7 @@ public class AppointmentService {
 
         try {
             appointmentRepository.save(appointment);
+            log.info("Created appointment with client: {}, time: {}, doctor: {}", client.toString(),  request.time(), client.toString());
         } catch (DataIntegrityViolationException e) {
             throw new AppointmentAlreadyExistsException(
                     request.time(),
