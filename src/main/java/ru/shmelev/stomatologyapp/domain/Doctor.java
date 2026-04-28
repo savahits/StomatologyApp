@@ -42,4 +42,14 @@ public class Doctor {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", specialization=" + specialization +
+                '}';
+    }
 }
