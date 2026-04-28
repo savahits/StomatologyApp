@@ -54,7 +54,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/new")
-    public String createPage(Model model) {
+    public String create(Model model) {
         model.addAttribute("appointment", new RequestAppointmentCreate());
         model.addAttribute("doctors", doctorService.findAllDoctors());
         return "appointments/new";
