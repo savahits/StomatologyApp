@@ -150,6 +150,7 @@ public class AppointmentService {
             return;
         }
         appointment.setStatus(status);
+        log.info("Updated appointment status: {}, time: {}", appointment.getStatus().name(), appointment.getAppointmentTime());
 
     }
 
