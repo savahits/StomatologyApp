@@ -29,7 +29,7 @@ public class AppointmentController {
     private final DoctorService doctorService;
 
     @GetMapping
-    public String listPage(Model model,
+    public String getAll(Model model,
                         @RequestParam(defaultValue = "0") int scheduledPage,
                         @RequestParam(defaultValue = "4") int scheduledSize,
                         @RequestParam(defaultValue = "0") int donePage,
