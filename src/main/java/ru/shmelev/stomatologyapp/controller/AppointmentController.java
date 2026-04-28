@@ -100,7 +100,7 @@ public class AppointmentController {
 
     @PostMapping("/done")
     @PreAuthorize("hasRole('ADMIN')")
-    public String setDoneAppointment(@RequestParam Long appointmentId) {
+    public String updateStatusDone(@RequestParam Long appointmentId) {
         appointmentService.setStatus(appointmentId, AppointmentStatus.DONE);
         return "redirect:/appointments";
     }
