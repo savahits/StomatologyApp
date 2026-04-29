@@ -154,7 +154,7 @@ public class AppointmentService {
 
     }
 
-    public void deleteById(Long appointmentId) {
+    public void deleteAppointment(Long appointmentId) {
         if (!appointmentRepository.existsById(appointmentId)) {
             throw new EntityNotFoundException("Appointment not found");
         }

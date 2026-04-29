@@ -63,7 +63,7 @@ public class AppointmentController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{id}")
     public String delete(@PathVariable Long id) {
-        appointmentService.deleteById(id);
+        appointmentService.deleteAppointment(id);
         return "redirect:/appointments";
     }
 
