@@ -60,7 +60,7 @@ public class DoctorController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public String createDoctor(
+    public String create(
             @Valid @ModelAttribute("doctor") RequestDoctorCreate dto,
             BindingResult bindingResult,
             Model model
