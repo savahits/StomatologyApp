@@ -19,7 +19,7 @@ public class SpecializationService {
         this.specializationRepository = specializationRepository;
     }
 
-    public Specialization create(RequestSpecializationCreate request) {
+    public Specialization createSpecialization(RequestSpecializationCreate request) {
         if (specializationRepository.findByName(request.name()).isPresent()) {
             throw new IllegalArgumentException("Специализация с таким названием уже существует");
         }

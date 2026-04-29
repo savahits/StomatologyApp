@@ -36,7 +36,7 @@ public class SpecializationController {
                          BindingResult bindingResult,
                          Model model) {
         try {
-            specializationService.create(dto);
+            specializationService.createSpecialization(dto);
             log.info("Created specialization with name {}", dto.name());
             return "redirect:/doctors";
         } catch (IllegalArgumentException e) {
