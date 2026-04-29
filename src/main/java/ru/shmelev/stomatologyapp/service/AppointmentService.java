@@ -140,7 +140,7 @@ public class AppointmentService {
     }
 
     @Transactional
-    public void setStatus(Long appointmentId, AppointmentStatus status) {
+    public void setStatusToAppointment(Long appointmentId, AppointmentStatus status) {
 
         Appointment appointment = appointmentRepository.findAppointmentById(appointmentId);
         if  (appointment == null) {
