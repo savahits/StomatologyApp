@@ -40,7 +40,7 @@ public class DoctorController {
     }
 
     @GetMapping("/{id}")
-    public String getDoctorById(@PathVariable Long id, Model model) {
+    public String getOne(@PathVariable Long id, Model model) {
         model.addAttribute("doctor", doctorService.findById(id));
         return "doctors/show";
     }
