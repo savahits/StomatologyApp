@@ -94,7 +94,7 @@ public class AppointmentService {
 
         boolean beenBefore = clientService.existsByPhone(normalizedPhone);
 
-        Client client = clientService.getOrCreate(clientDto);
+        Client client = clientService.getOrCreateClient(clientDto);
 
         Doctor doctor = doctorRepository.findById(request.doctorId())
                 .orElseThrow(() -> new RuntimeException("Doctor not found"));

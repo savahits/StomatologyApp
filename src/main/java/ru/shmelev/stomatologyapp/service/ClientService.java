@@ -20,7 +20,7 @@ public class ClientService {
     }
 
     @Transactional
-    public Client getOrCreate(RequestClientCreate dto) {
+    public Client getOrCreateClient(RequestClientCreate dto) {
         Optional<Client> existingClient = clientRepository.findByPhone(dto.phone());
         if (existingClient.isPresent()) {
             Client client = existingClient.get();
