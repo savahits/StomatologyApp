@@ -15,11 +15,11 @@ import ru.shmelev.stomatologyapp.service.AdminSetupService;
 @Controller
 @RequestMapping("/setup")
 @Slf4j
-public class SetupController {
+public class AdminController {
 
     private final AdminSetupService adminSetupService;
 
-    public SetupController(AdminSetupService adminSetupService) {
+    public AdminController(AdminSetupService adminSetupService) {
         this.adminSetupService = adminSetupService;
     }
 
