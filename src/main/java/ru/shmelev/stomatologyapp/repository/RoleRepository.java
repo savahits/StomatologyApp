@@ -6,5 +6,4 @@ import ru.shmelev.stomatologyapp.domain.Role;
 public interface RoleRepository extends JpaRepository<Role, Long> {
     Role findByName(String roleDoctor);
 
-    boolean existsByName(String name);
 }
