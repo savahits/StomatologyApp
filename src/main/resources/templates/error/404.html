@@ -6,7 +6,7 @@
 
 <body>
 
-<th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
+<th:block th:replace="~{layout :: layout (~{::title}, ~{::header}, ~{::content})}">
 
     <th:block th:fragment="header">
         <h1>Ошибка</h1>

@@ -4,7 +4,7 @@
     <title th:fragment="title">Добавление доктора</title>
 </head>
 <body>
-<th:block th:replace="layout :: layout (~{::title}, ~{::header}, ~{::content})">
+<th:block th:replace="~{layout :: layout (~{::title}, ~{::header}, ~{::content})}">
     <th:block th:fragment="header"><h1></h1></th:block>
     <th:block th:fragment="content">
         <div class="container">
