@@ -39,7 +39,7 @@ public class ClientService {
     }
 
 
-    public boolean existsByPhone(String phone) {
+    public boolean isPhoneAlreadyRegistered(String phone) {
         return clientRepository.existsByPhone(phone);
     }
 }

@@ -92,7 +92,7 @@ public class AppointmentService {
                 normalizedPhone
         );
 
-        boolean beenBefore = clientService.existsByPhone(normalizedPhone);
+        boolean beenBefore = clientService.isPhoneAlreadyRegistered(normalizedPhone);
 
         Client client = clientService.getOrCreateClient(clientDto);
 
