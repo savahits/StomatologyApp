@@ -97,7 +97,7 @@ public class DoctorService {
     }
 
     @Transactional
-    public void create(RequestDoctorCreate dto) {
+    public void createDoctor(RequestDoctorCreate dto) {
         if (userRepository.existsByUsername(dto.username())) {
             throw new UsernameAlreadyExistsException(dto.username());
         }

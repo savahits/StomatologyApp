@@ -72,7 +72,7 @@ public class DoctorController {
         }
 
         try {
-            doctorService.create(dto);
+            doctorService.createDoctor(dto);
         } catch (UsernameAlreadyExistsException ex) {
             bindingResult.rejectValue("username", "", "Логин уже занят");
             model.addAttribute("specializations", specializationRepository.findAll());
