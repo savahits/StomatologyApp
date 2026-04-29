@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.shmelev.stomatologyapp.dto.RequestSpecializationCreate;
 import ru.shmelev.stomatologyapp.service.SpecializationService;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("/specializations")
 @Slf4j
@@ -34,9 +32,9 @@ public class SpecializationController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public String createSpecialization(@Valid @ModelAttribute("specialization") RequestSpecializationCreate dto,
-                                     BindingResult bindingResult,
-                                     Model model) {
+    public String create(@Valid @ModelAttribute("specialization") RequestSpecializationCreate dto,
+                         BindingResult bindingResult,
+                         Model model) {
         try {
             specializationService.create(dto);
             log.info("Created specialization with name {}", dto.name());
