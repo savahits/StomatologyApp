@@ -88,7 +88,7 @@ public class AppointmentController {
 
         try {
             User currentUser = userDetails.getUser();
-            appointmentService.create(request, currentUser);
+            appointmentService.createAppointment(request, currentUser);
         } catch (RuntimeException e) {
             bindingResult.reject("error.global", e.getMessage());
             model.addAttribute("doctors", doctorService.findAllDoctors());

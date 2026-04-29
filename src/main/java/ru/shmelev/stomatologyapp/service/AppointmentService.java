@@ -74,7 +74,7 @@ public class AppointmentService {
     }
 
     @Transactional
-    public void create(RequestAppointmentCreate request, User currentUser) {
+    public void createAppointment(RequestAppointmentCreate request, User currentUser) {
 
         if (appointmentRepository.existsByAppointmentTimeAndDoctorId(request.time(), request.doctorId())) {
             throw new AppointmentAlreadyExistsException(request.time(),  request.doctorId());
