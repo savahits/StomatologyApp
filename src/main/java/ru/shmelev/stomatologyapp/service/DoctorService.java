@@ -77,7 +77,7 @@ public class DoctorService {
         return doctorRepository.findAllDoctors(pageable);
     }
 
-    public DoctorShowDTO findById(Long id) {
+    public DoctorShowDTO findDoctor(Long id) {
         Optional<Doctor> doctor = Optional.ofNullable(doctorRepository.findDoctorById(id));
 
         if (doctor.isEmpty()) {
