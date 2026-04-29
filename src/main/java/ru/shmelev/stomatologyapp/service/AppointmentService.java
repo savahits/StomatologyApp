@@ -120,7 +120,7 @@ public class AppointmentService {
         }
     }
 
-    public Page<AppointmentListItem> findAll(CustomUserDetails currentUser, AppointmentStatus status, Pageable pageable) {
+    public Page<AppointmentListItem> getAllAppointments(CustomUserDetails currentUser, AppointmentStatus status, Pageable pageable) {
 
         if (currentUser.hasRole("ROLE_ADMIN")) {
             return map(appointmentRepository.findAll(status, pageable));

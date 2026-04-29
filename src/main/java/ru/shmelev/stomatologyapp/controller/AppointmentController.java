@@ -40,8 +40,8 @@ public class AppointmentController {
         Pageable donePageable = PageRequest.of(donePage, doneSize, Sort.by("id").descending());
 
 
-        model.addAttribute("scheduledAppointments", appointmentService.findAll(user, AppointmentStatus.SCHEDULED, scheduledPageable));
-        model.addAttribute("doneAppointments", appointmentService.findAll(user, AppointmentStatus.DONE, donePageable));
+        model.addAttribute("scheduledAppointments", appointmentService.getAllAppointments(user, AppointmentStatus.SCHEDULED, scheduledPageable));
+        model.addAttribute("doneAppointments", appointmentService.getAllAppointments(user, AppointmentStatus.DONE, donePageable));
         return "appointments/index";
     }
 
