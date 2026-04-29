@@ -46,7 +46,7 @@ public class DoctorService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void deleteDoctor(Long id) {
         Doctor doctor = doctorRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException());
 

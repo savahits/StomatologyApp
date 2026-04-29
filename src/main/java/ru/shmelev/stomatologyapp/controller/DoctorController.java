@@ -47,7 +47,7 @@ public class DoctorController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{id}")
     public String delete(@PathVariable Long id) {
-        doctorService.delete(id);
+        doctorService.deleteDoctor(id);
         return "redirect:/doctors";
     }
 
