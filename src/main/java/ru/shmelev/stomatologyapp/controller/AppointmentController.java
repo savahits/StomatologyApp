@@ -56,7 +56,7 @@ public class AppointmentController {
     @GetMapping("/new")
     public String create(Model model) {
         model.addAttribute("appointment", new RequestAppointmentCreate());
-        model.addAttribute("doctors", doctorService.findAllDoctors());
+        model.addAttribute("doctors", doctorService.getAllDoctors());
         return "appointments/new";
     }
 
@@ -78,7 +78,7 @@ public class AppointmentController {
     ) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("doctors", doctorService.findAllDoctors());
+            model.addAttribute("doctors", doctorService.getAllDoctors());
             return "appointments/new";
         }
 
@@ -91,7 +91,7 @@ public class AppointmentController {
             appointmentService.createAppointment(request, currentUser);
         } catch (RuntimeException e) {
             bindingResult.reject("error.global", e.getMessage());
-            model.addAttribute("doctors", doctorService.findAllDoctors());
+            model.addAttribute("doctors", doctorService.getAllDoctors());
             return "appointments/new";
         }
 

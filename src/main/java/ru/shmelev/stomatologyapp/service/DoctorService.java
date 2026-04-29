@@ -69,11 +69,11 @@ public class DoctorService {
     }
 
 
-    public List<Doctor> findAllDoctors() {
+    public List<Doctor> getAllDoctors() {
         return doctorRepository.findAllDoctors();
     }
 
-    public Page<Doctor> findAllDoctors(Pageable pageable) {
+    public Page<Doctor> getAllDoctors(Pageable pageable) {
         return doctorRepository.findAllDoctors(pageable);
     }
 

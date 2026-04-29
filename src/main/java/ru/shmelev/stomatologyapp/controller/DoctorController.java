@@ -33,7 +33,7 @@ public class DoctorController {
                                  @RequestParam(defaultValue = "4") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
-        model.addAttribute("doctors", doctorService.findAllDoctors(pageable));
+        model.addAttribute("doctors", doctorService.getAllDoctors(pageable));
 
         return "doctors/index";
     }
