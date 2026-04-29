@@ -29,7 +29,7 @@ public class DoctorController {
     }
 
     @GetMapping
-    public String getDoctorsPage(Model model,
+    public String getAll(Model model,
                                  @RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "4") int size) {
 
