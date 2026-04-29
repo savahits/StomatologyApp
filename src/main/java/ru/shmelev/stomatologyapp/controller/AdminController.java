@@ -30,7 +30,7 @@ public class AdminController {
     }
 
     @PostMapping("/admin")
-    public String createAdmin(
+    public String create(
             @Valid @ModelAttribute("form") RequestAdminCreate form,
             BindingResult bindingResult,
             Model model
