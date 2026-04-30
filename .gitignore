@@ -5,6 +5,7 @@ target/
 !**/src/test/**/target/
 database.properties
 stomatology.log
+.env
 
 ### STS ###
 .apt_generated
