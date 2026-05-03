@@ -15,6 +15,7 @@ import ru.shmelev.stomatologyapp.domain.User;
 import ru.shmelev.stomatologyapp.dto.doctor.DoctorShowDTO;
 import ru.shmelev.stomatologyapp.dto.doctor.RequestDoctorCreate;
 import ru.shmelev.stomatologyapp.exception.DoctorHasAppointmentsException;
+import ru.shmelev.stomatologyapp.exception.NotFoundException;
 import ru.shmelev.stomatologyapp.exception.UsernameAlreadyExistsException;
 import ru.shmelev.stomatologyapp.repository.DoctorRepository;
 import ru.shmelev.stomatologyapp.repository.RoleRepository;
@@ -48,7 +49,7 @@ public class DoctorService {
     @Transactional
     public void deleteDoctor(Long id) {
         Doctor doctor = doctorRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException());
+                .orElseThrow(() -> new NotFoundException("Doctor", id));
 
         User user = userRepository.findByDoctorId(id);
 
