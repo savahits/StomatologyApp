@@ -77,19 +77,10 @@ public class DoctorService {
     }
 
     public DoctorShowDTO findDoctor(Long id) {
-        Doctor doctor = doctorRepository.findById(id)
+
+        return doctorRepository.findDoctorDto(id)
                 .orElseThrow(() -> new NotFoundException("Doctor", id));
 
-        String specializationName = doctor.getSpecialization().getName();
-        String phone = doctor.getPhone();
-        String fullName = doctor.getName() + " " + doctor.getSurname() + " " + doctor.getPatronymic();
-
-        return new DoctorShowDTO(
-                doctor.getId(),
-                fullName,
-                phone,
-                specializationName
-        );
     }
 
     @Transactional
