@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.shmelev.stomatologyapp.dto.RequestAdminCreate;
+import ru.shmelev.stomatologyapp.exception.NotFoundException;
 import ru.shmelev.stomatologyapp.repository.RoleRepository;
 import ru.shmelev.stomatologyapp.repository.UserRepository;
 import ru.shmelev.stomatologyapp.domain.User;
@@ -36,7 +37,7 @@ public class AdminSetupService {
         User user = new User();
         user.setUsername(request.username());
         user.setPassword(passwordEncoder.encode(request.password()));
-        user.setRole(roleRepository.findByName("ROLE_ADMIN"));
+        user.setRole(roleRepository.findByName("ROLE_ADMIN").orElseThrow(() -> new NotFoundException("Role", "ROLE_ADMIN")));
 
         userRepository.save(user);
     }
