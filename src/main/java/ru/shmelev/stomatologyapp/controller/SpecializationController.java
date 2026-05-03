@@ -35,6 +35,12 @@ public class SpecializationController {
     public String create(@Valid @ModelAttribute("specialization") RequestSpecializationCreate dto,
                          BindingResult bindingResult,
                          Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("specializations", specializationService.getSpecializationsNames());
+            return "specializations/new";
+        }
+
         try {
             specializationService.createSpecialization(dto);
             log.info("Created specialization with name {}", dto.name());
