@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import ru.shmelev.stomatologyapp.domain.Doctor;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
@@ -34,5 +35,5 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
         JOIN FETCH d.user
         WHERE d.id = :id
     """)
-    Doctor findDoctorById(@Param("id") Long id);
+    Optional<Doctor> findDoctorById(@Param("id") Long id);
 }
