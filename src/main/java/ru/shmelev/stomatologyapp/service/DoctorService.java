@@ -103,10 +103,8 @@ public class DoctorService {
         Specialization specialization = specializationRepository.findById(dto.specializationId())
                 .orElseThrow(() -> new RuntimeException("Specialization not found"));
 
-        Role role = roleRepository.findByName("ROLE_DOCTOR");
-        if (role == null) {
-            throw new RuntimeException("Role not found");
-        }
+        Role role = roleRepository.findByName("ROLE_DOCTOR")
+                .orElseThrow(() -> new NotFoundException("Role", "ROLE_DOCTOR"));
 
         String normalizedPhone = null;
         if (dto.phone() != null && !dto.phone().isBlank()) {
