@@ -79,18 +79,15 @@ public class DoctorService {
     }
 
     public DoctorShowDTO findDoctor(Long id) {
-        Optional<Doctor> doctor = Optional.ofNullable(doctorRepository.findDoctorById(id));
+        Doctor doctor = doctorRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Doctor", id));
 
-        if (doctor.isEmpty()) {
-            throw new EntityNotFoundException("Doctor not found");
-        }
-
-        String specializationName = doctor.get().getSpecialization().getName();
-        String phone = doctor.get().getPhone();
-        String fullName = doctor.get().getName() + " " + doctor.get().getSurname() + " " + doctor.get().getPatronymic();
+        String specializationName = doctor.getSpecialization().getName();
+        String phone = doctor.getPhone();
+        String fullName = doctor.getName() + " " + doctor.getSurname() + " " + doctor.getPatronymic();
 
         return new DoctorShowDTO(
-                doctor.get().getId(),
+                doctor.getId(),
                 fullName,
                 phone,
                 specializationName
