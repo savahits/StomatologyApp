@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.shmelev.stomatologyapp.domain.Doctor;
+import ru.shmelev.stomatologyapp.dto.doctor.DoctorShowDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,10 +31,15 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     Page<Doctor> findAllDoctors(Pageable pageable);
 
     @Query("""
-        SELECT d FROM Doctor d
-        JOIN FETCH d.specialization
-        JOIN FETCH d.user
-        WHERE d.id = :id
-    """)
-    Optional<Doctor> findDoctorById(@Param("id") Long id);
+    SELECT new ru.shmelev.stomatologyapp.dto.doctor.DoctorShowDTO(
+        d.id,
+        CONCAT(d.name, ' ', d.surname, ' ', d.patronymic),
+        d.phone,
+        s.name
+    )
+    FROM Doctor d
+    JOIN d.specialization s
+    WHERE d.id = :id
+""")
+    Optional<DoctorShowDTO> findDoctorDto(Long id);
 }
