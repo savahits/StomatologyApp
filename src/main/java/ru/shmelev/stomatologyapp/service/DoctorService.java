@@ -17,10 +17,7 @@ import ru.shmelev.stomatologyapp.dto.doctor.RequestDoctorCreate;
 import ru.shmelev.stomatologyapp.exception.DoctorHasAppointmentsException;
 import ru.shmelev.stomatologyapp.exception.NotFoundException;
 import ru.shmelev.stomatologyapp.exception.UsernameAlreadyExistsException;
-import ru.shmelev.stomatologyapp.repository.DoctorRepository;
-import ru.shmelev.stomatologyapp.repository.RoleRepository;
-import ru.shmelev.stomatologyapp.repository.SpecializationRepository;
-import ru.shmelev.stomatologyapp.repository.UserRepository;
+import ru.shmelev.stomatologyapp.repository.*;
 import ru.shmelev.stomatologyapp.utils.PhoneUtils;
 
 import java.util.List;
@@ -35,15 +32,17 @@ public class DoctorService {
     private final RoleRepository roleRepository;
     private final SpecializationRepository specializationRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AppointmentRepository appointmentRepository;
 
     public DoctorService(DoctorRepository doctorRepository, UserRepository userRepository,
                          RoleRepository roleRepository, SpecializationRepository specializationRepository,
-                         PasswordEncoder passwordEncoder) {
+                         PasswordEncoder passwordEncoder,  AppointmentRepository appointmentRepository) {
         this.doctorRepository = doctorRepository;
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.specializationRepository = specializationRepository;
         this.passwordEncoder = passwordEncoder;
+        this.appointmentRepository = appointmentRepository;
     }
 
     @Transactional
@@ -51,23 +50,22 @@ public class DoctorService {
         Doctor doctor = doctorRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Doctor", id));
 
+        String fullName = doctor.getName() + " " + doctor.getSurname();
         User user = userRepository.findByDoctorId(id);
+        String username = user != null ? user.getUsername() : "N/A";
 
-        try {
-            String fullName = doctor.getName() + " " + doctor.getSurname();
-
-            doctorRepository.delete(doctor);
-            if (user != null) {
-                userRepository.delete(user);
-            }
-
-            log.info("Deleted doctor: {}, username: {}", fullName,
-                    (user != null ? user.getUsername() : "N/A"));
-
-        } catch (DataIntegrityViolationException ex) {
+        if (appointmentRepository.existsByDoctorId(id)) {
             throw new DoctorHasAppointmentsException(id);
         }
+
+        doctorRepository.delete(doctor);
+        if (user != null) {
+            userRepository.delete(user);
+        }
+
+        log.info("Deleted doctor: {}, username: {}", fullName, username);
     }
+
 
 
     public List<Doctor> getAllDoctors() {
