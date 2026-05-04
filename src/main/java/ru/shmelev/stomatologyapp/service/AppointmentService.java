@@ -110,15 +110,12 @@ public class AppointmentService {
         appointment.setIsNotFirstVisit(beenBefore);
         appointment.setPrice(request.price());
 
-        try {
-            appointmentRepository.save(appointment);
-            log.info("Created appointment with client: {}, time: {}, doctor: {}", client.toString(),  request.time(), client.toString());
-        } catch (DataIntegrityViolationException e) {
-            throw new AppointmentAlreadyExistsException(
-                    request.time(),
-                    request.doctorId()
-            );
+
+        if (appointmentRepository.existsByAppointmentTimeAndDoctorId(request.time(), request.doctorId())) {
+            throw new AppointmentAlreadyExistsException(request.time(),  request.doctorId());
         }
+
+        appointmentRepository.save(appointment);
     }
 
     public Page<AppointmentListItem> getAllAppointments(CustomUserDetails currentUser, AppointmentStatus status, Pageable pageable) {
