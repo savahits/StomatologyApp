@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.shmelev.stomatologyapp.domain.Client;
 import ru.shmelev.stomatologyapp.dto.RequestClientCreate;
+import ru.shmelev.stomatologyapp.exception.ConflictException;
 import ru.shmelev.stomatologyapp.repository.ClientRepository;
 
 import java.util.Optional;
@@ -25,7 +26,7 @@ public class ClientService {
         if (existingClient.isPresent()) {
             Client client = existingClient.get();
             if (!client.getSurname().equals(dto.surname()) || !client.getName().equals(dto.name())) {
-                throw new RuntimeException("Клиент с номером " + dto.phone() + " существует — " + client.getSurname() + " " + client.getName());
+                throw new ConflictException("Клиент с номером телефона " + dto.phone() + " уже существует: " + client.getSurname() + " " + client.getName());
             }
             return client;
         } else {
