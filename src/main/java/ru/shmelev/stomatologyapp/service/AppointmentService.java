@@ -143,8 +143,9 @@ public class AppointmentService {
 
         Appointment appointment = appointmentRepository.findAppointmentById(appointmentId);
         if  (appointment == null) {
-            throw new EntityNotFoundException("Appointment not found");
+            throw new NotFoundException("Appointment not found", appointmentId);
         }
+        
         if (appointment.getStatus() == AppointmentStatus.DONE) {
             return;
         }
