@@ -17,7 +17,7 @@ import ru.shmelev.stomatologyapp.service.SpecializationService;
 @Slf4j
 public class SpecializationController {
 
-    SpecializationService specializationService;
+    private final SpecializationService specializationService;
 
     @Autowired
     public SpecializationController(SpecializationService specializationService) {
@@ -48,6 +48,7 @@ public class SpecializationController {
             return "redirect:/doctors";
         } catch (ConflictException e) {
             bindingResult.rejectValue("name", "duplicate", e.getMessage());
+            model.addAttribute("specializations", specializationService.getSpecializationsNames());
             model.addAttribute("specialization", dto);
             return "specializations/new";
         }
