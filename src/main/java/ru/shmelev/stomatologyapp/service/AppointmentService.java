@@ -145,7 +145,7 @@ public class AppointmentService {
         if  (appointment == null) {
             throw new NotFoundException("Appointment not found", appointmentId);
         }
-        
+
         if (appointment.getStatus() == AppointmentStatus.DONE) {
             return;
         }
@@ -156,7 +156,7 @@ public class AppointmentService {
 
     public void deleteAppointment(Long appointmentId) {
         if (!appointmentRepository.existsById(appointmentId)) {
-            throw new EntityNotFoundException("Appointment not found");
+            throw new NotFoundException("Appointment not found", appointmentId);
         }
         appointmentRepository.deleteById(appointmentId);
     }
