@@ -3,9 +3,9 @@ package ru.shmelev.stomatologyapp.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.shmelev.stomatologyapp.domain.Appointment;
@@ -118,24 +118,25 @@ public class AppointmentService {
         appointmentRepository.save(appointment);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR')")
     public Page<AppointmentListItem> getAllAppointments(CustomUserDetails currentUser, AppointmentStatus status, Pageable pageable) {
 
-        if (currentUser.hasRole("ROLE_ADMIN")) {
-            return map(appointmentRepository.findAll(status, pageable));
+        switch (currentUser.getRoleName()) {
+            case "ROLE_DOCTOR":
+                Long doctorId = currentUser.getDoctorId();
+                if (doctorId == null) {
+                    throw new IllegalStateException("Corrupted security context: doctorId is null");
+                }
+                return map(appointmentRepository.findAllByDoctorId(doctorId, status, pageable));
+
+            case "ROLE_ADMIN":
+                return map(appointmentRepository.findAll(status, pageable));
+
+            default:
+                throw new IllegalStateException("Unsupported role: " + currentUser.getRoleName());
         }
-
-        if (currentUser.hasRole("ROLE_DOCTOR")) {
-
-            Long doctorId = currentUser.getDoctorId();
-            if (doctorId == null) {
-                throw new IllegalStateException("User has ROLE_DOCTOR but no doctor linked");
-            }
-
-            return map(appointmentRepository.findAllByDoctorId(doctorId, status, pageable));
-        }
-
-        throw new org.springframework.security.access.AccessDeniedException("Access denied");
     }
+
 
     @Transactional
     public void setStatusToAppointment(Long appointmentId, AppointmentStatus status) {
