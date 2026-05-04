@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.shmelev.stomatologyapp.domain.Specialization;
 import ru.shmelev.stomatologyapp.dto.RequestSpecializationCreate;
+import ru.shmelev.stomatologyapp.exception.ConflictException;
 import ru.shmelev.stomatologyapp.repository.SpecializationRepository;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class SpecializationService {
 
     public Specialization createSpecialization(RequestSpecializationCreate request) {
         if (specializationRepository.findByName(request.name()).isPresent()) {
-            throw new IllegalArgumentException("Специализация с таким названием уже существует");
+            throw new ConflictException("Специализация уже существует: " + request.name());
         }
         Specialization specialization = new Specialization();
         specialization.setName(request.name());
