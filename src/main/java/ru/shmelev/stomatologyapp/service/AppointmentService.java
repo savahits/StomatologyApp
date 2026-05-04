@@ -18,6 +18,7 @@ import ru.shmelev.stomatologyapp.dto.appointment.RequestAppointmentCreate;
 import ru.shmelev.stomatologyapp.dto.RequestClientCreate;
 import ru.shmelev.stomatologyapp.enums.AppointmentStatus;
 import ru.shmelev.stomatologyapp.exception.AppointmentAlreadyExistsException;
+import ru.shmelev.stomatologyapp.exception.NotFoundException;
 import ru.shmelev.stomatologyapp.repository.AppointmentRepository;
 import ru.shmelev.stomatologyapp.repository.DoctorRepository;
 import ru.shmelev.stomatologyapp.security.CustomUserDetails;
@@ -46,7 +47,7 @@ public class AppointmentService {
         Optional<Appointment> appointmentOpt = Optional.ofNullable(appointmentRepository.findAppointmentById(appointmentId));
 
         if (appointmentOpt.isEmpty()) {
-            throw new EntityNotFoundException("Appointment not found");
+            throw new NotFoundException("Appointment not found", appointmentId);
         }
 
         Appointment appointment = appointmentOpt.get();
