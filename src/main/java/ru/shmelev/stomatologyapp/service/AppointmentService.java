@@ -98,7 +98,7 @@ public class AppointmentService {
         Client client = clientService.getOrCreateClient(clientDto);
 
         Doctor doctor = doctorRepository.findById(request.doctorId())
-                .orElseThrow(() -> new RuntimeException("Doctor not found"));
+                .orElseThrow(() -> new NotFoundException("Doctor not found", request.doctorId()));
 
         Appointment appointment = new Appointment();
         appointment.setClient(client);
