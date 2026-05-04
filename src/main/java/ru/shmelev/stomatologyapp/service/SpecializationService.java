@@ -1,6 +1,7 @@
 package ru.shmelev.stomatologyapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import ru.shmelev.stomatologyapp.domain.Specialization;
 import ru.shmelev.stomatologyapp.dto.RequestSpecializationCreate;
@@ -21,12 +22,17 @@ public class SpecializationService {
     }
 
     public Specialization createSpecialization(RequestSpecializationCreate request) {
-        if (specializationRepository.findByName(request.name()).isPresent()) {
-            throw new ConflictException("Специализация уже существует: " + request.name());
-        }
+
+        String name = request.name().trim();
+
         Specialization specialization = new Specialization();
-        specialization.setName(request.name());
-        return specializationRepository.save(specialization);
+        specialization.setName(name);
+
+        try {
+            return specializationRepository.save(specialization);
+        } catch (DataIntegrityViolationException ex) {
+            throw new ConflictException("Специализация уже существует: " + name);
+        }
     }
 
     public String getSpecializationsNames(){
