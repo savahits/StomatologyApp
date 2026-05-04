@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Service
 public class SpecializationService {
 
-    private SpecializationRepository specializationRepository;
+    private final SpecializationRepository specializationRepository;
 
     @Autowired
     public SpecializationService(SpecializationRepository specializationRepository) {
