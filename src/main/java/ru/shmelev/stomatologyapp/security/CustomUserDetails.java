@@ -54,4 +54,8 @@ public class CustomUserDetails implements UserDetails {
         return user.getDoctor() != null ? user.getDoctor().getId() : null;
     }
 
+    public String getRoleName() {
+        return user.getRole() != null ? user.getRole().getName() : null;
+    }
+
 }
