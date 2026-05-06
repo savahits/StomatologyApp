@@ -9,12 +9,10 @@
 
 <th:block th:replace="~{layout :: layout (~{::title}, ~{::header}, ~{::content})}">
 
-    <!-- HEADER -->
     <th:block th:fragment="header">
         <h1 th:text="${appointment.clientFullName}">Запись</h1>
     </th:block>
 
-    <!-- CONTENT -->
     <th:block th:fragment="content">
 
         <div class="container">
@@ -69,7 +67,6 @@
                     </div>
                 </div>
 
-                <!-- КНОПКИ -->
                 <div style="display:flex; justify-content:space-between; align-items:center;">
 
                     <a th:href="@{/appointments}" class="button" style="padding:8px 16px;">
@@ -86,7 +83,6 @@
 
         </div>
 
-        <!-- МОДАЛКА (идентична doctor) -->
         <div id="deleteModal" class="modal">
             <div class="modal-content">
                 <h3>Удалить запись?</h3>

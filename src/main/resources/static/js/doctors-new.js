@@ -1,4 +1,3 @@
-// Initialize TomSelect for specialization dropdown
 document.addEventListener("DOMContentLoaded", function () {
     const settings = {
         create: false,

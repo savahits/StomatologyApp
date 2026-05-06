@@ -87,7 +87,7 @@ public class AppointmentController {
         }
 
         try {
-            User currentUser = userDetails.getUser();
+            User currentUser = userDetails.user();
             appointmentService.createAppointment(request, currentUser);
         } catch (RuntimeException e) {
             bindingResult.reject("error.global", e.getMessage());

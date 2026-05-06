@@ -350,7 +350,6 @@ body {
     pointer-events: none;
 }
 
-/* Danger button styles */
 .danger-btn {
     background: #e53935;
     color: white;
@@ -476,7 +475,6 @@ body {
     background: #45a049;
 }
 
-/* Late appointments highlighting */
 .table tr.late {
 	background-color: #fff3cd;
 }

@@ -54,7 +54,7 @@ public class AppointmentService {
 
         if (currentUser.hasRole("ROLE_DOCTOR")) {
             Long doctorId = currentUser.getDoctorId();
-            if (doctorId == null || !appointment.getDoctor().getId().equals(doctorId)) {
+            if (!appointment.getDoctor().getId().equals(doctorId)) {
                 throw new org.springframework.security.access.AccessDeniedException("Access denied");
             }
         }
@@ -179,7 +179,6 @@ public class AppointmentService {
     }
 
     private boolean isAppointmentLate(Appointment appointment) {
-        // Только для статуса SCHEDULED
         if (appointment.getStatus() != AppointmentStatus.SCHEDULED) {
             return false;
         }

@@ -9,12 +9,10 @@
 
 <th:block th:replace="~{layout :: layout (~{::title}, ~{::header}, ~{::content})}">
 
-    <!-- HEADER -->
     <th:block th:fragment="header">
         <h1 th:text="${doctor.fullName}">ФИО Доктора</h1>
     </th:block>
 
-    <!-- CONTENT -->
     <th:block th:fragment="content">
 
         <div class="container">
@@ -24,7 +22,6 @@
                         box-shadow:0 4px 12px rgba(0,0,0,0.1); padding:30px;
                         display:flex; flex-direction:column; gap:20px;">
 
-                <!-- Инфа -->
                 <div style="display:flex; gap:20px;">
                     <div style="flex:1; display:flex; flex-direction:column; gap:5px;">
                         <h2 th:text="${doctor.fullName}" style="margin:0; font-size:28px;"></h2>
@@ -33,7 +30,6 @@
                     </div>
                 </div>
 
-                <!-- КНОПКИ -->
                 <div style="display:flex; justify-content:space-between; align-items:center;">
 
                     <a th:href="@{/doctors}" class="button" style="padding:8px 16px;">
@@ -50,7 +46,6 @@
 
         </div>
 
-        <!-- МОДАЛКА -->
         <div id="deleteModal" class="modal">
             <div class="modal-content">
                 <h3>Удалить доктора?</h3>

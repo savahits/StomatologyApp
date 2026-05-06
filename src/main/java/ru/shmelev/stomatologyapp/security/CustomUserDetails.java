@@ -9,13 +9,7 @@ import ru.shmelev.stomatologyapp.domain.User;
 import java.util.Collection;
 import java.util.List;
 
-public class CustomUserDetails implements UserDetails {
-
-    private final User user;
-
-    public CustomUserDetails(User user) {
-        this.user = user;
-    }
+public record CustomUserDetails(User user) implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -39,10 +33,6 @@ public class CustomUserDetails implements UserDetails {
         } else {
             return user.getUsername();
         }
-    }
-
-    public User getUser() {
-        return user;
     }
 
     public boolean hasRole(String role) {

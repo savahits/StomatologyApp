@@ -1,9 +1,7 @@
 package ru.shmelev.stomatologyapp.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +19,6 @@ import ru.shmelev.stomatologyapp.repository.*;
 import ru.shmelev.stomatologyapp.utils.PhoneUtils;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
