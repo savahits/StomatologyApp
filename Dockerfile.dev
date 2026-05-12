@@ -1,0 +1,19 @@
+FROM eclipse-temurin:21-jdk-alpine
+WORKDIR /app
+
+RUN apk add --no-cache bash curl
+
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+
+RUN chmod +x mvnw
+RUN ./mvnw dependency:go-offline -B
+
+# Исходники монтируются как volume — не копируем их здесь
+# DevTools будет перезапускать приложение при изменении классов
+
+EXPOSE 8080
+
+# spring-boot:run поддерживает DevTools и следит за изменениями
+ENTRYPOINT ["./mvnw", "spring-boot:run", "-Dspring-boot.run.jvmArguments=-Dspring.devtools.restart.enabled=true"]
