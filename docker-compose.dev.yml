@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: stomatology-app-dev
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "35729:35729"   # LiveReload порт (DevTools)
+    environment:
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      # Thymeleaf: отключаем кэш — шаблоны перечитываются при каждом запросе
+      - SPRING_THYMELEAF_CACHE=false
+      # DevTools
+      - SPRING_DEVTOOLS_RESTART_ENABLED=true
+      - SPRING_DEVTOOLS_LIVERELOAD_ENABLED=true
+      # Отдаём статику напрямую из смонтированной папки
+      - SPRING_WEB_RESOURCES_STATIC_LOCATIONS=file:/app/src/main/resources/static/,classpath:/static/
+      - SPRING_THYMELEAF_PREFIX=file:/app/src/main/resources/templates/
+    volumes:
+      # Монтируем весь src — изменения в CSS/JS/HTML видны мгновенно
+      - ./src:/app/src
+      # Maven кэш — чтобы не скачивать зависимости каждый раз
+      - maven_cache:/root/.m2
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  maven_cache:
