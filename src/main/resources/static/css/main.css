@@ -28,8 +28,8 @@ body {
 }
 
 .header {
-    background: #303030;
-    color: white;
+    background: #1f4470;
+    color: #ebecf0;
     padding: 20px 0;
     display: flex;
     justify-content: space-between;
@@ -144,12 +144,16 @@ body {
     background: #303030;
     color: white;
     padding: 6px 12px;
-    border-radius: 6px;
+    border-radius: 7px;
     text-decoration: none;
+    justify-content: center;
+    transition: transform 0.6s ease;
+    transform-origin: center;
 }
 
 .button:hover {
     background: black;
+    transform: rotate(360deg);
 }
 
 .form {
@@ -158,6 +162,8 @@ body {
     padding: 30px;
     border-radius: 10px;
     margin: 35px auto;
+    border: medium solid #1f4470;
+    border-radius: 30px;
 }
 
 .form h2 {
