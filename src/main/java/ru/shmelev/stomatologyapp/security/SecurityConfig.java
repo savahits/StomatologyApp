@@ -27,20 +27,29 @@ public class SecurityConfig {
                 .addFilterAfter(redirectAuthenticatedFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
 
-                        // public
-                        .requestMatchers("/setup/**", "/css/**", "/js/**", "/login").permitAll()
+        .requestMatchers(
+                "/setup/**",
+                "/css/**",
+                "/js/**",
+                "/login",
+                "/.well-known/acme-challenge/**"
+        ).permitAll()
 
-                        // read
-                        .requestMatchers("/doctors", "/appointments").hasAnyRole("ADMIN", "DOCTOR")
-                        .requestMatchers("/doctors/{id}", "/appointments/{id}").hasAnyRole("ADMIN", "DOCTOR")
+        .requestMatchers("/doctors", "/appointments")
+        .hasAnyRole("ADMIN", "DOCTOR")
 
-                        // write
-                        .requestMatchers("/doctors/new", "/appointments/new", "/specializations/new").hasRole("ADMIN")
-                        .requestMatchers("/doctors", "/doctors/{id}", "/appointments", "/appointments/done", "/specializations").hasRole("ADMIN")
+        .requestMatchers("/doctors/{id}", "/appointments/{id}")
+        .hasAnyRole("ADMIN", "DOCTOR")
 
-                        // fallback
-                        .anyRequest().authenticated()
-                )
+        .requestMatchers("/doctors/new", "/appointments/new", "/specializations/new")
+        .hasRole("ADMIN")
+
+        .requestMatchers("/doctors", "/doctors/{id}", "/appointments",
+                "/appointments/done", "/specializations")
+        .hasRole("ADMIN")
+
+        .anyRequest().authenticated()
+)
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/appointments", true)
