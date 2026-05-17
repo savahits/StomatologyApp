@@ -1,6 +1,12 @@
 spring:
   application:
     name: StomatologyApp
+  # Настройки подключения к PostgreSQL с дефолтными значениями для локальной разработки
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/stomatologyapp}
+    username: ${SPRING_DATASOURCE_USERNAME:savelii}
+    password: ${SPRING_DATASOURCE_PASSWORD:12345}
+    driver-class-name: org.postgresql.Driver
   jpa:
     open-in-view: false
     hibernate:
@@ -18,11 +24,9 @@ logging:
     rollingpolicy:
       max-file-size: 10MB
       max-history: 7
-
   level:
     root: INFO
     org.hibernate.engine.jdbc.spi.SqlExceptionHelper: error
-
 
 server:
   servlet:
