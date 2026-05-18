@@ -4,7 +4,6 @@
     min-height: 100vh;
 }
 
-/* HEADER */
 .pageSectionHeader {
     display: flex;
     align-items: center;
@@ -33,7 +32,7 @@
     width: 100%;
     max-width: 900px;
 
-    margin: 8px auto 20px; 
+    margin: 8px auto 20px;
 
     background: #fff;
     padding: 26px 28px;
@@ -62,14 +61,14 @@
     align-items: start;
 }
 
-.formRow.full {
-    grid-column: 1 / -1;
-}
-
 .formRow {
     display: flex;
     flex-direction: column;
     gap: 5px;
+}
+
+.formRow.full {
+    grid-column: 1 / -1;
 }
 
 .formRow label {
@@ -112,6 +111,11 @@
     margin-top: 16px;
 }
 
+.priceRow label {
+    font-weight: 400;
+    color: #1f4470;
+}
+
 @media (max-width: 768px) {
     .formGrid {
         grid-template-columns: 1fr;
@@ -121,9 +125,4 @@
         margin: 12px auto 24px;
         padding: 20px;
     }
-}
-
-.priceRow label {
-    font-weight: 400;
-    color: #1f4470;
 }
