@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.shmelev.stomatologyapp.domain.User;
 import ru.shmelev.stomatologyapp.dto.appointment.RequestAppointmentCreate;
 import ru.shmelev.stomatologyapp.enums.AppointmentStatus;
+import ru.shmelev.stomatologyapp.exception.ConflictException;
 import ru.shmelev.stomatologyapp.security.CustomUserDetails;
 import ru.shmelev.stomatologyapp.service.AppointmentService;
 import ru.shmelev.stomatologyapp.service.DoctorService;
