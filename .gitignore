@@ -6,7 +6,7 @@ target/
 database.properties
 stomatology.log
 .env
-
+/certbot/**
 ### STS ###
 .apt_generated
 .classpath
