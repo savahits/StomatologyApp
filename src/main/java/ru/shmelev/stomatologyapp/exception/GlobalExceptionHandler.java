@@ -21,4 +21,16 @@ public class GlobalExceptionHandler {
         redirectAttributes.addFlashAttribute("error", ex.getMessage());
         return "redirect:/doctors";
     }
+
+    @ExceptionHandler(AppointmentAlreadyExistsException.class)
+
+        public String handle(AppointmentAlreadyExistsException ex, Model model) {
+
+            model.addAttribute("errorMessage", ex.getMessage());
+
+            model.addAttribute("appointment", new RequestAppointmentCreate());
+
+            return "appointments/new";
+
+        }
 }

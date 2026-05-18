@@ -1,0 +1,71 @@
+/* ================= CRM FORM (COMPACT VERSION) ================= */
+
+.form {
+    width: 100%;
+    max-width: 480px; /* было шире — стало компактнее */
+
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 16px;
+
+    margin: 80px auto 40px; /* ВАЖНО: больше воздуха сверху */
+
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 12px 28px rgba(31, 68, 112, 0.10);
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* TITLE */
+.form h2 {
+    margin: 0 0 18px 0;
+    font-size: 20px;
+    color: #16324f;
+    font-weight: 700;
+}
+
+/* ROW */
+.formRow {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 12px; /* чуть плотнее */
+}
+
+/* LABEL */
+.formRow label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1f4470;
+}
+
+/* INPUTS */
+.formRow input,
+.formRow select {
+    padding: 9px 11px;
+    border: 1px solid #dbeafe;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+    transition: 0.2s;
+}
+
+/* focus */
+.formRow input:focus,
+.formRow select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+/* errors */
+.field-error {
+    font-size: 11px;
+    color: #ef4444;
+}
+
+/* submit button spacing */
+.form .button {
+    margin-top: 14px;
+    width: 100%;
+}

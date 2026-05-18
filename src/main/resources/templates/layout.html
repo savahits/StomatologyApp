@@ -6,20 +6,20 @@
 <head>
     <meta charset="UTF-8">
     <title th:replace="${title}">StomatologyApp</title>
+    <style>html { opacity: 0; }</style> 
     <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
+
 
 <body>
 
 <div class="page">
 
-    <!-- HEADER -->
     <header class="header">
         <div class="container headerInner">
 
-            <div class="logo">Savva Clinic</div>
+            <div class="logo">StomatologyApp</div>
 
-            <!-- NAVIGATION -->
             <nav class="nav">
                 <a class="navItem" th:href="@{/doctors}">
                     Врачи
@@ -30,7 +30,6 @@
                 </a>
             </nav>
 
-            <!-- USER -->
             <div class="userBlock">
                 <span>
                     Здравствуйте,
@@ -45,27 +44,44 @@
         </div>
     </header>
 
-    <!-- HERO -->
     <section class="hero">
         <div class="container">
             <h1 th:replace="${header}">Заголовок</h1>
         </div>
     </section>
 
-    <!-- CONTENT -->
     <main class="content">
         <div class="container">
             <div th:replace="${content}"></div>
         </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="container">
-            <p>© 2026 Savva Clinic</p>
-        </div>
-    </footer>
+<footer class="footer">
 
+    <div class="container footerSimple">
+
+        <div class="footerLeft">
+            <div class="footerLogo">StomatologyApp</div>
+            <div class="footerText">© 2026</div>
+        </div>
+
+        <div class="footerRight">
+
+            <div>тел: +971 50 123 4567</div>
+            <div>email: clinic@stomatologyapp.com</div>
+
+            <div class="footerTg">
+                Telegram:
+                <a href="https://t.me/sofiykaz0ldic">@sofiykaz0ldic</a>,
+                <a href="https://t.me/savvaguss">@savvaguss</a>,
+                <a href="https://t.me/DiDi_050">@DiDi_050</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
 </div>
 
 <script src="/js/script.js"></script>

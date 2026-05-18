@@ -1,0 +1,184 @@
+.setupPage {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5fbff 0%, #e0f2fe 100%);
+    color: #16324f;
+}
+
+.setupPage .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 88px);
+    padding: 40px 0;
+}
+
+.setupPage .form {
+    width: 100%;
+    max-width: 460px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid #dbeafe;
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.08);
+}
+
+.setupPage .form h2 {
+    margin-top: 0;
+    margin-bottom: 28px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: #16324f;
+}
+
+.setupPage .formRow {
+    margin-bottom: 20px;
+}
+
+.setupPage .formRow label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #52708d;
+}
+
+.setupPage .formRow input {
+    width: 100%;
+    height: 52px;
+    padding: 0 16px;
+    border: 1px solid #d8e7f5;
+    border-radius: 12px;
+    background: #f8fbff;
+    font-size: 15px;
+    color: #16324f;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.setupPage .formRow input:focus {
+    outline: none;
+    border-color: #60a5fa;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.12);
+}
+
+.setupPage .button {
+    width: 100%;
+    height: 54px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+    background-size: 200% 200%;
+    background-position: left center;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-position 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.18);
+}
+
+.setupPage .button:hover {
+    background-position: right center;
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.22);
+}
+
+.setupPage .error {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #dc2626;
+}
+
+.setupPage .modal {
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(4px);
+}
+
+.setupPage .modal-content {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    border: 1px solid #dbeafe;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+}
+
+.setupPage .modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 14px;
+    font-size: 24px;
+    color: #16324f;
+}
+
+.setupPage .modal-content p {
+    margin-bottom: 24px;
+    color: #52708d;
+    line-height: 1.5;
+}
+
+.setupPage .modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.setupPage .btn {
+    height: 46px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.setupPage .btn-cancel {
+    background: #eef4fb;
+    color: #52708d;
+}
+
+.setupPage .btn-cancel:hover {
+    background: #dbeafe;
+}
+
+.setupPage .btn-confirm {
+    background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+    color: white;
+}
+
+.setupPage .btn-confirm:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.18);
+}
+
+@media (max-width: 640px) {
+    .setupPage .hero {
+        padding: 20px 0;
+    }
+
+    .setupPage .form {
+        padding: 28px;
+        border-radius: 14px;
+    }
+
+    .setupPage .form h2 {
+        font-size: 26px;
+    }
+
+    .setupPage .modal-content {
+        width: 92%;
+        padding: 24px;
+    }
+
+    .setupPage .modal-actions {
+        flex-direction: column;
+    }
+
+    .setupPage .btn {
+        width: 100%;
+    }
+}

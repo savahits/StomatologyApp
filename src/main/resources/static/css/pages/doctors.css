@@ -1,0 +1,17 @@
+.doctorHeaderActions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+
+.doctorsTable th:last-child,
+.doctorsTable td:last-child {
+    width: 140px;
+}
+
+.doctorsTable .actionsCell {
+    text-align: center;
+    white-space: nowrap;
+}
+

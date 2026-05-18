@@ -1,38 +1,55 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <title th:fragment="title">Доктора</title>
 </head>
 
-<body>
+<body class="doctorPage">
 
 <th:block th:replace="~{layout :: layout (~{::title}, ~{::header}, ~{::content})}">
 
-    <th:block th:fragment="header"><h1>Наши доктора</h1></th:block>
+    <th:block th:fragment="header">
+        <div class="pageSectionHeader">
+            <h1>Доктора</h1>
+
+            <div class="doctorHeaderActions">
+                <a class="button buttonAdd"
+                   th:href="@{/doctors/new}"
+                   sec:authorize="hasRole('ADMIN')">
+                    + Добавить доктора
+                </a>
+
+                <a class="button buttonAdd"
+                   th:href="@{/specializations/new}"
+                   sec:authorize="hasRole('ADMIN')">
+                    + Специализация
+                </a>
+            </div>
+        </div>
+    </th:block>
 
     <th:block th:fragment="content">
+
         <div id="errorModal" class="modal" th:classappend="${error} ? 'active'">
             <div class="modal-content">
                 <h3>Ошибка</h3>
                 <p th:text="${error}"></p>
 
                 <div class="modal-actions">
-                    <button class="btn btn-cancel" onclick="function closeErrorModal() {
-                        document.getElementById('errorModal').classList.remove('active');
-                    }
-                    closeErrorModal()">Закрыть</button>
+                    <button class="btn btn-cancel"
+                            onclick="document.getElementById('errorModal').classList.remove('active')">
+                        Закрыть
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="sectionTitle">
-                <a class="buttonAdd" th:href="@{/doctors/new}" sec:authorize="hasRole('ADMIN')">Добавить доктора</a>
-                <a class="buttonAdd" th:href="@{/specializations/new}" sec:authorize="hasRole('ADMIN')">
-                    Добавить специализацию
-                </a>
-            </div>
 
-            <table class="table">
+        <div class="container">
+
+            <table class="table doctorsTable">
+
                 <thead>
                 <tr>
                     <th>Фамилия</th>
@@ -40,39 +57,64 @@
                     <th>Отчество</th>
                     <th>Телефон</th>
                     <th>Специализация</th>
-                    <th></th>
+                    <th>Действия</th>
                 </tr>
                 </thead>
+
                 <tbody>
                 <tr th:each="doctor : ${doctors.content}">
+
                     <td th:text="${doctor.surname}"></td>
                     <td th:text="${doctor.name}"></td>
                     <td th:text="${doctor.patronymic}"></td>
                     <td th:text="${doctor.phone}"></td>
                     <td th:text="${doctor.specialization.name}"></td>
-                    <td>
-                        <a class="button" th:href="@{/doctors/{id}(id=${doctor.id})}">Подробнее</a>
+
+                    <td class="actionsCell">
+                        <a class="button buttonSecondary"
+                           th:href="@{/doctors/{id}(id=${doctor.id})}">
+                            Подробнее →
+                        </a>
                     </td>
+
                 </tr>
                 </tbody>
+
             </table>
 
-            <!-- Pagination for doctors -->
             <div class="pagination" th:if="${doctors.totalPages > 1}">
+
                 <a th:if="${doctors.hasPrevious()}"
                    th:href="@{/doctors(page=${doctors.number - 1}, size=${doctors.size})}"
-                   class="page-link">Предыдущая</a>
+                   class="page-link">
+                    Назад
+                </a>
+
                 <span th:each="i : ${#numbers.sequence(0, doctors.totalPages - 1)}">
+
                     <a th:if="${i != doctors.number}"
                        th:href="@{/doctors(page=${i}, size=${doctors.size})}"
-                       th:text="${i + 1}" class="page-link"></a>
-                    <span th:if="${i == doctors.number}" th:text="${i + 1}" class="page-link current"></span>
+                       th:text="${i + 1}"
+                       class="page-link">
+                    </a>
+
+                    <span th:if="${i == doctors.number}"
+                          th:text="${i + 1}"
+                          class="page-link current">
+                    </span>
+
                 </span>
+
                 <a th:if="${doctors.hasNext()}"
                    th:href="@{/doctors(page=${doctors.number + 1}, size=${doctors.size})}"
-                   class="page-link">Следующая</a>
+                   class="page-link">
+                    Вперёд
+                </a>
+
             </div>
+
         </div>
+
     </th:block>
 
 </th:block>

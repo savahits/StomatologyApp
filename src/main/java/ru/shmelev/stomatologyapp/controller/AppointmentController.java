@@ -89,6 +89,12 @@ public class AppointmentController {
         try {
             User currentUser = userDetails.user();
             appointmentService.createAppointment(request, currentUser);
+
+        } catch (ConflictException e) {
+            bindingResult.rejectValue("phone", "error.phone", e.getMessage());
+            model.addAttribute("doctors", doctorService.getAllDoctors());
+            return "appointments/new";  
+
         } catch (RuntimeException e) {
             bindingResult.reject("error.global", e.getMessage());
             model.addAttribute("doctors", doctorService.getAllDoctors());

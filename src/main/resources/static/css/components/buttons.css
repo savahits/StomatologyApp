@@ -1,0 +1,171 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.button-primary {
+    width: 100%;
+    height: 54px;
+    margin-top: 8px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+    background-size: 200% 200%;
+    background-position: left center;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.18);
+    transition: background-position 0.5s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button-primary:hover {
+    background-position: right center;
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.22);
+}
+
+.button-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.15);
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.button {
+    background: #1f4470;
+    color: white;
+}
+
+.button:hover {
+    background: #16324f;
+}
+
+.buttonSecondary {
+    background: white;
+    color: #1f4470;
+    border: 1px solid #dbeafe;
+}
+
+.buttonSecondary:hover {
+    background: #e0f2fe;
+}
+
+.buttonAdd {
+    background: #1f4470;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.buttonAdd:hover {
+    background: #16324f;
+}
+
+.buttonDone {
+    background: #22c55e;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.buttonDone:hover {
+    background: #16a34a;
+}
+
+.buttonDone:disabled {
+    background: #9e9e9e;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 8px;
+}
+
+.button {
+    background: #1f4470;
+    color: white;
+}
+
+.button:hover {
+    background: #16324f;
+}
+
+.button-secondary {
+    background: white;
+    color: #1f4470;
+    border: 1px solid #dbeafe;
+}
+
+.button-secondary:hover {
+    background: #e0f2fe;
+}
+
+.buttonAdd {
+    background: #1f4470;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.buttonAdd:hover {
+    background: #16324f;
+}
+
+.buttonDone {
+    background: #22c55e;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.buttonDone:hover {
+    background: #16a34a;
+}
+
+.buttonDone:disabled {
+    background: #9e9e9e;    
+    cursor: not-allowed;
+}
+
+.doctor-actions .button {
+    flex: 1;
+}
+
+.doctorsTable .button {
+    display: inline-flex;
+    justify-content: center;
+}
+
+.appointmentsCreatePage .form .button-primary {
+    margin-top: 22px;
+}

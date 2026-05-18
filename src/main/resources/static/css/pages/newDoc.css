@@ -1,0 +1,83 @@
+.doctorPage {
+    background: #f5fbff;
+    min-height: 100vh;
+}
+
+.doctorPage .pageHeader {
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+
+.doctorPage .container {
+    padding-top: 0;
+}
+
+.doctorPage .form {
+    width: 100%;
+    max-width: 900px;
+
+    margin: 8px auto 24px;
+
+    background: #fff;
+    padding: 26px 28px;
+
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 25px rgba(31, 68, 112, 0.08);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.doctorPage .form h2 {
+    margin: 0 0 16px 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #16324f;
+
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 10px;
+}
+
+.doctorPage .formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 18px;
+}
+
+.doctorPage .formRow.full {
+    grid-column: 1 / -1;
+}
+
+.doctorPage .formRow input,
+.doctorPage .formRow select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.doctorPage .formRow label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1f4470;
+}
+
+.doctor-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+@media (max-width: 768px) {
+    .doctorPage .formGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .doctor-actions {
+        flex-direction: column;
+    }
+
+    .doctor-actions .button {
+        width: 100%;
+    }
+}

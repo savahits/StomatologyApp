@@ -1,0 +1,30 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 1px solid #e5e7eb;
+}
+
+.table th {
+    text-align: left;
+    padding: 14px;
+    font-size: 13px;
+    background: #f1f5f9;
+    color: #1f4470;
+    border-bottom: 1px solid #dbeafe;
+}
+
+.table td {
+    padding: 14px;
+    font-size: 14px;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.table tr:hover td {
+    background: #f8fbff;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+

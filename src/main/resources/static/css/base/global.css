@@ -1,0 +1,31 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    opacity: 1;
+    transition: opacity 0.15s ease-in-out;
+}
+
+body {
+    margin: 0;
+    font-family: "Century Gothic", Arial, sans-serif;
+    background: #f5fbff;
+    color: #16324f;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+@media (max-width: 1200px) {
+    .container {
+        width: auto;
+    }
+}

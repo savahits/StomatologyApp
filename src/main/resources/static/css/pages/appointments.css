@@ -1,0 +1,138 @@
+.appointmentsCreatePage {
+    background: #f5fbff;
+    min-height: 100vh;
+}
+
+.appointmentsCreatePage .pageHeader {
+    padding: 14px 0;
+    margin-bottom: 0;
+}
+
+.appointmentsCreatePage .container {
+    padding-top: 18px;
+}
+
+.appointmentsCreatePage .form {
+    width: 100%;
+    max-width: 820px;
+    margin: 24px auto 40px;
+    background: #fff;
+    padding: 28px 30px;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 25px rgba(31, 68, 112, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+.appointmentsCreatePage .form h2 {
+    margin: 0 0 18px 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #16324f;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.appointmentsCreatePage .formErrors {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    color: #b91c1c;
+}
+
+.appointmentsCreatePage .formErrors strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.appointmentsCreatePage .formErrors ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.appointmentsCreatePage .formErrors li {
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+    align-items: start;
+}
+
+.formCol {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+.formRow {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.formRow label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1f4470;
+}
+
+.formRow input,
+.formRow select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 13px;
+    border: 1px solid #dbeafe;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #16324f;
+    background: #fff;
+    outline: none;
+    transition: 0.2s;
+}
+
+.formRow input:focus,
+.formRow select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+.input-error {
+    border-color: #ef4444 !important;
+}
+
+.field-error {
+    font-size: 11px;
+    color: #ef4444;
+    margin-top: 2px;
+}
+
+.priceRow input {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+@media (max-width: 768px) {
+
+    .formGrid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .appointmentsCreatePage .form {
+        padding: 22px;
+        margin: 18px auto 30px;
+    }
+
+    .appointmentsCreatePage .form h2 {
+        font-size: 20px;
+    }
+}

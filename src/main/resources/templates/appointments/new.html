@@ -1,25 +1,39 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
     <title th:fragment="title">Создание записи</title>
 </head>
 
-<body>
+<body class="appointmentsCreatePage">
 
 <th:block th:replace="~{layout :: layout (~{::title}, ~{::header}, ~{::content})}">
 
-    <th:block th:fragment="header"><h1></h1></th:block>
+    <th:block th:fragment="header">
+        <div class="pageSectionHeader">
+            <h1>Создание записи</h1>
+        </div>
+    </th:block>
 
     <th:block th:fragment="content">
+
         <div class="container">
 
-            <form class="form" th:action="@{/appointments}" method="post" th:object="${appointment}">
-                <h2>Создать запись</h2>
+            <form class="form"
+                  th:action="@{/appointments}"
+                  method="post"
+                  th:object="${appointment}">
+
+                <h2>Новая запись пациента</h2>
 
                 <div th:if="${#fields.hasGlobalErrors()}" class="formErrors">
-                    <strong>Ошибки:</strong>
+                    <strong>Пожалуйста, исправьте ошибки:</strong>
+
                     <ul>
-                        <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
+                        <li th:each="err : ${#fields.globalErrors()}"
+                            th:text="${err}">
+                        </li>
                     </ul>
                 </div>
 
@@ -27,63 +41,130 @@
                        th:name="${_csrf.parameterName}"
                        th:value="${_csrf.token}"/>
 
-                <div class="formRow">
-                    <label>Номер телефона пациента</label>
-                    <input type="text" th:field="*{phone}" th:classappend="${#fields.hasErrors('phone')} ? 'input-error'">
-                    <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="field-error"></div>
+                <div class="formGrid">
+
+                    <div class="formCol">
+
+                        <div class="formRow">
+                            <label>Имя</label>
+
+                            <input type="text"
+                                   th:field="*{name}"
+                                   th:classappend="${#fields.hasErrors('name')} ? 'input-error'">
+
+                            <div th:errors="*{name}"
+                                 class="field-error">
+                            </div>
+                        </div>
+
+                        <div class="formRow">
+                            <label>Фамилия</label>
+
+                            <input type="text"
+                                   th:field="*{surname}"
+                                   th:classappend="${#fields.hasErrors('surname')} ? 'input-error'">
+
+                            <div th:errors="*{surname}"
+                                 class="field-error">
+                            </div>
+                        </div>
+
+                        <div class="formRow">
+                            <label>Отчество</label>
+
+                            <input type="text"
+                                   th:field="*{patronymic}"
+                                   th:classappend="${#fields.hasErrors('patronymic')} ? 'input-error'">
+
+                            <div th:errors="*{patronymic}"
+                                 class="field-error">
+                            </div>
+                        </div>
+
+                        <div class="formRow">
+                            <label>Описание</label>
+
+                            <input type="text"
+                                   th:field="*{description}"
+                                   placeholder="Введите описание приема"
+                                   th:classappend="${#fields.hasErrors('description')} ? 'input-error'">
+
+                            <div th:errors="*{description}"
+                                 class="field-error">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="formCol">
+
+                        <div class="formRow">
+                            <label>Телефон пациента</label>
+
+                            <input type="text"
+                                   th:field="*{phone}"
+                                   th:classappend="${#fields.hasErrors('phone')} ? 'input-error'">
+
+                            <div th:errors="*{phone}"
+                                 class="field-error">
+                            </div>
+                        </div>
+
+                        <div class="formRow">
+                            <label>Врач</label>
+
+                            <select th:field="*{doctorId}"
+                                    th:classappend="${#fields.hasErrors('doctorId')} ? 'input-error'">
+
+                                <option value="">Выберите врача</option>
+
+                                <option th:each="doc : ${doctors}"
+                                        th:value="${doc.id}"
+                                        th:text="${doc.surname + ' ' + doc.name}">
+                                </option>
+
+                            </select>
+
+                            <div th:errors="*{doctorId}"
+                                 class="field-error">
+                            </div>
+                        </div>
+
+                        <div class="formRow">
+                            <label>Дата и время</label>
+
+                            <input type="datetime-local"
+                                   th:field="*{time}"
+                                   th:classappend="${#fields.hasErrors('time')} ? 'input-error'">
+
+                            <div th:errors="*{time}"
+                                 class="field-error">
+                            </div>
+                        </div>
+
+                        <div class="formRow priceRow">
+                            <label>Стоимость</label>
+
+                            <input type="number"
+                                   step="1"
+                                   min="0"
+                                   placeholder="Введите стоимость"
+                                   th:field="*{price}"
+                                   th:classappend="${#fields.hasErrors('price')} ? 'input-error'">
+                            <div th:errors="*{price}"
+                                 class="field-error">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="formRow">
-                    <label>Фамилия пациента</label>
-                    <input type="text" th:field="*{surname}">
-                    <div th:errors="*{surname}" class="field-error"></div>
-                </div>
-
-                <div class="formRow">
-                    <label>Имя пациента</label>
-                    <input type="text" th:field="*{name}">
-                    <div th:errors="*{name}" class="field-error"></div>
-                </div>
-
-                <div class="formRow">
-                    <label>Отчество пациента</label>
-                    <input type="text" th:field="*{patronymic}">
-                    <div th:errors="*{patronymic}" class="field-error"></div>
-                </div>
-
-                <div class="formRow">
-                    <label>Врач</label>
-                    <select th:field="*{doctorId}">
-                        <option value="">Выберите врача</option>
-                        <option th:each="doc : ${doctors}" th:value="${doc.id}" th:text="${doc.surname + ' ' + doc.name}"></option>
-                    </select>
-                    <div th:errors="*{doctorId}" class="field-error"></div>
-                </div>
-
-                <div class="formRow">
-                    <label>Описание приема</label>
-                    <input type="text" th:field="*{description}">
-                    <div th:errors="*{description}" class="field-error"></div>
-                </div>
-
-                <div class="formRow">
-                    <label>Стоимость приема, р.</label>
-                    <input type="number" step="1" min="0" th:field="*{price}">
-                    <div th:errors="*{price}" class="field-error"></div>
-                </div>
-
-                <div class="formRow">
-                    <label>Дата и время приема</label>
-                    <input type="datetime-local" th:field="*{time}">
-                    <div th:errors="*{time}" class="field-error"></div>
-                </div>
-
-                <button type="submit" class="button">Создать</button>
+                <button type="submit"
+                        class="button button-primary">
+                    Создать запись
+                </button>
             </form>
         </div>
     </th:block>
-
 </th:block>
-
 </body>
 </html>

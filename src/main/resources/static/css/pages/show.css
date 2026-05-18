@@ -1,0 +1,143 @@
+.doctorCard {
+    max-width: 850px;
+    margin: 36px auto;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(31, 68, 112, 0.08);
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.doctorTop {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.doctorAvatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+
+    background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+
+    flex-shrink: 0;
+}
+
+.doctorMainInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.doctorName {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #16324f;
+}
+
+.doctorBadge {
+    width: fit-content;
+
+    padding: 6px 12px;
+    border-radius: 999px;
+
+    background: #e0f2fe;
+    color: #0369a1;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.doctorInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.infoRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 14px 16px;
+
+    background: #f8fbff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.infoLabel {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1f4470;
+}
+
+.infoValue {
+    font-size: 14px;
+    color: #16324f;
+    text-align: right;
+}
+
+.descriptionRow {
+    align-items: flex-start;
+}
+
+.descriptionRow .infoValue {
+    max-width: 500px;
+    line-height: 1.5;
+}
+
+.doctorActions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+@media (max-width: 768px) {
+
+    .doctorCard {
+        padding: 22px;
+        margin: 20px auto;
+    }
+
+    .doctorTop {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .infoRow {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .infoValue {
+        text-align: left;
+    }
+
+    .doctorActions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .doctorActions .button,
+    .doctorActions .danger-btn {
+        width: 100%;
+    }
+}

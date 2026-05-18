@@ -1,19 +1,25 @@
-body {
-    margin: 0;
-    font-family: "Century Gothic", Arial, sans-serif;
-    background: #e3e3e3;
-    color: #303030;
-}
+@import url("./base/variables.css");
+@import url("./base/reset.css");
+@import url("./base/typography.css");
+@import url("./base/global.css");
 
-.page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
+@import url("./layout/container.css");
+@import url("./layout/header.css");
+@import url("./layout/footer.css");
 
-* {
-    box-sizing: border-box;
-}
+@import url("./components/buttons.css");
+@import url("./components/forms.css");
+@import url("./components/tables.css");
+@import url("./components/modal.css");
+@import url("./components/pagination.css");
+
+@import url("./pages/login.css");
+@import url("./pages/doctors.css");
+@import url("./pages/appointments.css");
+@import url("./pages/setup.css");
+@import url("./pages/new.css");
+@import url("./pages/newDoc.css");
+@import url("./layout/navbar.css");
 
 .container {
     width: 1200px;
@@ -30,7 +36,7 @@ body {
 .header {
     background: #1f4470;
     color: #ebecf0;
-    padding: 20px 0;
+    padding: 5px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -140,21 +146,7 @@ body {
     background: #f0f0f0;
 }
 
-.button {
-    background: #303030;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 7px;
-    text-decoration: none;
-    justify-content: center;
-    transition: transform 0.6s ease;
-    transform-origin: center;
-}
 
-.button:hover {
-    background: black;
-    transform: rotate(360deg);
-}
 
 .form {
     max-width: 400px;
@@ -171,37 +163,12 @@ body {
     margin-bottom: 20px;
 }
 
-.formRow {
-    margin-bottom: 15px;
-}
 
-.formRow label {
-    display: block;
-    margin-bottom: 5px;
-}
 
-.formRow input,
-.formRow select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
 
-.formRow select {
-    padding: 9px;
-    background: white;
-}
 
-.input-error {
-    border-color: #e74c3c;
-}
 
-.field-error {
-    color: #e74c3c;
-    font-size: 0.9rem;
-    margin-top: 4px;
-}
+
 
 .formErrors {
     background: #fdecea;
@@ -373,6 +340,9 @@ body {
 
 /* Modal styles */
 .modal {
+     display: none;
+    position: fixed;
+    z-index: 1000;
     position: fixed;
     top: 0;
     left: 0;
