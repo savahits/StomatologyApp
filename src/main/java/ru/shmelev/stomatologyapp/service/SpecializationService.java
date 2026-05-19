@@ -45,4 +45,8 @@ public class SpecializationService {
 
     }
 
+    public boolean noSpecializationsExists(){
+        return specializationRepository.count() == 0;
+    }
+
 }
