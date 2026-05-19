@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title th:fragment="title">Доктора</title>
@@ -27,6 +27,32 @@
                     + Специализация
                 </a>
             </div>
+            <th:block sec:authorize="hasRole('ADMIN')">
+                <div id="specializationsHint"
+                     class="modal"
+                     th:classappend="${specializationsExist} ? 'active'">
+
+                    <div class="modal-content">
+                        <h3>Подсказка</h3>
+
+                        <p>
+                            В системе нет специализаций докторов.
+                            Создайте хотя бы одну специализацию,
+                            чтобы назначать её врачам
+                        </p>
+
+                        <div class="modal-actions">
+                            <button class="btn btn-cancel"
+                                    onclick="document.getElementById('specializationsHint').classList.remove('active')">
+                                Закрыть
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </th:block>
+
+
         </div>
     </th:block>
 
