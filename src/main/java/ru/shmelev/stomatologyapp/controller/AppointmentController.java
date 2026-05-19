@@ -43,6 +43,7 @@ public class AppointmentController {
 
         model.addAttribute("scheduledAppointments", appointmentService.getAllAppointments(user, AppointmentStatus.SCHEDULED, scheduledPageable));
         model.addAttribute("doneAppointments", appointmentService.getAllAppointments(user, AppointmentStatus.DONE, donePageable));
+        model.addAttribute("doctorsEmpty", doctorService.noDoctorsExists());
         return "appointments/index";
     }
 
@@ -58,6 +59,10 @@ public class AppointmentController {
     public String create(Model model) {
         model.addAttribute("appointment", new RequestAppointmentCreate());
         model.addAttribute("doctors", doctorService.getAllDoctors());
+
+        if (doctorService.noDoctorsExists()) {
+            return "redirect:/appointments";
+        }
         return "appointments/new";
     }
 
