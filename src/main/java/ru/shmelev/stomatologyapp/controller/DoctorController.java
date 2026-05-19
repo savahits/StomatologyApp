@@ -37,7 +37,7 @@ public class DoctorController {
 
         Pageable pageable = PageRequest.of(page, size);
         model.addAttribute("doctors", doctorService.getAllDoctors(pageable));
-        model.addAttribute("specializationsExist", specializationService.noSpecializationsExists());
+        model.addAttribute("specializationsEmpty", specializationService.noSpecializationsExists());
 
         return "doctors/index";
     }
