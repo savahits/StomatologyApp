@@ -117,4 +117,9 @@ public class DoctorService {
 
         log.info("Created doctor {}", dto.username() + " " + dto.surname() + " " + dto.phone());
     }
+
+    public boolean noDoctorsExists() {
+        return doctorRepository.count() == 0;
+    }
+
 }
