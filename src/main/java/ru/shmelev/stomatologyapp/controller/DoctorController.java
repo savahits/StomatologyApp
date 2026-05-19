@@ -13,6 +13,7 @@ import ru.shmelev.stomatologyapp.dto.doctor.RequestDoctorCreate;
 import ru.shmelev.stomatologyapp.exception.UsernameAlreadyExistsException;
 import ru.shmelev.stomatologyapp.repository.SpecializationRepository;
 import ru.shmelev.stomatologyapp.service.DoctorService;
+import ru.shmelev.stomatologyapp.service.SpecializationService;
 
 @Controller
 @EnableMethodSecurity
@@ -21,10 +22,12 @@ public class DoctorController {
 
     private final DoctorService doctorService;
     private final SpecializationRepository specializationRepository;
+    private final SpecializationService specializationService;
 
-    public DoctorController(DoctorService doctorService, SpecializationRepository specializationRepository) {
+    public DoctorController(DoctorService doctorService, SpecializationRepository specializationRepository, SpecializationService specializationService) {
         this.doctorService = doctorService;
         this.specializationRepository = specializationRepository;
+        this.specializationService = specializationService;
     }
 
     @GetMapping
@@ -34,6 +37,7 @@ public class DoctorController {
 
         Pageable pageable = PageRequest.of(page, size);
         model.addAttribute("doctors", doctorService.getAllDoctors(pageable));
+        model.addAttribute("specializationsExist", specializationService.noSpecializationsExists());
 
         return "doctors/index";
     }
