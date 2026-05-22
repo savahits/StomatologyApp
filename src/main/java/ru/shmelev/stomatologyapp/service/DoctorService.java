@@ -10,7 +10,7 @@ import ru.shmelev.stomatologyapp.domain.Doctor;
 import ru.shmelev.stomatologyapp.domain.Role;
 import ru.shmelev.stomatologyapp.domain.Specialization;
 import ru.shmelev.stomatologyapp.domain.User;
-import ru.shmelev.stomatologyapp.dto.doctor.DoctorShowDTO;
+import ru.shmelev.stomatologyapp.dto.doctor.DoctorShowDTOForDoctors;
 import ru.shmelev.stomatologyapp.dto.doctor.RequestDoctorCreate;
 import ru.shmelev.stomatologyapp.exception.DoctorHasAppointmentsException;
 import ru.shmelev.stomatologyapp.exception.NotFoundException;
@@ -73,7 +73,7 @@ public class DoctorService {
         return doctorRepository.findAllDoctors(pageable);
     }
 
-    public DoctorShowDTO findDoctor(Long id) {
+    public DoctorShowDTOForDoctors findDoctor(Long id) {
 
         return doctorRepository.findDoctorDto(id)
                 .orElseThrow(() -> new NotFoundException("Doctor", id));
